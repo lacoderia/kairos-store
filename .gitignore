@@ -1,0 +1,12 @@
+.idea/
+node_modules/
+dist/
+
+#Local temp files
+/.sass-cache
+*.swp
+*.swn
+*.swm
+*.swo
+*.*~
+.DS_Store
