@@ -4,14 +4,20 @@ const openpayLoadTimer = setInterval(() => {
       window.OpenPay.setSandboxMode(true);
 
       openpayService.OpenPay = window.OpenPay;
-      openpayService.OpenPay.setId('myh3bzjhmp4oiti7vja6');
-      openpayService.OpenPay.setApiKey('pk_1e508c7925d6474fb9ca88d472249631');
+      openpayService.OpenPay.setId('mtsnsojytnuaknrm0xef');
+      openpayService.OpenPay.setApiKey('pk_caf6ac462c124dabbca57ad513ba7e3c');
       openpayService.deviceSessionId = window.OpenPay.deviceData.setup();
 
       clearInterval(openpayLoadTimer);
     }
 }, 100);
 
-// Customise the Stripe object here if needed
-
 export default openpayService;
+
+// openpay prana:
+// ID: myk45yivhnolufzfskjz
+// Llave Pública: pk_f1a3792bc94744bea9d04df669e7e8cc
+
+// openpay omein: 
+// ID: mtsnsojytnuaknrm0xef
+// Llave Pública: pk_caf6ac462c124dabbca57ad513ba7e3c

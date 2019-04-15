@@ -1,6 +1,6 @@
 import axios from 'axios';
-import productsMock from './productsMock';
 import { arrayToHash } from '../../../common/commonFunctions';
+import { IMAGE_URL_ROOT } from '../../../common/constants';
 
 export const GET_PRODUCTS_FETCH = 'GET_PRODUCTS_FETCH';
 export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
@@ -13,10 +13,11 @@ function toJSObject(item) {
 
   const result = {
     id: item.id,
-    title: item.title,
+    name: item.name,
     description: item.description,
     price: item.price,
-    picture: item.picture,
+    picture: IMAGE_URL_ROOT + item.image.url,
+    volume: item.volume,
   }
 
   return result;
@@ -35,11 +36,11 @@ export function getProducts() {
     dispatch({ 
       type: GET_PRODUCTS_FETCH,
     });
-    return axios.get('/products')
+    return axios.get('/items/by_company?company=omein')
     .then(response => {
       dispatch({ 
         type: GET_PRODUCTS_SUCCESS,
-        payload: arrayToHash(toJSArray(response.data)),
+        payload: arrayToHash(toJSArray(response.data.items)),
       });
     })
     .catch(e => {
@@ -49,15 +50,6 @@ export function getProducts() {
       });
       throw e;
     })
-  }
-}
-
-export function getProductsMock() {
-  return (dispatch) => {
-    dispatch({ 
-      type: GET_PRODUCTS_SUCCESS,
-      payload: arrayToHash(toJSArray(productsMock)),
-    });
   }
 }
 
@@ -88,7 +80,6 @@ export function exitProductDialog() {
 
 const productsActions = {
   getProducts,
-  getProductsMock,
   openProductDialog,
   closeProductDialog,
   exitProductDialog,

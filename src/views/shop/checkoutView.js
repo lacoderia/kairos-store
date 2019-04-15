@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
-import Navigation from '../../components/navigation/shopNavigation';
+import Navigation from '../../components/navigation/navigation';
 import Checkout from '../../components/shop/checkout/checkout';
 import Summary from '../../components/shop/summary/summary';
 

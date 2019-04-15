@@ -181,7 +181,7 @@ export function signout() {
     .catch(e => {
       dispatch({ 
         type: SIGNOUT_ERROR, 
-        payload: e.response.data.errors[0].title
+        payload: e.response ? e.response.data.errors[0].title : 'Ocurrió un error al cerrar la sesión.',
       });
     })
   }
