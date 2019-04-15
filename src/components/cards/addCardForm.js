@@ -75,7 +75,13 @@ const validate = (values, props) => {
 
 const form = {
   form: 'addCard',
-  validate
+  validate,
+  // initialValues: {
+  //   name: 'Ricardo Rosas Schultz',
+  //   cardNumber: '4111111111111111',
+  //   validThrough: '1119',
+  //   cvv: '123',
+  // }
 }
 
 const cardNumberMask = createTextMask({

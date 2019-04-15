@@ -9,10 +9,9 @@ const styles = theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '100vh',
+    minHeight: '100%',
     width: '100%',
   },
-  toolbar: theme.mixins.toolbar,
   content: {
     backgroundColor: theme.palette.custom.lightGrey,
     display: 'flex',
@@ -39,7 +38,6 @@ const PublicTemplate = (props) => {
   return (
     <div className={classes.root}>
       <Navigation />
-      <div className={classes.toolbar} />
       <main className={classes.content}>
         <div className={classes.background}></div>
         <Grid 

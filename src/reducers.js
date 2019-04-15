@@ -6,8 +6,7 @@ import register from './components/register/registerReducer';
 import forgotView from './views/forgot/forgotViewReducer';
 import forgot from './components/forgot/forgotReducer';
 import session from './http/sessionReducer';
-import dashboard from './components/dashboard/dashboardReducer';
-import account from './components/account/accountReducer';
+import orders from './components/orders/ordersReducer';
 import address from './components/address/addressReducer';
 import cards from './components/cards/cardsReducer';
 import products from './components/shop/products/productsReducer';
@@ -25,8 +24,7 @@ const reducers = combineReducers({
   forgotView,
   forgot,
   session,
-  dashboard,
-  account,
+  orders,
   address,
   cards,
   products,

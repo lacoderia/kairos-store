@@ -2,33 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
-import { toggleMenu } from '../navigation/navigationActions';
-import { signout } from '../../http/sessionActions';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
-import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListIcon from '@material-ui/icons/ListOutlined';
-import PersonIcon from '@material-ui/icons/PersonOutlined';
-import StoreIcon from '@material-ui/icons/StoreOutlined';
-import CreditCardIcon from '@material-ui/icons/CreditCardOutlined';
+import ProductsIcon from '@material-ui/icons/LocalMallOutlined';
+import AddressIcon from '@material-ui/icons/HomeOutlined';
+import PaymentMethodsIcon from '@material-ui/icons/CreditCardOutlined';
+import OrdersIcon from '@material-ui/icons/AssignmentOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
+
+import ThreeBounceLoader from '../common/loaders/threeBounceLoader';
+import { toggleMenu } from '../navigation/navigationActions';
+import { signout } from '../../http/sessionActions';
 
 const styles = theme => ({
   root: {
-    backgroundColor: theme.palette.custom.white,
     display: 'flex',
     flex: 1,
     flexDirection: 'column',
   },
-  toolbar: theme.mixins.toolbar,
   drawer: {
     height: '100%',
   },
@@ -76,45 +75,41 @@ const styles = theme => ({
 const menu = [
   {
     id: 0,
-    label: 'Resumen',
-    icon: <ListIcon />,
-    route: '/members',
+    label: 'Productos',
+    icon: <ProductsIcon />,
+    route: '/shop',
+    matchingRoutes: ['/shop'],
+    value: 0,
   },
   {
     id: 1,
-    label: 'Mis datos',
-    icon: <PersonIcon />,
-    route: '/members/profile',
+    label: 'Pedidos',
+    icon: <OrdersIcon />,
+    route: '/orders',
+    matchingRoutes: ['/orders'],
+    value: 1,
   },
   {
     id: 2,
-    label: 'Tienda',
-    icon: <StoreIcon />,
-    route: '/shop',
+    label: 'Direcciones',
+    icon: <AddressIcon />,
+    route: '/addresses',
+    matchingRoutes: ['/addresses'],
+    value: 2,
   },
   {
     id: 3,
-    label: 'Mis tarjetas',
-    icon: <CreditCardIcon />,
-    route: '/shop-profile',
+    label: 'Métodos de pago',
+    icon: <PaymentMethodsIcon />,
+    route: '/payment-methods',
+    matchingRoutes: ['/payment-methods'],
+    value: 3,
   },
-  // {
-  //   id: 2,
-  //   label: 'Mis compras',
-  //   icon: <CreditCardIcon />,
-  //   route: '/members/orders',
-  // },
-  // {
-  //   id: 3,
-  //   label: 'Preguntas frecuentes',
-  //   icon: <HelpIcon />,
-  //   route: '/members/faq',
-  // }, 
 ]
 
 class Menu extends Component {
   state = {
-    selectedMenuIndex: undefined
+    selectedMenu: undefined
   }
 
   toggleMenu = () => {
@@ -122,21 +117,43 @@ class Menu extends Component {
   }
 
   handleMenuItemClick = route => {
-    this.setState({ selectedMenu : route });
+    this.toggleMenu();
     this.props.history.push(route);
   }
 
   handleSignoutClick = () => {
-    this.props.signout();
+    this.props.signout()
+    .then(response => {
+      this.toggleMenu();
+    })
+    .catch(e => {});
+  }
+
+  setMenuValue = () => {
+    const { location } = this.props;
+
+    menu.map(item => {
+      item.matchingRoutes.map(route => {
+        if (location.pathname.includes(route)) {
+          this.setState({selectedMenu: item.value});
+        }
+      })
+    })
+      
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
+      this.setMenuValue();
+    }
   }
 
   componentDidMount() {
-    const { location } = this.props;
-    this.setState({ selectedMenu: location.pathname});
+    this.setMenuValue();
   }
   
   render() {
-    const { classes, mobileOpen, name, lastname, externalId, email } = this.props;
+    const { classes, mobileOpen, loading, name, lastname, externalId } = this.props;
 
     const drawer = (
       <div className={classes.root}>
@@ -155,7 +172,7 @@ class Menu extends Component {
               return(
                 <MenuItem 
                   button 
-                  selected={this.state.selectedMenu == item.route}
+                  selected={this.state.selectedMenu == item.value}
                   onClick={() => this.handleMenuItemClick(item.route)}
                   key={item.id}
                   classes={{
@@ -184,7 +201,10 @@ class Menu extends Component {
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary="Cerrar sesión" />
+              <ListItemText primary="Salir" />
+              { loading && (
+                <ThreeBounceLoader />
+              )}
             </MenuItem>
           </List>
         </div>
@@ -223,7 +243,6 @@ class Menu extends Component {
             }}
             className={classes.drawer}
           >
-            <div className={classes.toolbar} />
             {drawer}
           </Drawer>
         </Hidden>
@@ -235,6 +254,7 @@ class Menu extends Component {
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
     mobileOpen: state.get('navigation').get('mobileOpen'),
+    loading: state.get('session').get('loading'),
     name: state.get('session').get('name'),
     lastname: state.get('session').get('lastname'),
     externalId: state.get('session').get('externalId'),

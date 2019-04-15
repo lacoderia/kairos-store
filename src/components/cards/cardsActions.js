@@ -41,26 +41,11 @@ export function getCards() {
     dispatch({ 
       type: GET_CARDS_FETCH,
     });
-    // MOCK return axios.get('/cards/all')
-    return axios.get('/shipping_addresses/get_all_for_user')
+    return axios.get('/cards/all?company=OMEIN')
     .then(response => {
-      const cards = [
-        {
-          active: true,
-          brand: "visa",
-          card_number: "411111XXXXXX1111",
-          expiration: "11/20",
-          holder_name: "Ricardo Rosas Schultz",
-          id: 1,
-          openpay_id: "kjfwqz6hpldpx37xwdjq",
-          primary: true,
-          user_id: 2,
-        }
-      ]
       dispatch({ 
         type: GET_CARDS_SUCCESS,
-        payload: arrayToHash(toJSArray(cards))
-        // MOCK payload: arrayToHash(toJSArray(response.data.cards))
+        payload: arrayToHash(toJSArray(response.data.cards)),
       });
     })
     .catch(e => {
@@ -91,9 +76,12 @@ export function addCard(values) {
 
       openpayService.OpenPay.token.create(card, 
         (response => {
+          console.log(response);
+          
           axios.post('/cards/create', {
             token: response.data.id,
             device_session_id: openpayService.deviceSessionId,
+            company: 'OMEIN',
           })
           .then(response => {
             dispatch({
@@ -132,7 +120,8 @@ export function deleteCard(id) {
       type: DELETE_CARD_FETCH,
     })
     return axios.post('/cards/delete/', {
-      id: id
+      id: id,
+      company: 'OMEIN',
     })
     .then(response => {
       dispatch({
@@ -159,7 +148,8 @@ export function setPrimaryCard(id) {
       type: SET_PRIMARY_CARD_FETCH,
     })
     return axios.post('/cards/set_primary/', {
-      id: id
+      id: id,
+      company: 'OMEIN',
     })
     .then(response => {
       dispatch({

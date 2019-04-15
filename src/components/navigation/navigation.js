@@ -43,7 +43,7 @@ const styles = theme => ({
   menuButton: {
     margin: 0,
   },
-  loginButton: {
+  actionButton: {
     backgroundColor: theme.palette.primary.dark,
     '&:hover': {
       backgroundColor: '#27648C',
@@ -71,7 +71,7 @@ class Navigation extends Component {
 
     return (
       <AppBar 
-        position="absolute" 
+        position="relative" 
         elevation={0}
         className={classes.root}
       >
@@ -98,23 +98,21 @@ class Navigation extends Component {
                 )}
               </Hidden>
               { isAuthenticated ? (
-                <Route path="/shop" component={() => ( 
-                  <Button 
-                    component={Link} 
-                    to="/cart"
-                    aria-label="Cart"
-                    className={classes.cartButton}
-                  >
-                    <ShoppingCartIcon />
-                    <Typography variant="h6" className={classes.cartText}>{cartProductsTotal}</Typography>
-                  </Button>
-                )} />
+                <Button 
+                  component={Link} 
+                  to="/cart"
+                  aria-label="Cart"
+                  className={classes.cartButton}
+                >
+                  <ShoppingCartIcon />
+                  <Typography variant="h6" className={classes.cartText}>{cartProductsTotal}</Typography>
+                </Button>
               ) : (
                 <LinkButton to="/login">
                   <Button 
                     variant="contained" 
                     color="primary"
-                    className={classes.loginButton}
+                    className={classes.actionButton}
                   >
                     Iniciar sesión
                   </Button>

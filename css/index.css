@@ -1,0 +1,11 @@
+html, body, #root {
+  height: 100%;
+}
+
+#_op_data_r {
+  display: none;
+}
+
+#_op_data_antifraud {
+  display: none;
+}

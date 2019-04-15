@@ -7,10 +7,13 @@ import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import { getProducts, getProductsMock, openProductDialog } from './productsActions';
+import { getProducts, openProductDialog } from './productsActions';
 import ProductDialog from './productDialog';
 
 const styles = theme => ({
+  flex: {
+    flex: 1,
+  },
   root: {
     height: 'auto',
   },
@@ -31,6 +34,14 @@ const styles = theme => ({
       marginTop: theme.spacing.unit,
       marginBottom: theme.spacing.unit * 3,
     },
+  },
+  priceContainer: {
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  volume: {
+    color: 'rgba(0, 0, 0, 0.54)',
+    textAlign: 'right',
   },
   product: {
     backgroundColor: '#fff',
@@ -61,7 +72,7 @@ class Products extends Component {
   }
 
   componentDidMount() {
-    this.props.getProductsMock();
+    this.props.getProducts();
   }
 
   render() {
@@ -92,16 +103,20 @@ class Products extends Component {
                       <img src={product.picture} className={classes.picture}></img>
                     </div>
                     <div className={classes.info}>
-                      <Typography variant="h5" className={classes.price}>
-                        $ {product.price}
-                      </Typography>
+                      <div className={classes.priceContainer}>
+                        <Typography variant="h5" component="span" className={classes.flex}>
+                          $ {product.price}
+                        </Typography>
+                        <Typography variant="body1" component="span" className={classNames(classes.flex, classes.volume)}>
+                          {product.volume} VP
+                        </Typography>
+                      </div>
                       <Typography variant="body1" className={classes.title}>
-                        {product.title}
+                        {product.name}
                       </Typography>
                       <div className={classes.actions}></div>
                     </div>
                   </div>
-                  {product.name}
                 </Grid>
               )
             })}
@@ -123,7 +138,6 @@ const mapStateToProps = function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
     bindActionCreators({ getProducts }, dispatch),
-    bindActionCreators({ getProductsMock }, dispatch),
     bindActionCreators({ openProductDialog }, dispatch),
   );
 }

@@ -3,11 +3,9 @@ import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
 import PrivateTemplate from '../../templates/privateTemplate';
-import Addresses from '../../components/address/addresses';
-import Cards from '../../components/cards/cards';
+import Orders from '../../components/orders/orders';
 
 const styles = theme => ({
   root: {
@@ -33,7 +31,7 @@ const styles = theme => ({
   },
 });
 
-class ShopProfileView extends Component {
+class OrdersView extends Component {
 
   render() {
     const { classes } = this.props;
@@ -45,19 +43,13 @@ class ShopProfileView extends Component {
           className={classNames(classes.root, classes.container)}
         >
           <Grid item xs={12} xl={9}>
-            <Typography variant="h5" className={classes.title}>
-              Mis datos
-            </Typography>
             <Grid 
               container 
               alignContent="stretch"
               spacing={32}
             >
-              <Grid item xs={12} lg={6}>
-                <Addresses />
-              </Grid>
-              <Grid item xs={12} lg={6}>
-                <Cards />
+              <Grid item xs={12}>
+                <Orders />
               </Grid>
             </Grid>
           </Grid>
@@ -67,4 +59,4 @@ class ShopProfileView extends Component {
   }
 }
 
-export default withStyles(styles)(ShopProfileView);
+export default withStyles(styles)(OrdersView);

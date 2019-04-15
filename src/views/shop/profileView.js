@@ -3,10 +3,9 @@ import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
+import PrivateTemplate from '../../templates/privateTemplate';
 import Account from '../../components/account/account';
-import Addresses from '../../components/address/addresses';
 
 const styles = theme => ({
   root: {
@@ -38,25 +37,24 @@ class ProfileView extends Component {
     const { classes } = this.props;
 
     return (
-      <Grid container 
-        justify="center"
-        className={classNames(classes.root, classes.container)}
-      >
-        <Grid item xs={12} xl={9}>
-          <Typography variant="h5" className={classes.title}>
-            Mis datos
-          </Typography>
-          <Grid 
-            container 
-            alignContent="stretch"
-            spacing={32}
-          >
-            <Grid item xs={12} lg={6}>
-              <Account />
+      <PrivateTemplate>
+        <Grid container 
+          justify="center"
+          className={classNames(classes.root, classes.container)}
+        >
+          <Grid item xs={12} xl={9}>
+            <Grid 
+              container 
+              alignContent="stretch"
+              spacing={32}
+            >
+              <Grid item xs={12} lg={6}>
+                <Account />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </PrivateTemplate>
     )
   }
 }

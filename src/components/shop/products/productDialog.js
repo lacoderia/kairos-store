@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Markup } from 'interweave';
+import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -18,6 +19,9 @@ import { addProductToCart } from '../cart/cartActions';
 import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
+  flex: {
+    flex: 1,
+  },
   overlay: {
     background: '#fafafa',
     bottom: 0,
@@ -55,6 +59,14 @@ const styles = theme => ({
   },
   title: {
     marginBottom: 24,
+  },
+  priceContainer: {
+    display: 'flex',
+    alignItems: 'baseline',
+  },
+  volume: {
+    color: 'rgba(0, 0, 0, 0.54)',
+    fontSize: '0.85rem',
   },
   descriptionContainer: {
     overflowY: 'auto',
@@ -122,11 +134,16 @@ class ProductDialog extends React.Component {
                 <div className={classes.rigthColumnContent}>
                   <div className={classes.title}>
                     <Typography variant="h5" gutterBottom style={{ fontWeight: 500 }}>
-                      {product.title}
+                      {product.name}
                     </Typography>
-                    <Typography variant="h5" gutterBottom>
-                      $ {product.price} MXN
-                    </Typography>
+                    <div className={classes.priceContainer}>
+                      <Typography variant="h5" component="span" className={classes.flex}>
+                        $ {product.price} MXN
+                      </Typography>
+                      <Typography variant="h5" component="span" className={classNames(classes.flex, classes.volume)}>
+                        {product.volume} VP
+                      </Typography>
+                    </div>
                   </div>
                   <div className={classes.descriptionContainer}>
                     <Typography variant="subtitle1" gutterBottom style={{ fontWeight: 500 }}>
