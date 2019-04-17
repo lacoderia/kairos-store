@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
-import { updateSelectedAddress } from './checkoutActions';
+import { selectCheckoutAddress } from './checkoutActions';
 import { Button } from '@material-ui/core';
 
 const styles = theme => ({
@@ -46,12 +46,12 @@ const styles = theme => ({
 class CheckoutAddressList extends React.Component {
 
   handleSelectedAddress = (id) => {
-    this.props.updateSelectedAddress(id);
+    this.props.selectCheckoutAddress(id);
     this.props.handleClose();
   };
 
   render() {
-    const { classes, handleClose, formError } = this.props;
+    const { classes, handleClose } = this.props;
 
     const addresses = this.props.addresses ? this.props.addresses.toJS() : null;
     const addressesIdArray = this.props.addresses ? Object.keys(addresses) : null;
@@ -85,7 +85,9 @@ class CheckoutAddressList extends React.Component {
                           {address.address}
                         </Typography>
                         <Typography variant="body1">
-                          {address.city}, {address.state}
+                          {address.city}{address.state && (
+                            <React.Fragment>, {address.state}</React.Fragment>
+                          )}
                         </Typography>
                         <Typography variant="body1">
                           {address.zip}
@@ -127,7 +129,7 @@ const mapStateToProps = function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators({ updateSelectedAddress }, dispatch),
+    bindActionCreators({ selectCheckoutAddress }, dispatch),
   );
 }
  

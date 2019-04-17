@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import CurrencyFormat from 'react-currency-format';
 
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -37,7 +37,7 @@ class PlaceOrderConfirmation extends React.Component {
     return (
       <DialogContent className={classes.dialogContent}>
         <Typography variant="subtitle1">
-          Se realizará un cargo por ${total} a tu cuenta
+          Se realizará un cargo por <CurrencyFormat value={total} displayType={'text'} thousandSeparator={true} prefix={'$'} decimalScale={2} fixedDecimalScale={true}/> a tu cuenta
         </Typography>
         <DialogActions className={classes.buttonContainer}>
           <Button 

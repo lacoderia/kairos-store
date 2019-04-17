@@ -43,6 +43,7 @@ const theme = createMuiTheme({
       red: '#ff5a5f',
       darkBlue: '#27648C',
       lightBlue: '#F0F8FE',
+      pink: '#D91D71',
     },
     background: {
       default: '#f8f8f8'

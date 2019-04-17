@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core';
@@ -37,6 +38,7 @@ const styles = theme => ({
   },
   priceContainer: {
     display: 'flex',
+    justifyContent: 'space-between',
     alignItems: 'baseline',
   },
   volume: {
@@ -104,10 +106,17 @@ class Products extends Component {
                     </div>
                     <div className={classes.info}>
                       <div className={classes.priceContainer}>
-                        <Typography variant="h5" component="span" className={classes.flex}>
-                          $ {product.price}
+                        <Typography variant="h5" component="span">
+                          <CurrencyFormat 
+                            value={product.price} 
+                            displayType={'text'} 
+                            thousandSeparator={true} 
+                            prefix={'$'} 
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                          />
                         </Typography>
-                        <Typography variant="body1" component="span" className={classNames(classes.flex, classes.volume)}>
+                        <Typography variant="body1" component="span" className={classes.volume}>
                           {product.volume} VP
                         </Typography>
                       </div>

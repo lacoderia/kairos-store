@@ -6,7 +6,7 @@ import {
   ADD_CHECKOUT_ADDRESS_FETCH,
   ADD_CHECKOUT_ADDRESS_SUCCESS,
   ADD_CHECKOUT_ADDRESS_ERROR,
-  UPDATE_SELECTED_CHECKOUT_ADDRESS,
+  SELECT_CHECKOUT_ADDRESS,
   GET_CHECKOUT_CARDS_FETCH,
   GET_CHECKOUT_CARDS_SUCCESS,
   GET_CHECKOUT_CARDS_ERROR,
@@ -69,7 +69,7 @@ function checkoutReducer(state = initialState, action) {
         dialogLoading: false,
         dialogError: action.payload,
       })
-    case UPDATE_SELECTED_CHECKOUT_ADDRESS:
+    case SELECT_CHECKOUT_ADDRESS:
       return state.merge({
         selectedShippingAddress: state.get('addresses').get(action.payload.toString()),
       })

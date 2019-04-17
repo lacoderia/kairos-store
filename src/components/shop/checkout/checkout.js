@@ -56,12 +56,6 @@ const styles = theme => ({
       padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
     },
   },
-  shippingAdress:{
-
-  },
-  payment: {
-
-  },
   sectionTitleContainer: {
     alignItems: 'center',
     display: 'flex',
@@ -170,13 +164,12 @@ class Checkout extends Component {
     this.props.updateActiveSection(sections.SHIPPING_ADDRESS_SECTION);
 
     //MOCK
-    this.props.addProductToCart(
-      {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 2}
-    );
-    //MOCK
-    this.props.addProductToCart(
-      {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1}
-    )
+    // this.props.addProductToCart(
+    //   {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 2}
+    // );
+    // this.props.addProductToCart(
+    //   {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1}
+    // )
   }
 
   render() {
@@ -250,7 +243,9 @@ class Checkout extends Component {
                                 {shippingAddress.address}
                               </Typography>
                               <Typography variant="body1">
-                                {shippingAddress.city}, {shippingAddress.state}
+                                {shippingAddress.city}{shippingAddress.state && (
+                                  <React.Fragment>, {shippingAddress.state}</React.Fragment>
+                                )}
                               </Typography>
                               <Typography variant="body1">
                                 {shippingAddress.zip}
@@ -308,7 +303,9 @@ class Checkout extends Component {
                           {shippingAddress.address}
                         </Typography>
                         <Typography variant="body1">
-                          {shippingAddress.city}, {shippingAddress.state}
+                          {shippingAddress.city}{shippingAddress.state && (
+                            <React.Fragment>, {shippingAddress.state}</React.Fragment>
+                          )}
                         </Typography>
                         <Typography variant="body1">
                           {shippingAddress.zip}
