@@ -9,7 +9,7 @@ export const GET_CHECKOUT_ADDRESSES_ERROR = 'GET_CHECKOUT_ADDRESSES_ERROR';
 export const ADD_CHECKOUT_ADDRESS_FETCH = 'ADD_CHECKOUT_ADDRESS_FETCH';
 export const ADD_CHECKOUT_ADDRESS_SUCCESS = 'ADD_CHECKOUT_ADDRESS_SUCCESS';
 export const ADD_CHECKOUT_ADDRESS_ERROR = 'ADD_CHECKOUT_ADDRESS_ERROR';
-export const UPDATE_SELECTED_CHECKOUT_ADDRESS = 'UPDATE_SELECTED_CHECKOUT_ADDRESS';
+export const SELECT_CHECKOUT_ADDRESS = 'SELECT_CHECKOUT_ADDRESS';
 export const GET_CHECKOUT_CARDS_FETCH = 'GET_CHECKOUT_CARDS_FETCH';
 export const GET_CHECKOUT_CARDS_SUCCESS = 'GET_CHECKOUT_CARDS_SUCCESS';
 export const GET_CHECKOUT_CARDS_ERROR = 'GET_CHECKOUT_CARDS_ERROR';
@@ -39,6 +39,12 @@ function toAddressObject(address) {
 
 function toAddressArray(addresses) {
   const result = [];
+  result.push({
+    id: 0,
+    name: 'Recoger en persona',
+    address: 'Los productos se recogen con el staff de Futura Network',
+    primary: false,
+  });
   addresses.map(address => {
     result.push(toAddressObject(address));
   })
@@ -47,7 +53,7 @@ function toAddressArray(addresses) {
 
 function toCardObject(item) {
   return {
-    id: item.id,
+    id: item.openpay_id,
     name: item.holder_name,
     cardNumber: item.card_number,
     expiration: item.expiration,
@@ -134,10 +140,10 @@ export function addAddress(values) {
   }
 }
 
-export function updateSelectedAddress(id) {
+export function selectCheckoutAddress(id) {
   return (dispatch) => {
     dispatch({ 
-      type: UPDATE_SELECTED_CHECKOUT_ADDRESS, 
+      type: SELECT_CHECKOUT_ADDRESS, 
       payload: id,
     });
   }
@@ -148,26 +154,12 @@ export function getCards() {
     dispatch({ 
       type: GET_CHECKOUT_CARDS_FETCH,
     });
-    // MOCK return axios.get('/cards/all')
-    return axios.get('/shipping_addresses/get_all_for_user')
+    return axios.get('/cards/all?company=omein')
     .then(response => {
-      const cards = [
-        {
-          active: true,
-          brand: "visa",
-          card_number: "411111XXXXXX1111",
-          expiration: "11/20",
-          holder_name: "Ricardo Rosas Schultz",
-          id: 1,
-          openpay_id: "kjfwqz6hpldpx37xwdjq",
-          primary: true,
-          user_id: 2,
-        }
-      ]
+      console.log(response.data.cards);
       dispatch({ 
         type: GET_CHECKOUT_CARDS_SUCCESS,
-        payload: arrayToHash(toCardArray(cards))
-        // MOCK payload: arrayToHash(toCardArray(response.data.cards))
+        payload: arrayToHash(toCardArray(response.data.cards))
       });
     })
     .catch(e => {
@@ -201,6 +193,7 @@ export function addCard(values) {
           axios.post('/cards/create', {
             token: response.data.id,
             device_session_id: openpayService.deviceSessionId,
+            company: 'OMEIN',
           })
           .then(response => {
             dispatch({
@@ -249,8 +242,9 @@ export function placeOrder(addressId, cardId, productsMap) {
 
     productsIdArray.map(id => {
       products.push({
-        product_id: id,
-        product_quantity: productsMap[id].quantity,
+        id: id,
+        amount: productsMap[id].quantity,
+        price: productsMap[id].price,
       })
     })
 
@@ -258,12 +252,13 @@ export function placeOrder(addressId, cardId, productsMap) {
       type: PAY_FETCH,
     })
     
-    return axios.post('/orders/create', {
+    return axios.post('/orders/create_with_items', {
         card_id: cardId, 
-        address_id: addressId,
-        products: products,
-        total: products.reduce((sum, item) => sum + (item.quantity * item.price), 0),
+        shipping_address_id: addressId, // puede ser null si es recolección en persona
+        items: products,
+        total: products.reduce((sum, item) => sum + (item.amount * item.price), 0),
         device_session_id: openpayService.deviceSessionId,
+        company: 'OMEIN'
     })
     .then(response => {
       dispatch({
@@ -305,7 +300,7 @@ const checkoutActions = {
   updateActiveSection,
   getAddresses,
   addAddress,
-  updateSelectedAddress,
+  selectCheckoutAddress,
   getCards,
   addCard,
   updateSelectedCard,

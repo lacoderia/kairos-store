@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
+import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core';
@@ -9,15 +10,15 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { updateProductQuantity, removeProduct, addProductToCart } from '../cart/cartActions';
+import { 
+  updateProductQuantity, 
+  updateProductDisplayQuantity, 
+  removeProduct, 
+  addProductToCart 
+} from '../cart/cartActions';
 
 const styles = theme => ({
   root: {
@@ -45,7 +46,7 @@ const styles = theme => ({
     border: `1px solid ${theme.palette.custom.lightGrey}`,
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px`,
     },
   },
   noResultsText: {
@@ -54,27 +55,54 @@ const styles = theme => ({
   continueShoppingButton: {
     marginTop: 16,
   },
-  upperCell: {
-    borderBottom: 'none',
+  productListHeader: {
+    display: 'flex',
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+  productListHeaderCell100: {
+    textAlign: 'right',
+    width: 100,
+  },
+  productListHeaderCell120: {
+    textAlign: 'right',
+    width: 120,
   },
   productContainer: {
     display: 'flex',
   },
   pictureContainer: {
-    padding: 16,
-    width: 150,
+    marginRight: 24,
+    padding: 8,
+    width: 100,
   },
   picture: {
     objectFit: 'cover',
     maxWidth: '100%',
   },
   productInfo: {
-    padding: 16,
-    display: 'flex',
     alignItems: 'center',
+    display: 'flex',
+    flex: 1,
+    padding: 16,
   },
-  quiantityField: {
+  productTitle: {
+    flex: 1,
+  },
+  productQuantityContainer: {
+    textAlign: 'right',
+    width: 120,
+  },
+  productQuantity: {
     width: 60,
+  },
+  input: {
+    textAlign: 'center',
+  },
+  productPrice: {
+    color: theme.palette.primary.dark,
+    fontWeight: 500,
+    marginLeft: 40,
   },
   marginDense: {
     paddingBottom: 8,
@@ -85,28 +113,34 @@ const styles = theme => ({
     '&:hover': {
       color: theme.palette.custom.darkBlue,
     },
+    display: 'block',
+    textAlign: 'right',
+    width: 100,
   },
 });
-
-const CustomTableCell = withStyles(theme => ({
-  head: {
-    borderTop: '1px solid rgba(224, 224, 224, 1)',
-    color: theme.palette.common.black,
-    fontSize: 14,
-    paddingBottom: 16,
-    paddingTop: 16,
-  },
-  body: {
-    fontSize: 13,
-  },
-}))(TableCell);
 
 const quantities = [1,2,3,4,5,6,7,8,9,10];
 
 class Cart extends Component {
 
+  handleDisplayQuantityChange = (event, id) => {
+    this.props.updateProductDisplayQuantity(id, event.target.value);
+  };
+
   handleQuantityChange = (event, id) => {
-    this.props.updateProductQuantity(id, event.target.value);
+    if(event.target.value) {
+      this.props.updateProductQuantity(id, parseInt(event.target.value));
+    } else {
+      this.props.removeProduct(id);
+    }
+    
+  };
+
+  handleQuantityChangeKeyPress = (event, id) => {
+    if(event.keyCode == 13){
+      this.props.updateProductQuantity(id, parseInt(event.target.value));
+      event.target.blur();
+    }
   };
 
   removeProduct = (event, id) => {
@@ -115,11 +149,12 @@ class Cart extends Component {
   }
 
   componentDidMount() {
+    // MOCK
     this.props.addProductToCart(
-      {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 2}
+      {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 12, displayQuantity: 12}
     );
     this.props.addProductToCart(
-      {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1}
+      {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1, displayQuantity: 1}
     )
   }
 
@@ -145,35 +180,48 @@ class Cart extends Component {
           </div>
           <Paper elevation={0} className={classes.paper}>
             { productsIdArray.length > 0 ? (
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
-                    <CustomTableCell>Producto</CustomTableCell>
-                    <CustomTableCell align="right">Cantidad</CustomTableCell>
-                    <CustomTableCell align="right">Precio</CustomTableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {productsIdArray && productsIdArray.map(id => {
-                    const product = products[id];
+              <div className={classes.productList}>
+                <div className={classes.productListHeader}>
+                  <div className={classes.productTitle} />
+                  <div className={classes.productListHeaderCell100}>
+                    <Typography variant="body1">
+                      Precio
+                    </Typography>
+                  </div>
+                  <div className={classes.productListHeaderCell120}>
+                    <Typography variant="body1">
+                      Cant.
+                    </Typography>
+                  </div>
+                  <div className={classes.productListHeaderCell100} />
+                </div>
+                {productsIdArray && productsIdArray.map(id => {
+                  const product = products[id];
 
-                    return(
-                      <React.Fragment key={product.id}>
-                        <TableRow>
-                          <CustomTableCell component="th" scope="row" className={classes.upperCell}>
-                            <div className={classes.productContainer}>
-                              <div className={classes.pictureContainer}>
-                                <img src={product.picture} className={classes.picture}></img>
-                              </div>
-                              <div className={classes.productInfo}>
-                                <div>{product.title}</div>
-                              </div>
-                            </div>
-                          </CustomTableCell>
-                          <CustomTableCell align="right" className={classes.upperCell}>
+                  return(
+                    <div key={product.id} className={classes.productContainer}>
+                      <div className={classes.pictureContainer}>
+                        <img src={product.picture} className={classes.picture}></img>
+                      </div>
+                      <div className={classes.productInfo}>
+                        <Typography variant="body1" className={classes.productTitle}>
+                          {product.title}
+                        </Typography>
+                        <Typography variant="body1">
+                          <CurrencyFormat 
+                            value={product.price * product.quantity} 
+                            displayType={'text'} 
+                            thousandSeparator={true} 
+                            prefix={'$'} 
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                            className={classes.productPrice}
+                          />
+                        </Typography>
+                        <div className={classes.productQuantityContainer}>
+                          {product.quantity < 10 && (
                             <TextField
                               select
-                              className={classes.quiantityField}
                               value={product.quantity}
                               onChange={(event) => this.handleQuantityChange(event, product.id)}
                               InputProps={{
@@ -183,6 +231,7 @@ class Cart extends Component {
                               }}
                               margin="dense"
                               variant="outlined"
+                              className={classes.productQuantity}
                             >
                               {quantities.map(quantity => (
                                 <MenuItem key={quantity} value={quantity}>
@@ -190,28 +239,43 @@ class Cart extends Component {
                                 </MenuItem>
                               ))}
                             </TextField>
-                          </CustomTableCell>
-                          <CustomTableCell align="right" className={classes.upperCell}>$ {product.price * product.quantity} MXN</CustomTableCell>
-                        </TableRow>
-                        <TableRow>
-                          <CustomTableCell align="right" colSpan={3}>
-                            <Typography variant="body2" align="right">
-                              <a 
-                                aria-label="Delete item"
-                                className={classes.deleteItemButton}
-                                href="#"
-                                onClick={(event) => this.removeProduct(event, product.id)}
-                              >
-                                Eliminar
-                              </a>
-                            </Typography>
-                          </CustomTableCell>
-                        </TableRow>
-                      </React.Fragment>
-                    )
-                  })}
-                </TableBody>
-              </Table>
+                          )}
+                          {product.quantity >= 10 && (
+                            <CurrencyFormat
+                              customInput={TextField}
+                              value={product.displayQuantity}
+                              onChange={(event) => this.handleDisplayQuantityChange(event, product.id)}
+                              onBlur={(event) => this.handleQuantityChange(event, product.id)}
+                              onKeyDown={(event) => this.handleQuantityChangeKeyPress(event, product.id)}
+                              InputProps={{
+                                classes: {
+                                  inputMarginDense: classes.marginDense,
+                                },
+                              }}
+                              inputProps={{
+                                className: classes.input
+                              }}
+                              margin="dense"
+                              variant="outlined"
+                              className={classes.productQuantity}
+                            />
+                          )}
+                        </div>
+                        <Typography variant="body2">
+                          <a 
+                            aria-label="Delete item"
+                            className={classes.deleteItemButton}
+                            href="#"
+                            onClick={(event) => this.removeProduct(event, product.id)}
+                          >
+                            Eliminar
+                          </a>
+                        </Typography>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
             ) : (
               <div className={classes.noResultsText}>
                 <Typography variant="subtitle1" gutterBottom>
@@ -249,6 +313,7 @@ function mapDispatchToProps(dispatch) {
     bindActionCreators({ addProductToCart }, dispatch),
     bindActionCreators({ removeProduct }, dispatch),
     bindActionCreators({ updateProductQuantity }, dispatch),
+    bindActionCreators({ updateProductDisplayQuantity }, dispatch),
   );
 }
 

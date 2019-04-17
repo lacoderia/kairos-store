@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
+import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   root: {
@@ -40,14 +41,18 @@ const styles = theme => ({
       padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px`,
     },
   },
-  total: {
-    fontWeight: 500,
-    marginTop: 8,
-  },
   buttonContainer: {
     marginTop: 32,
     textAlign: 'center',
   },
+  justifiedText: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  divider: {
+    marginBottom: 6,
+    marginTop: 6,
+  }
 });
 
 class Summary extends Component {
@@ -56,6 +61,7 @@ class Summary extends Component {
     const { classes, showPaymentButton } = this.props;
     const cartProductsTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
     const orderTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity') * item.get('price'), 0);
+    const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
     return (
       <Grid container 
@@ -69,22 +75,63 @@ class Summary extends Component {
             </Typography>
           </div>
           <Paper elevation={0} className={classes.paper}>
-            <Typography variant="body1">Total ({cartProductsTotal} {cartProductsTotal == 1 ? 'producto' : 'productos'}):</Typography>
-            <Typography variant="h6" align="right" className={classes.total}>$ {orderTotal} MXN</Typography>
+            <div className={classes.justifiedText}>
+              <Typography variant="body1" component="span" gutterBottom>Subtotal:</Typography>
+              <Typography variant="body1" component="span">
+                <CurrencyFormat 
+                  value={orderTotal} 
+                  displayType={'text'} 
+                  thousandSeparator={true} 
+                  prefix={'$'} 
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                />
+              </Typography>
+            </div>
+            <div className={classes.justifiedText}>
+              <Typography variant="body1" component="span" gutterBottom>Envío:</Typography>
+              <Typography variant="body1" component="span">
+                <CurrencyFormat 
+                  value={shippingCost} 
+                  displayType={'text'} 
+                  thousandSeparator={true} 
+                  prefix={'$'} 
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                />
+              </Typography>
+            </div>
+            <Divider className={classes.divider}/>
+            <div className={classes.justifiedText}>
+              <Typography variant="h6" component="span">Total a pagar:</Typography>
+              <Typography variant="h6" component="span">
+                <CurrencyFormat 
+                  value={orderTotal + shippingCost} 
+                  displayType={'text'} 
+                  thousandSeparator={true} 
+                  prefix={'$'} 
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                />
+              </Typography>
+            </div>
             {showPaymentButton && (
-              <div className={classes.buttonContainer}>
-                <Button 
-                  component={Link}
-                  to="/checkout"
-                  aria-label="Proceed to checkout"
-                  variant="contained" 
-                  color="primary" 
-                  size="large"
-                  disabled={cartProductsTotal == 0}
-                >
-                  Proceder al pago
-                </Button>
-              </div>
+              <React.Fragment>
+                <div className={classes.buttonContainer}>
+                  <Button 
+                    component={Link}
+                    to="/checkout"
+                    aria-label="Proceed to checkout"
+                    variant="contained" 
+                    color="primary" 
+                    size="large"
+                    disabled={cartProductsTotal == 0}
+                  >
+                    Proceder al pago
+                  </Button>
+                </div>
+              </React.Fragment>
+              
             )}
           </Paper>
         </Grid>
@@ -96,6 +143,7 @@ class Summary extends Component {
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
     products: state.get('cart').get('products'),
+    shippingCost: state.get('checkout').get('shippingCost'),
   };
 };
 

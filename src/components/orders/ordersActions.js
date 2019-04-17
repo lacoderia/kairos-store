@@ -11,30 +11,32 @@ function toJSObject(item) {
 
   const result = {
     id: item.id,
-    number: item.number,
+    number: item.order_number,
     status: item.status,
-    total: item.total,
+    total: item.total_price,
     createdAt: item.created_at,
-    volume: item.volume,
+    volume: item.total_item_volume,
     products: [],
-    shippingAddress: {
-      id: item.shipping_address.id,
-      name: item.shipping_address.name,
-      address: item.shipping_address.address,
-      city: item.shipping_address.city,
-      state: item.shipping_address.state,
-      zip: item.shipping_address.zip,
-      country: item.shipping_address.country,
-    },
+    shippingAddress: undefined,
     paymentMethod: item.payment_method,
   }
 
-  item.products && item.products.map(product => {
+  item.shipping_address && (result.shippingAddress = {
+    id: item.shipping_address.id,
+    name: item.shipping_address.name,
+    address: item.shipping_address.address,
+    city: item.shipping_address.city,
+    state: item.shipping_address.state,
+    zip: item.shipping_address.zip,
+    country: item.shipping_address.country,
+  })
+  
+  item.items && item.items.map(product => {
     result.products.push({
       id: product.id,
-      picture: IMAGE_URL_ROOT + product.picture,
+      picture: IMAGE_URL_ROOT + product.image,
       name: product.name,
-      quantity: product.quantity,
+      quantity: product.amount,
       price: product.price,
     });
   })
@@ -42,7 +44,7 @@ function toJSObject(item) {
   return result;
 }
 
-function toJSArray(items) {
+function toJSArray(items) {  
   const result = [];
   items.map(item => {
     result.push(toJSObject(item));
@@ -55,11 +57,12 @@ export function getOrders() {
     dispatch({ 
       type: GET_ORDERS_FETCH,
     });
-    return axios.get('/orders')
+    return axios.get('/orders/all?company=omein')
     .then(response => {
+      console.log(response.data.orders);      
       dispatch({ 
         type: GET_ORDERS_SUCCESS,
-        payload: arrayToHash(toJSArray(response.data)),
+        payload: arrayToHash(toJSArray(response.data.orders)),
       });
     })
     .catch(e => {
@@ -72,18 +75,8 @@ export function getOrders() {
   }
 }
 
-export function getOrdersMock() {
-  return (dispatch) => {
-    dispatch({ 
-      type: GET_ORDERS_SUCCESS,
-      payload: arrayToHash(toJSArray(ordersMock)),
-    });
-  }
-}
-
 const ordersActions = {
   getOrders,
-  getOrdersMock,
 };
 
 export default ordersActions;

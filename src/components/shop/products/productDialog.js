@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Markup } from 'interweave';
+import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -97,6 +98,7 @@ class ProductDialog extends React.Component {
       price: product.price,
       picture: product.picture,
       quantity: 1,
+      displayQuantity: 1,
     } 
 
     this.props.addProductToCart(cartProduct);
@@ -138,7 +140,14 @@ class ProductDialog extends React.Component {
                     </Typography>
                     <div className={classes.priceContainer}>
                       <Typography variant="h5" component="span" className={classes.flex}>
-                        $ {product.price} MXN
+                        <CurrencyFormat 
+                          value={product.price} 
+                          displayType={'text'} 
+                          thousandSeparator={true} 
+                          prefix={'$'} 
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                        />
                       </Typography>
                       <Typography variant="h5" component="span" className={classNames(classes.flex, classes.volume)}>
                         {product.volume} VP
