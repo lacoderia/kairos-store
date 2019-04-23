@@ -15,6 +15,7 @@ import CheckoutView from './views/shop/checkoutView';
 import OrdersView from './views/shop/ordersView';
 import PaymentMethods from './views/shop/paymentMethodsView';
 import Addresses from './views/shop/addressesView';
+import Snackbars from './components/snackbars/snackbars';
 
 import session from '../src/http/session';
 import { getCurrentSession } from '../src/http/sessionActions';
@@ -69,6 +70,7 @@ class App extends Component {
               <PrivateRoute path="/addresses" component={Addresses}/>
               <Redirect to="/login" />
             </Switch>
+            <Snackbars />
           </React.Fragment>
         }
       </div>
@@ -89,4 +91,4 @@ function mapDispatchToProps(dispatch) {
 export default withStyles(styles)(withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(App)));
+  )(App)));

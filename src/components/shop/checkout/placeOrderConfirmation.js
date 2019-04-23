@@ -10,8 +10,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 
-import LoaderOverlay from '../../common/loaderOverlay';
-
 const styles = theme => ({
   dialogContent: {
     padding: theme.spacing.unit * 6,
@@ -31,8 +29,8 @@ const styles = theme => ({
 class PlaceOrderConfirmation extends React.Component {
 
   render() {
-    const { classes, handleClose, handleContinue } = this.props;
-    const total = this.props.products.reduce((sum, item) => sum + (item.get('quantity') * item.get('price')), 0);
+    const { classes, handleClose, handleContinue, shippingCost } = this.props;
+    const total = this.props.products.reduce((sum, item) => sum + (item.get('quantity') * item.get('price')), 0) + shippingCost;
 
     return (
       <DialogContent className={classes.dialogContent}>
@@ -65,9 +63,8 @@ PlaceOrderConfirmation.propTypes = {
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
-    loading: state.get('checkout').get('loading'),
-    formError: state.get('checkout').get('error'),
     products: state.get('cart').get('products'),
+    shippingCost: state.get('checkout').get('shippingCost'),
   };
 };
 

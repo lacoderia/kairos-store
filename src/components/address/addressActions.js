@@ -137,7 +137,7 @@ export function deleteAddress(id) {
     dispatch({
       type: DELETE_ADDRESS_FETCH,
     })
-    return axios.delete(`/shipping_addresses/${id}`)
+    return axios.post(`/shipping_addresses/${id}/deactivate`)
     .then(response => {
       dispatch({
         type: DELETE_ADDRESS_SUCCESS,

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core';
 
@@ -24,4 +23,4 @@ class ProductsView extends Component {
  
 }
 
-export default withStyles(styles)(withRouter(ProductsView));
+export default withStyles(styles)(ProductsView);

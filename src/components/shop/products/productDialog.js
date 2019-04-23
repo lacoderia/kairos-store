@@ -94,11 +94,12 @@ class ProductDialog extends React.Component {
 
     const cartProduct = {
       id: product.id,
-      title: product.title,
+      name: product.name,
       price: product.price,
       picture: product.picture,
       quantity: 1,
       displayQuantity: 1,
+      showQuantityInput: false,
     } 
 
     this.props.addProductToCart(cartProduct);

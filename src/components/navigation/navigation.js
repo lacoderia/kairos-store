@@ -19,7 +19,7 @@ import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#c8c8c8',
     zIndex: theme.zIndex.drawer + 1,
   },
   main: {
@@ -80,7 +80,7 @@ class Navigation extends Component {
             <Toolbar>
               <div className={classes.logoContainer}>
                 <Link to="/" className={classes.logo}>
-                  <img src="/images/logo@2x.png" className={classes.img} alt="Logo Prana"/>
+                  <img src="/images/logo-omein.png" className={classes.img} alt="Logo Prana"/>
                 </Link>
               </div>
               <Hidden mdUp>

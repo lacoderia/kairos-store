@@ -2,6 +2,7 @@ import axios from 'axios';
 import session from '../../../http/session';
 import openpayService from '../../../services/openpay';
 import { arrayToHash } from '../../../common/commonFunctions';
+import { STORE_PICKUP_ADDRESS } from '../../../common/constants';
 
 export const GET_CHECKOUT_ADDRESSES_FETCH = 'GET_CHECKOUT_ADDRESSES_FETCH';
 export const GET_CHECKOUT_ADDRESSES_SUCCESS = 'GET_CHECKOUT_ADDRESSES_SUCCESS';
@@ -9,20 +10,23 @@ export const GET_CHECKOUT_ADDRESSES_ERROR = 'GET_CHECKOUT_ADDRESSES_ERROR';
 export const ADD_CHECKOUT_ADDRESS_FETCH = 'ADD_CHECKOUT_ADDRESS_FETCH';
 export const ADD_CHECKOUT_ADDRESS_SUCCESS = 'ADD_CHECKOUT_ADDRESS_SUCCESS';
 export const ADD_CHECKOUT_ADDRESS_ERROR = 'ADD_CHECKOUT_ADDRESS_ERROR';
-export const SELECT_CHECKOUT_ADDRESS = 'SELECT_CHECKOUT_ADDRESS';
+export const CHANGE_CHECKOUT_ADDRESS = 'CHANGE_CHECKOUT_ADDRESS';
+export const GET_SHIPPING_COST_FETCH = 'GET_SHIPPING_COST_FETCH';
+export const GET_SHIPPING_COST_SUCCESS = 'GET_SHIPPING_COST_SUCCESS';
+export const GET_SHIPPING_COST_ERROR = 'GET_SHIPPING_COST_ERROR';
 export const GET_CHECKOUT_CARDS_FETCH = 'GET_CHECKOUT_CARDS_FETCH';
 export const GET_CHECKOUT_CARDS_SUCCESS = 'GET_CHECKOUT_CARDS_SUCCESS';
 export const GET_CHECKOUT_CARDS_ERROR = 'GET_CHECKOUT_CARDS_ERROR';
 export const ADD_CHECKOUT_CARD_FETCH = 'ADD_CHECKOUT_CARD_FETCH';
 export const ADD_CHECKOUT_CARD_SUCCESS = 'ADD_CHECKOUT_CARD_SUCCESS';
 export const ADD_CHECKOUT_CARD_ERROR = 'ADD_CHECKOUT_CARD_ERROR';
-export const UPDATE_SELECTED_CHECKOUT_CARD = 'UPDATE_SELECTED_CHECKOUT_CARD';
-export const UPDATE_ACTIVE_SECTION = 'UPDATE_ACTIVE_SECTION';
+export const CHANGE_CHECKOUT_CARD = 'CHANGE_CHECKOUT_CARD';
+export const CHANGE_ACTIVE_SECTION = 'CHANGE_ACTIVE_SECTION';
 export const OPEN_CHECKOUT_DIALOG = 'OPEN_CHECKOUT_DIALOG';
 export const CLOSE_CHECKOUT_DIALOG = 'CLOSE_CHECKOUT_DIALOG';
-export const PAY_FETCH = 'PAY_FETCH';
-export const PAY_SUCCESS = 'PAY_SUCCESS';
-export const PAY_ERROR = 'PAY_ERROR';
+export const PLACE_ORDER_FETCH = 'PLACE_ORDER_FETCH';
+export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
+export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
 
 function toAddressObject(address) {
   return {
@@ -33,18 +37,13 @@ function toAddressObject(address) {
     state: address.state,
     zip: address.zip,
     country: address.country,
-    primary: true,
+    primary: address.primary,
   }
 }
 
 function toAddressArray(addresses) {
   const result = [];
-  result.push({
-    id: 0,
-    name: 'Recoger en persona',
-    address: 'Los productos se recogen con el staff de Futura Network',
-    primary: false,
-  });
+  result.push(STORE_PICKUP_ADDRESS);
   addresses.map(address => {
     result.push(toAddressObject(address));
   })
@@ -70,10 +69,10 @@ function toCardArray(items) {
   return result;
 }
 
-export function updateActiveSection(section) {
+export function changeActiveSection(section) {
   return (dispatch) => {
     dispatch({
-      type: UPDATE_ACTIVE_SECTION,
+      type: CHANGE_ACTIVE_SECTION,
       payload: section,
     });
   }
@@ -140,12 +139,49 @@ export function addAddress(values) {
   }
 }
 
-export function selectCheckoutAddress(id) {
+export function changeCheckoutAddress(id) {
   return (dispatch) => {
     dispatch({ 
-      type: SELECT_CHECKOUT_ADDRESS, 
+      type: CHANGE_CHECKOUT_ADDRESS, 
       payload: id,
     });
+  }
+}
+
+export function getShippingCost(shippingAddressId, productsMap) {
+  return (dispatch) => {
+    dispatch({ 
+      type: GET_SHIPPING_COST_FETCH,
+    });
+
+    const productsIdArray = productsMap ? Object.keys(productsMap) : [];
+    const products = [];
+
+    productsIdArray.map(id => {
+      products.push({
+        id: id,
+        amount: productsMap[id].quantity,
+        price: productsMap[id].price,
+      })
+    })
+
+    return axios.post('/orders/calculate_shipping_price', {
+      shipping_address_id: shippingAddressId == 0 ? null : shippingAddressId,
+      items: products
+    })
+    .then(response => {
+      dispatch({ 
+        type: GET_SHIPPING_COST_SUCCESS,
+        payload: response.data.shipping_price
+      });
+    })
+    .catch(e => {
+      dispatch({ 
+        type: GET_SHIPPING_COST_ERROR,
+        payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al obtener el costo del envío. Por favor intenta más tarde.",
+      });
+      throw e;
+    })
   }
 }
 
@@ -156,7 +192,6 @@ export function getCards() {
     });
     return axios.get('/cards/all?company=omein')
     .then(response => {
-      console.log(response.data.cards);
       dispatch({ 
         type: GET_CHECKOUT_CARDS_SUCCESS,
         payload: arrayToHash(toCardArray(response.data.cards))
@@ -165,7 +200,7 @@ export function getCards() {
     .catch(e => {
       dispatch({ 
         type: GET_CHECKOUT_CARDS_ERROR,
-        payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
+        payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
       });
       throw e;
     })
@@ -208,7 +243,7 @@ export function addCard(values) {
           .catch(e => {
             dispatch({ 
               type: ADD_CHECKOUT_CARD_ERROR,
-              payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
+              payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
             });
             reject(e);
           });
@@ -226,17 +261,21 @@ export function addCard(values) {
   
 }
 
-export function updateSelectedCard(id) {
+export function changeSelectedCard(id) {
   return (dispatch) => {
     dispatch({ 
-      type: UPDATE_SELECTED_CHECKOUT_CARD, 
+      type: CHANGE_CHECKOUT_CARD, 
       payload: id,
     });
   }
 }
 
-export function placeOrder(addressId, cardId, productsMap) {
+export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost) {
   return (dispatch) => {
+    dispatch({
+      type: PLACE_ORDER_FETCH,
+    })
+
     const productsIdArray = productsMap ? Object.keys(productsMap) : [];
     const products = [];
 
@@ -248,21 +287,17 @@ export function placeOrder(addressId, cardId, productsMap) {
       })
     })
 
-    dispatch({
-      type: PAY_FETCH,
-    })
-    
     return axios.post('/orders/create_with_items', {
         card_id: cardId, 
-        shipping_address_id: addressId, // puede ser null si es recolección en persona
+        shipping_address_id: shippingAddressId == 0 ? null : shippingAddressId, // puede ser null si es recolección en persona
         items: products,
-        total: products.reduce((sum, item) => sum + (item.amount * item.price), 0),
+        total: products.reduce((sum, item) => sum + (item.amount * item.price), 0) + shippingCost,
         device_session_id: openpayService.deviceSessionId,
-        company: 'OMEIN'
+        company: 'OMEIN',
     })
     .then(response => {
       dispatch({
-        type: PAY_SUCCESS,
+        type: PLACE_ORDER_SUCCESS,
       });
       return response;
     })
@@ -271,7 +306,7 @@ export function placeOrder(addressId, cardId, productsMap) {
       const errorText = error ? error.title : 'Ocurrió un error al procesar el pago. Por favor intenta nuevamente.';
 
       dispatch({
-        type: PAY_ERROR,
+        type: PLACE_ORDER_ERROR,
         payload: errorText,
       });
       throw e;
@@ -297,13 +332,13 @@ export function closeDialog() {
 }
 
 const checkoutActions = {
-  updateActiveSection,
+  changeActiveSection,
   getAddresses,
   addAddress,
-  selectCheckoutAddress,
+  changeCheckoutAddress,
   getCards,
   addCard,
-  updateSelectedCard,
+  changeSelectedCard,
   openDialog,
   closeDialog,
 };

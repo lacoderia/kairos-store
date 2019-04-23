@@ -12,6 +12,7 @@ import cards from './components/cards/cardsReducer';
 import products from './components/shop/products/productsReducer';
 import cart from './components/shop/cart/cartReducer';
 import checkout from './components/shop/checkout/checkoutReducer';
+import snackbars from './components/snackbars/snackbarsReducer';
 import { reducer as reduxFormReducer } from 'redux-form/immutable';
 import { combineReducers } from 'redux-immutable';
 
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   products,
   cart,
   checkout,
+  snackbars,
   form: reduxFormReducer,
 });
 

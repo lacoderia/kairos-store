@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
 
@@ -151,7 +151,7 @@ function mapDispatchToProps(dispatch) {
   return Object.assign({},);
 }
 
-export default withStyles(styles)(withRouter(connect(
+export default withStyles(styles)(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Summary)));
+)(Summary));

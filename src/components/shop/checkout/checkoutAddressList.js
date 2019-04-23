@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
-import { selectCheckoutAddress } from './checkoutActions';
+import { changeCheckoutAddress } from './checkoutActions';
 import { Button } from '@material-ui/core';
 
 const styles = theme => ({
@@ -46,7 +46,7 @@ const styles = theme => ({
 class CheckoutAddressList extends React.Component {
 
   handleSelectedAddress = (id) => {
-    this.props.selectCheckoutAddress(id);
+    this.props.changeCheckoutAddress(id);
     this.props.handleClose();
   };
 
@@ -129,7 +129,7 @@ const mapStateToProps = function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators({ selectCheckoutAddress }, dispatch),
+    bindActionCreators({ changeCheckoutAddress }, dispatch),
   );
 }
  

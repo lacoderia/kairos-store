@@ -1,5 +1,4 @@
 import axios from 'axios';
-import ordersMock from './ordersMock';
 import { arrayToHash } from '../../common/commonFunctions';
 import { IMAGE_URL_ROOT } from '../../common/constants';
 
@@ -59,10 +58,9 @@ export function getOrders() {
     });
     return axios.get('/orders/all?company=omein')
     .then(response => {
-      console.log(response.data.orders);      
       dispatch({ 
         type: GET_ORDERS_SUCCESS,
-        payload: arrayToHash(toJSArray(response.data.orders)),
+        payload: toJSArray(response.data.orders),
       });
     })
     .catch(e => {
