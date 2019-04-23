@@ -75,9 +75,7 @@ export function addCard(values) {
     return new Promise( (resolve, reject) => {
 
       openpayService.OpenPay.token.create(card, 
-        (response => {
-          console.log(response);
-          
+        (response => {          
           axios.post('/cards/create', {
             token: response.data.id,
             device_session_id: openpayService.deviceSessionId,

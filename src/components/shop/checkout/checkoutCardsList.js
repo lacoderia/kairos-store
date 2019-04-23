@@ -12,7 +12,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
-import { updateSelectedCard } from './checkoutActions';
+import { changeSelectedCard } from './checkoutActions';
 import { Button } from '@material-ui/core';
 
 const styles = theme => ({
@@ -46,7 +46,7 @@ const styles = theme => ({
 class CheckoutCardsList extends React.Component {
 
   handleSelectedCard = (id) => {
-    this.props.updateSelectedCard(id);
+    this.props.changeSelectedCard(id);
     this.props.handleClose();
   };
 
@@ -120,7 +120,7 @@ const mapStateToProps = function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators({ updateSelectedCard }, dispatch),
+    bindActionCreators({ changeSelectedCard }, dispatch),
   );
 }
  

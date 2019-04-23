@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
@@ -17,14 +18,16 @@ import AddCheckoutAddressForm from './addCheckoutAddressForm';
 import CheckoutCardsList from './checkoutCardsList';
 import AddCheckoutCardForm from './addCheckoutCardForm';
 import PlaceOrderConfirmation from './placeOrderConfirmation';
+import LoaderOverlay from '../../common/loaderOverlay';
+
 import {  getAddresses, 
           getCards,
-          updateActiveSection,
+          changeActiveSection,
+          getShippingCost,
           placeOrder,
           openDialog, 
           closeDialog } from './checkoutActions';
-//MOCK
-import { addProductToCart } from '../cart/cartActions';
+import { openSnackbar } from '../../snackbars/snackbarsActions';
 import { dialogs, sections } from './checkoutConstants';
 
 const styles = theme => ({
@@ -55,12 +58,13 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
     },
+    position: 'relative',
   },
   sectionTitleContainer: {
     alignItems: 'center',
     display: 'flex',
     justifyContent: 'space-between',
-    marginBottom: 24,
+    marginBottom: 16,
     marginTop: 16,
   },
   sectionTitle: {
@@ -74,6 +78,7 @@ const styles = theme => ({
       display: 'block',
       height: 4,
       marginTop: 4,
+      marginBottom: 8,
       width: 50,
     }
   },
@@ -92,14 +97,17 @@ const styles = theme => ({
     textAlign: 'center',
     width: '100%',
   },
+  sectionErrorContainer: {
+    color: theme.palette.error.main,
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px !important`,
+    textAlign: 'right',
+    width: '100%',
+  },
   errorContainer: {
     color: theme.palette.error.main,
     padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px !important`,
     textAlign: 'center',
     width: '100%',
-  },
-  errorText: {
-    color: theme.palette.error.main,
   },
   noResultsContainer: {
     textAlign: 'left',
@@ -136,11 +144,19 @@ class Checkout extends Component {
 
   editShippingAddress = event => {
     event.preventDefault();
-    this.props.updateActiveSection(sections.SHIPPING_ADDRESS_SECTION);
+    this.props.changeActiveSection(sections.SHIPPING_ADDRESS_SECTION);
   }
 
-  editPaymentMethod = () => {
-    this.props.updateActiveSection(sections.PAYMENT_METHOD_SECTION);
+  getShippingCost = () => {
+    const shippingAddress = this.props.shippingAddress ? this.props.shippingAddress.toJS() : null;
+    const products = this.props.products ? this.props.products.toJS() : null;
+    this.props.getShippingCost(shippingAddress.id, products)
+    .then(
+      (response) => {
+        this.props.changeActiveSection(sections.PAYMENT_METHOD_SECTION);
+      },
+      (e) => {}
+    )
   }
 
   isActiveSection = section => {
@@ -151,9 +167,26 @@ class Checkout extends Component {
     const shippingAddress = this.props.shippingAddress ? this.props.shippingAddress.toJS() : null;
     const selectedCard = this.props.selectedCard ? this.props.selectedCard.toJS() : null;
     const products = this.props.products ? this.props.products.toJS() : null;
+    const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
     if (shippingAddress && selectedCard && products) {
-      this.props.placeOrder(shippingAddress.id, selectedCard.id, products);
+      this.props.placeOrder(shippingAddress.id, selectedCard.id, products, shippingCost)
+      .then(
+        (response) => {
+          console.log(response);
+
+          this.props.openSnackbar({
+            open: true,
+            title: 'Pedido recibido',
+            message: 'Tu pedido es el número ' + response.data.order.order_number,
+            showIcon: false,
+            variant: 'info',
+          })
+
+          this.props.history.push('/orders');
+        },
+        (e) => {}
+      )
     }
     
   }
@@ -161,19 +194,13 @@ class Checkout extends Component {
   componentDidMount() {
     this.props.getAddresses();
     this.props.getCards();
-    this.props.updateActiveSection(sections.SHIPPING_ADDRESS_SECTION);
-
-    //MOCK
-    // this.props.addProductToCart(
-    //   {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 2}
-    // );
-    // this.props.addProductToCart(
-    //   {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1}
-    // )
+    this.props.changeActiveSection(sections.SHIPPING_ADDRESS_SECTION);
   }
 
   render() {
-    const { classes, addressesLoading, addressesError, cardsLoading, cardsError, dialog, dialogLoading, open } = this.props;
+    const { classes, addressesLoading, addressesError, cardsLoading, cardsError, dialog, dialogLoading, open, products, loading, getShippingCostError, placeOrderError } = this.props;
+
+    const touchedSections = this.props.touchedSections ? this.props.touchedSections.toJS() : [];
 
     const addresses = this.props.addresses ? this.props.addresses.toJS() : null;
     const addressesIdArray = this.props.addresses ? Object.keys(addresses) : null;
@@ -182,6 +209,10 @@ class Checkout extends Component {
     const cards = this.props.cards ? this.props.cards.toJS() : null;
     const cardsIdArray = this.props.cards ? Object.keys(cards) : null;
     const selectedCard = this.props.selectedCard ? this.props.selectedCard.toJS() : undefined;
+
+    if (!products.size) {
+      return <Redirect to="/cart" />;
+    }
 
     return (
       <Grid container 
@@ -195,6 +226,7 @@ class Checkout extends Component {
             </Typography>
           </div>
           <Paper elevation={0} className={classes.paper}>
+            <LoaderOverlay loading={loading} />
             <Divider />
             <section className={classes.shippingAdress}>
               <div className={classes.sectionTitleContainer}>
@@ -230,7 +262,7 @@ class Checkout extends Component {
                     ) : (
                       addressesError ? (
                         <div className={classes.errorContainer}>
-                          <Typography variant="body2" className={classes.errorText}>{addressesError}</Typography>
+                          <Typography variant="body2" color="inherit">{addressesError}</Typography>
                         </div>
                       ) : (
                         <React.Fragment>
@@ -283,7 +315,7 @@ class Checkout extends Component {
                               color="primary"
                               variant="contained"
                               disabled={!shippingAddress}
-                              onClick={this.editPaymentMethod}
+                              onClick={this.getShippingCost}
                             >
                               CONTINUAR
                             </Button>
@@ -317,7 +349,9 @@ class Checkout extends Component {
                     )}
                   </div>
                 )}
-                
+              </div>
+              <div className={classes.sectionErrorContainer}>
+                <Typography variant="body2" color="inherit">{getShippingCostError}</Typography>
               </div>
             </section>
             <Divider />
@@ -343,7 +377,7 @@ class Checkout extends Component {
                     ) : (
                       cardsError ? (
                         <div className={classes.errorContainer}>
-                          <Typography variant="body2" className={classes.errorText}>{cardsError}</Typography>
+                          <Typography variant="body2" color="inherit">{cardsError}</Typography>
                         </div>
                       ) : (
                         <React.Fragment>
@@ -399,7 +433,7 @@ class Checkout extends Component {
                   </React.Fragment>
                 ) : (
                   <div>
-                    { selectedCard && (
+                    { selectedCard && touchedSections.includes(sections.PAYMENT_METHOD_SECTION) && (
                       <div>
                         <Typography variant="body1" className={classes.bold}>
                           <span className={classes.capitalize}>{selectedCard.brand}</span> terminada en {selectedCard.cardNumber.slice(-4)} 
@@ -414,6 +448,9 @@ class Checkout extends Component {
                     )}
                   </div>
                 )}
+              </div>
+              <div className={classes.sectionErrorContainer}>
+                <Typography variant="body2" color="inherit">{placeOrderError}</Typography>
               </div>
             </section>
             <Divider />
@@ -460,10 +497,15 @@ const mapStateToProps = function mapStateToProps(state, props) {
     dialog: state.get('checkout').get('dialog'),
     open: state.get('checkout').get('openDialog'),
     activeSection: state.get('checkout').get('activeSection'),
+    touchedSections: state.get('checkout').get('touchedSections'),
     addresses: state.get('checkout').get('addresses'),
     shippingAddress: state.get('checkout').get('selectedShippingAddress'),
     cards: state.get('checkout').get('cards'),
     selectedCard: state.get('checkout').get('selectedCard'),
+    loading: state.get('checkout').get('loading'),
+    shippingCost: state.get('checkout').get('shippingCost'),
+    getShippingCostError: state.get('checkout').get('getShippingCostError'),
+    placeOrderError: state.get('checkout').get('placeOrderError'),
     products: state.get('cart').get('products'),
   };
 };
@@ -472,16 +514,16 @@ function mapDispatchToProps(dispatch) {
   return Object.assign({},
     bindActionCreators({ getAddresses }, dispatch),
     bindActionCreators({ getCards }, dispatch),
-    bindActionCreators({ updateActiveSection }, dispatch),
+    bindActionCreators({ changeActiveSection }, dispatch),
+    bindActionCreators({ getShippingCost }, dispatch),
     bindActionCreators({ placeOrder }, dispatch),
     bindActionCreators({ openDialog }, dispatch),
     bindActionCreators({ closeDialog }, dispatch),
-    //MOCK
-    bindActionCreators({ addProductToCart }, dispatch),
+    bindActionCreators({ openSnackbar }, dispatch),
   );
 }
 
-export default withStyles(styles)((connect(
+export default withStyles(styles)(withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
 )(Checkout)));

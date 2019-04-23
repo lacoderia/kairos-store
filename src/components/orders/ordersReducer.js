@@ -1,4 +1,4 @@
-import { fromJS, Map } from 'immutable';
+import { fromJS, List } from 'immutable';
 import {
   GET_ORDERS_FETCH,
   GET_ORDERS_SUCCESS,
@@ -8,7 +8,7 @@ import {
 const initialState = fromJS({
   loading: false,
   error: '',
-  orders: Map(),
+  orders: List(),
 });
 
 function ordersReducer(state = initialState, action) {
@@ -16,16 +16,17 @@ function ordersReducer(state = initialState, action) {
     case GET_ORDERS_FETCH:
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
+        orders: initialState.get('orders'),
       })
     case GET_ORDERS_SUCCESS:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         orders: fromJS(action.payload),
       })
     case GET_ORDERS_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     default:

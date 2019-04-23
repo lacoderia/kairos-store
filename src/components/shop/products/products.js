@@ -28,10 +28,8 @@ const styles = theme => ({
     fontWeight: 500,
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
       marginTop: theme.spacing.unit,
       marginBottom: theme.spacing.unit * 3,
     },
@@ -99,7 +97,7 @@ class Products extends Component {
               const product = products[id];
 
               return(
-                <Grid item key={product.id} xs={12} md={4} lg={3}>
+                <Grid item key={product.id} xs={6} md={4} lg={3}>
                   <div className={classes.product} onClick={() => this.openProduct(product.id)}>
                     <div className={classes.pictureContainer}>
                       <img src={product.picture} className={classes.picture}></img>

@@ -13,11 +13,11 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { 
-  updateProductQuantity, 
-  updateProductDisplayQuantity, 
+import {
   removeProduct, 
-  addProductToCart 
+  updateProductQuantity, 
+  updateProductDisplayQuantity,
+  resetProductQuantity,
 } from '../cart/cartActions';
 
 const styles = theme => ({
@@ -56,9 +56,12 @@ const styles = theme => ({
     marginTop: 16,
   },
   productListHeader: {
-    display: 'flex',
+    display: 'none',
     paddingLeft: 16,
     paddingRight: 16,
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+    },
   },
   productListHeaderCell100: {
     textAlign: 'right',
@@ -81,20 +84,32 @@ const styles = theme => ({
     maxWidth: '100%',
   },
   productInfo: {
-    alignItems: 'center',
+    alignItems: 'baseline',
     display: 'flex',
     flex: 1,
+    flexDirection: 'column',
     padding: 16,
+    [theme.breakpoints.up('sm')]: {
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
   },
   productTitle: {
     flex: 1,
   },
   productQuantityContainer: {
-    textAlign: 'right',
     width: 120,
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'right',
+    }
   },
   productQuantity: {
     width: 60,
+  },
+  menuItem: {
+    '&:last-child': {
+      borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+    },
   },
   input: {
     textAlign: 'center',
@@ -102,7 +117,9 @@ const styles = theme => ({
   productPrice: {
     color: theme.palette.primary.dark,
     fontWeight: 500,
-    marginLeft: 40,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: 40,
+    }
   },
   marginDense: {
     paddingBottom: 8,
@@ -114,12 +131,14 @@ const styles = theme => ({
       color: theme.palette.custom.darkBlue,
     },
     display: 'block',
-    textAlign: 'right',
     width: 100,
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'right',
+    }
   },
 });
 
-const quantities = [1,2,3,4,5,6,7,8,9,10];
+const quantities = [1,2,3,4,5,6,7,8,9,'10 +'];
 
 class Cart extends Component {
 
@@ -128,17 +147,33 @@ class Cart extends Component {
   };
 
   handleQuantityChange = (event, id) => {
-    if(event.target.value) {
-      this.props.updateProductQuantity(id, parseInt(event.target.value));
-    } else {
-      this.props.removeProduct(id);
+    const quantity = parseInt(event.target.value);
+
+    this.props.updateProductQuantity(id, quantity);
+    if (quantity == 10) {
+      this.props.updateProductDisplayQuantity(id, quantity);
     }
+  };
+
+  handleQuantityChangeBlur = (event, id) => {
+    const quantity = parseInt(event.target.value);
+
+    if (isNaN(quantity)) {
+      this.props.resetProductQuantity(id);
+    } else {
+      if(quantity === 0) {
+        this.props.removeProduct(id);
+      } else {
+        this.props.updateProductQuantity(id, parseInt(event.target.value));
+      }
+    }
+
+    
     
   };
 
   handleQuantityChangeKeyPress = (event, id) => {
     if(event.keyCode == 13){
-      this.props.updateProductQuantity(id, parseInt(event.target.value));
       event.target.blur();
     }
   };
@@ -146,16 +181,6 @@ class Cart extends Component {
   removeProduct = (event, id) => {
     event.preventDefault();
     this.props.removeProduct(id);
-  }
-
-  componentDidMount() {
-    // MOCK
-    this.props.addProductToCart(
-      {id: 10, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 12, displayQuantity: 12}
-    );
-    this.props.addProductToCart(
-      {id: 11, title: "Madhuri Monk Fruit", price: 398, picture: "/images/shop/ayni-madhuri.png", quantity: 1, displayQuantity: 1}
-    )
   }
 
   render() {
@@ -205,7 +230,7 @@ class Cart extends Component {
                       </div>
                       <div className={classes.productInfo}>
                         <Typography variant="body1" className={classes.productTitle}>
-                          {product.title}
+                          {product.name}
                         </Typography>
                         <Typography variant="body1">
                           <CurrencyFormat 
@@ -234,7 +259,7 @@ class Cart extends Component {
                               className={classes.productQuantity}
                             >
                               {quantities.map(quantity => (
-                                <MenuItem key={quantity} value={quantity}>
+                                <MenuItem key={quantity} value={quantity} className={classes.menuItem}>
                                   {quantity}
                                 </MenuItem>
                               ))}
@@ -245,7 +270,7 @@ class Cart extends Component {
                               customInput={TextField}
                               value={product.displayQuantity}
                               onChange={(event) => this.handleDisplayQuantityChange(event, product.id)}
-                              onBlur={(event) => this.handleQuantityChange(event, product.id)}
+                              onBlur={(event) => this.handleQuantityChangeBlur(event, product.id)}
                               onKeyDown={(event) => this.handleQuantityChangeKeyPress(event, product.id)}
                               InputProps={{
                                 classes: {
@@ -310,10 +335,10 @@ const mapStateToProps = function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators({ addProductToCart }, dispatch),
     bindActionCreators({ removeProduct }, dispatch),
     bindActionCreators({ updateProductQuantity }, dispatch),
     bindActionCreators({ updateProductDisplayQuantity }, dispatch),
+    bindActionCreators({ resetProductQuantity }, dispatch),
   );
 }
 

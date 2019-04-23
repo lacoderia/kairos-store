@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { getOrders } from './ordersActions';
 
@@ -28,16 +29,6 @@ const styles = theme => ({
       marginTop: theme.spacing.unit,
       marginBottom: theme.spacing.unit * 3,
     },
-  },
-  noResultsContainer: {
-    border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
-    [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
-    },
-  },
-  noResultsText: {
-    textAlign: 'center',
   },
   goShoppingButton: {
     marginTop: 16,
@@ -68,7 +59,6 @@ const styles = theme => ({
       flexDirection: 'row',
       padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
     },
-    
   },
   productList: {
     flex: 1,
@@ -94,12 +84,8 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  orderFooter: {
-    display: 'flex',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
-    [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
-    }
+  status: {
+    marginBottom: 16,
   },
   lightGreyText: {
     color: 'rgba(0, 0, 0, 0.54)',
@@ -107,10 +93,33 @@ const styles = theme => ({
   dataTitle: {
     color: 'rgba(0, 0, 0, 0.87)',
     fontWeight: 500,
-    marginBottom: 16,
   },
   data: {
     color: 'rgba(0, 0, 0, 0.87)',
+  },
+  loaderContainer: {
+    padding: `${theme.spacing.unit * 5}px !important`,
+    textAlign: 'center',
+    width: '100%',
+  },
+  errorContainer: {
+    color: theme.palette.error.main,
+    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px !important`,
+    textAlign: 'center',
+    width: '100%',
+  },
+  errorText: {
+    color: theme.palette.error.main,
+  },
+  noResultsContainer: {
+    border: `1px solid ${theme.palette.custom.lightGrey}`,
+    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    [theme.breakpoints.up('sm')]: {
+      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+    },
+  },
+  noResultsText: {
+    textAlign: 'center',
   },
 });
 
@@ -121,7 +130,7 @@ class Orders extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, loading, error } = this.props;
     const orders = this.props.orders ? this.props.orders.toJS() : null;
     const ordersIdArray = this.props.orders ? Object.keys(orders) : [];
 
@@ -180,7 +189,7 @@ class Orders extends Component {
                     <div className={classes.orderBody}>
                       <div className={classes.productList}>
                         {order.status && (
-                          <Typography variant="h6" className={classes.dataTitle}>
+                          <Typography variant="h6" className={classNames(classes.status, classes.dataTitle)}>
                             {order.status}
                           </Typography>
                         )}
@@ -195,7 +204,7 @@ class Orders extends Component {
                                   {product.name}
                                 </Typography>
                                 <Typography variant="body2" className={classes.data}>
-                                  $990.00 x {product.quantity}
+                                  ${product.price} x {product.quantity}
                                 </Typography>
                               </div>
                             </div>
@@ -230,21 +239,33 @@ class Orders extends Component {
             </React.Fragment>
           ) : (
             <Paper elevation={0} className={classes.noResultsContainer}>
-              <div className={classes.noResultsText}>
-                <Typography variant="subtitle1" gutterBottom>
-                  Aún no has levantado ningún pedido
-                </Typography>
-                <Button 
-                  component={Link}
-                  to="/shop"
-                  aria-label="Go shopping"
-                  variant="contained"
-                  color="primary"
-                  className={classes.goShoppingButton}
-                >
-                  Ver productos
-                </Button>
-              </div>
+              {loading ? (
+                <div className={classes.loaderContainer}>
+                  <CircularProgress className={classes.progress} size={40} />
+                </div>
+              ) : (
+                error ? (
+                  <div className={classes.errorContainer}>
+                    <Typography variant="body2" className={classes.errorText}>{error}</Typography>
+                  </div>
+                ) : (
+                  <div className={classes.noResultsText}>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Aún no has levantado ningún pedido
+                    </Typography>
+                    <Button 
+                      component={Link}
+                      to="/shop"
+                      aria-label="Go shopping"
+                      variant="contained"
+                      color="primary"
+                      className={classes.goShoppingButton}
+                    >
+                      Ver productos
+                    </Button>
+                  </div>
+                )
+              )}
             </Paper>
           )}
       </React.Fragment>
@@ -256,6 +277,8 @@ class Orders extends Component {
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
     orders: state.get('orders').get('orders'),
+    loading: state.get('orders').get('loading'),
+    error: state.get('orders').get('error'),
   };
 };
 
