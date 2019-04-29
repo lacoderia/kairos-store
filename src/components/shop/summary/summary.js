@@ -12,16 +12,6 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
-  root: {
-    height: 'auto',
-  },
-  container: {
-    padding: `${theme.spacing.unit * 4}px 0`,
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing.unit * 6,
-      paddingLeft: 0,
-    },
-  },
   title: {
     fontWeight: 500,
     marginTop: theme.spacing.unit,
@@ -64,78 +54,73 @@ class Summary extends Component {
     const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
     return (
-      <Grid container 
-        justify="center"
-        className={classNames(classes.root, classes.container)}
-      >
-        <Grid item xs={12} xl={9}>
-          <div className={classes.title}>
-            <Typography variant="h5" style={{ display: 'inline-block' }}>
-              Resumen de compra
+      <React.Fragment>
+        <div className={classes.title}>
+          <Typography variant="h5" style={{ display: 'inline-block' }}>
+            Resumen de compra
+          </Typography>
+        </div>
+        <Paper elevation={0} className={classes.paper}>
+          <div className={classes.justifiedText}>
+            <Typography variant="body1" component="span" gutterBottom>Subtotal:</Typography>
+            <Typography variant="body1" component="span">
+              <CurrencyFormat 
+                value={orderTotal} 
+                displayType={'text'} 
+                thousandSeparator={true} 
+                prefix={'$'} 
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
             </Typography>
           </div>
-          <Paper elevation={0} className={classes.paper}>
-            <div className={classes.justifiedText}>
-              <Typography variant="body1" component="span" gutterBottom>Subtotal:</Typography>
-              <Typography variant="body1" component="span">
-                <CurrencyFormat 
-                  value={orderTotal} 
-                  displayType={'text'} 
-                  thousandSeparator={true} 
-                  prefix={'$'} 
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                />
-              </Typography>
-            </div>
-            <div className={classes.justifiedText}>
-              <Typography variant="body1" component="span" gutterBottom>Envío:</Typography>
-              <Typography variant="body1" component="span">
-                <CurrencyFormat 
-                  value={shippingCost} 
-                  displayType={'text'} 
-                  thousandSeparator={true} 
-                  prefix={'$'} 
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                />
-              </Typography>
-            </div>
-            <Divider className={classes.divider}/>
-            <div className={classes.justifiedText}>
-              <Typography variant="h6" component="span">Total a pagar:</Typography>
-              <Typography variant="h6" component="span">
-                <CurrencyFormat 
-                  value={orderTotal + shippingCost} 
-                  displayType={'text'} 
-                  thousandSeparator={true} 
-                  prefix={'$'} 
-                  decimalScale={2}
-                  fixedDecimalScale={true}
-                />
-              </Typography>
-            </div>
-            {showPaymentButton && (
-              <React.Fragment>
-                <div className={classes.buttonContainer}>
-                  <Button 
-                    component={Link}
-                    to="/checkout"
-                    aria-label="Proceed to checkout"
-                    variant="contained" 
-                    color="primary" 
-                    size="large"
-                    disabled={cartProductsTotal == 0}
-                  >
-                    Proceder al pago
-                  </Button>
-                </div>
-              </React.Fragment>
-              
-            )}
-          </Paper>
-        </Grid>
-      </Grid>
+          <div className={classes.justifiedText}>
+            <Typography variant="body1" component="span" gutterBottom>Envío:</Typography>
+            <Typography variant="body1" component="span">
+              <CurrencyFormat 
+                value={shippingCost} 
+                displayType={'text'} 
+                thousandSeparator={true} 
+                prefix={'$'} 
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </Typography>
+          </div>
+          <Divider className={classes.divider}/>
+          <div className={classes.justifiedText}>
+            <Typography variant="h6" component="span">Total a pagar:</Typography>
+            <Typography variant="h6" component="span">
+              <CurrencyFormat 
+                value={orderTotal + shippingCost} 
+                displayType={'text'} 
+                thousandSeparator={true} 
+                prefix={'$'} 
+                decimalScale={2}
+                fixedDecimalScale={true}
+              />
+            </Typography>
+          </div>
+          {showPaymentButton && (
+            <React.Fragment>
+              <div className={classes.buttonContainer}>
+                <Button 
+                  component={Link}
+                  to="/checkout"
+                  aria-label="Proceed to checkout"
+                  variant="contained" 
+                  color="primary" 
+                  size="large"
+                  disabled={cartProductsTotal == 0}
+                >
+                  Proceder al pago
+                </Button>
+              </div>
+            </React.Fragment>
+            
+          )}
+        </Paper>
+      </React.Fragment>
     )
   }
 }

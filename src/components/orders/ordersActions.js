@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { arrayToHash } from '../../common/commonFunctions';
 import { IMAGE_URL_ROOT } from '../../common/constants';
 
 export const GET_ORDERS_FETCH = 'GET_ORDERS_FETCH';

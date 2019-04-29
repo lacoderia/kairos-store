@@ -37,19 +37,20 @@ export function login(values) {
       });
     })
     .catch(e => {
-      const error = e.response.data.errors[0];
-      if (error.id == "unconfirmed_email"){
+      const error = (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0] : undefined;
+      const errorText = error ? error.title : 'No se pudo iniciar tu sesión. Intenta nuevamente.';
+
+      if (error && error.id == "unconfirmed_email"){
         dispatch({ 
           type: LOGIN_CONFIRMATION_ERROR, 
-          payload: e.response.data.errors[0].title
+          payload: errorText
         });
       } else {
         dispatch({ 
           type: LOGIN_ERROR, 
-          payload: e.response.data.errors[0].title
+          payload: errorText
         });
       }
-      
     })
   }
 }
@@ -70,7 +71,7 @@ export function resendConfirmationEmail(email) {
     .catch(e => {
       dispatch({ 
         type: RESEND_CONFIRMATION_EMAIL_ERROR, 
-        payload: 'Hubo un error al reenviar el correo. Por favor intenta nuevamente.'
+        payload: 'Ocurrió un error al reenviar el correo. Por favor intenta nuevamente.'
       });
     });
   }
@@ -93,7 +94,7 @@ export function register(values) {
     .catch(e => {
       dispatch({ 
         type: REGISTER_ERROR, 
-        payload: e.response.data.errors[0].title
+        payload: e.response ? e.response.data.errors[0].title : 'Ocurrió un error al crear tu cuenta. Intenta nuevamente.',
       });
     });
   }
@@ -115,7 +116,7 @@ export function confirmRegistration(token) {
     .catch(e => {
       dispatch({ 
         type: CONFIRM_REGISTRATION_ERROR, 
-        payload: e.response.data.errors[0].title
+        payload: e.response ? e.response.data.errors[0].title : 'Ocurrió un error al confirmar tu cuenta. Intenta nuevamente.',
       });
     });
   }
@@ -136,7 +137,7 @@ export function recoverPassword(values) {
     .catch(e => {
       dispatch({ 
         type: PASSWORD_RECOVERY_ERROR, 
-        payload: e.response.data.errors[0].title
+        payload: e.response ? e.response.data.errors[0].title : 'Ocurrió un error al enviar el correo. Intenta nuevamente.',
       });
     })
   }
@@ -155,8 +156,9 @@ export function resetPassword(values, token) {
       });
     })
     .catch(e => {
-      const error = e.response.data.errors[0];
-      const errorText = (error.id == 'reset_password_token' ? 'El token es inválido' : e.response.data.errors[0].title)
+      const error = e.response ? e.response.data.errors[0] : undefined;
+      const errorText = error ? (error.id == 'reset_password_token' ? 'El token es inválido' : error.title) : 'Ocurrió un error al actualizar tu contraseña. Intenta nuevamente.';
+
       dispatch({ 
         type: PASSWORD_RESET_ERROR, 
         payload: errorText
@@ -203,6 +205,7 @@ export function getCurrentSession() {
 
 const sessionActions = {
   login,
+  resendConfirmationEmail,
   register,
   confirmRegistration,
   recoverPassword,

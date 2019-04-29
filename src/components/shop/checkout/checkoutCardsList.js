@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -11,14 +11,11 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
-
-import { changeSelectedCard } from './checkoutActions';
 import { Button } from '@material-ui/core';
 
+import { changeSelectedCard } from './checkoutActions';
+
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   flex: {
     flex: 1,
   },
@@ -43,7 +40,7 @@ const styles = theme => ({
   },
 });
 
-class CheckoutCardsList extends React.Component {
+class CheckoutCardsList extends Component {
 
   handleSelectedCard = (id) => {
     this.props.changeSelectedCard(id);
@@ -51,14 +48,14 @@ class CheckoutCardsList extends React.Component {
   };
 
   render() {
-    const { classes, handleClose, formError } = this.props;
+    const { classes, handleClose } = this.props;
 
     const cards = this.props.cards ? this.props.cards.toJS() : null;
     const cardsIdArray = this.props.cards ? Object.keys(cards) : null;
 
     return (
       <React.Fragment>
-        <AppBar className={classes.appBar}>
+        <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
               <CloseIcon />
@@ -80,10 +77,10 @@ class CheckoutCardsList extends React.Component {
                         <Typography variant="body2">
                           <span className={classes.capitalize}>{card.brand}</span> terminada en {card.cardNumber.slice(-4)} 
                         </Typography>
-                        <Typography variant="body2" className={classes.data}>
+                        <Typography variant="body2">
                           {card.name}
                         </Typography>
-                        <Typography variant="body2" className={classes.data}>
+                        <Typography variant="body2">
                           Vencimiento: {card.expiration}
                         </Typography>
                       </div>
@@ -113,7 +110,6 @@ class CheckoutCardsList extends React.Component {
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
-    formError: state.get('checkout').get('error'),
     cards: state.get('checkout').get('cards'),
   };
 };

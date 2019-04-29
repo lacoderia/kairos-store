@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { toggleMenu } from './navigationActions';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -10,12 +10,10 @@ import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
-import LinkButton from '../common/linkButton';
-import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -71,7 +69,7 @@ class Navigation extends Component {
 
     return (
       <AppBar 
-        position="relative" 
+        position="relative"
         elevation={0}
         className={classes.root}
       >
@@ -108,15 +106,15 @@ class Navigation extends Component {
                   <Typography variant="h6" className={classes.cartText}>{cartProductsTotal}</Typography>
                 </Button>
               ) : (
-                <LinkButton to="/login">
-                  <Button 
-                    variant="contained" 
-                    color="primary"
-                    className={classes.actionButton}
-                  >
-                    Iniciar sesión
-                  </Button>
-                </LinkButton>
+                <Button 
+                  component={Link}
+                  to="/login"
+                  variant="contained" 
+                  color="primary"
+                  className={classes.actionButton}
+                >
+                  Iniciar sesión
+                </Button>
               )}
             </Toolbar>
           </Grid>

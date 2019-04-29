@@ -7,14 +7,13 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ListWrapper from '../common/listWrapper';
-import CustomDialog from '../common/customDialog';
+import DialogWrapper from '../common/dialogWrapper';
 import EditAddressForm from './editAddressForm';
 import AddAddressForm from './addAddressForm';
 import DeleteAddress from './deleteAddress';
-import { getAddresses, openDialog, closeDialog } from './addressActions';
+import { getAddresses, openDialog, closeDialog, exitDialog } from './addressActions';
 import { dialogs } from './addressConstants';
 
 const styles = theme => ({
@@ -25,16 +24,13 @@ const styles = theme => ({
       padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
     },
   },
-  paperTitleContainer: {
+  titleContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center'
   },
-  paperTitle: {
+  title: {
     marginBottom: theme.spacing.unit * 3,
-  },
-  loaderContainer: {
-    textAlign: 'center',
   },
   dataContainer: {
     display: 'flex',
@@ -65,12 +61,16 @@ const styles = theme => ({
 
 class Addresses extends Component {
 
+  handleDialogOpen = (dialog, id) => {
+    this.props.openDialog(dialog, id);
+  }
+
   handleDialogClose = () => {
     this.props.closeDialog();
   }
 
-  handleDialogOpen = (dialog, id) => {
-    this.props.openDialog(dialog, id);
+  handleDialogExited = () => {
+    this.props.exitDialog();
   }
 
   componentDidMount() {
@@ -78,15 +78,15 @@ class Addresses extends Component {
   }
 
   render() {    
-    const { classes, loading, error, dialogLoading, dialog, open } = this.props;
+    const { classes, loading, error, dialog, dialogLoading, open } = this.props;
 
     const addresses = this.props.addresses ? this.props.addresses.toJS() : null;
     const addressesIdArray = this.props.addresses ? Object.keys(addresses) : null;
 
     return (
       <Paper elevation={0} className={classes.paper}>
-        <div className={classes.paperTitleContainer}>
-          <Typography variant="h6" className={classes.paperTitle}>
+        <div className={classes.titleContainer}>
+          <Typography variant="h6" className={classes.title}>
             Direcciones
           </Typography>
         </div> 
@@ -144,10 +144,11 @@ class Addresses extends Component {
             })
           }
         </ListWrapper>
-        <CustomDialog 
+        <DialogWrapper 
           loading={dialogLoading} 
           open={open} 
           handleClose={this.handleDialogClose} 
+          handleExited={this.handleDialogExited}
           disableFullScreen={dialog == dialogs.DELETE_ADDRESS_DIALOG}>
           {{
             [dialogs.ADD_ADDRESS_DIALOG]: (
@@ -160,7 +161,7 @@ class Addresses extends Component {
               <DeleteAddress handleClose={this.handleDialogClose} />
             ),
           }[dialog]}
-        </CustomDialog>
+        </DialogWrapper>
         <div className={classes.addAddressContainer}>
           <Button
             size="small"
@@ -179,8 +180,8 @@ const mapStateToProps = function mapStateToProps(state, props) {
   return {
     loading: state.get('address').get('getAddressesLoading'),
     error: state.get('address').get('getAddressesError'),
-    dialogLoading: state.get('address').get('dialogLoading'),
     dialog: state.get('address').get('dialog'),
+    dialogLoading: state.get('address').get('dialogLoading'),
     open: state.get('address').get('openDialog'),
     addresses: state.get('address').get('addresses'),
   };
@@ -191,6 +192,7 @@ function mapDispatchToProps(dispatch) {
     bindActionCreators({ getAddresses }, dispatch),
     bindActionCreators({ openDialog }, dispatch),
     bindActionCreators({ closeDialog }, dispatch),
+    bindActionCreators({ exitDialog }, dispatch),
   );
 }
 

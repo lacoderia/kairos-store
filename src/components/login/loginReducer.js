@@ -11,7 +11,6 @@ import {
 } from '../../http/sessionActions';
 import {
   LOGIN_VIEW_CHANGE,
-  RESET_LOGIN_ERROR,
 } from './loginActions';
 
 const initialState = fromJS({
@@ -26,44 +25,43 @@ function loginReducer(state = initialState, action) {
     case LOGIN_FETCH: 
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case LOGIN_SUCCESS: 
       return state.set('loading', false)
     case LOGIN_ERROR: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case LOGIN_CONFIRMATION_ERROR: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.CONFIRM_EMAIL_ERROR_VIEW,
         title: 'Confirma tu correo electrónico',
       })
     case RESEND_CONFIRMATION_EMAIL_FETCH:
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case RESEND_CONFIRMATION_EMAIL_SUCCESS:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.CONFIRM_EMAIL_INTRUCTIONS_VIEW,
         title: 'Correo enviado',
       })
     case RESEND_CONFIRMATION_EMAIL_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case LOGIN_VIEW_CHANGE:
       return state.merge({
         view: action.payload.view,
         title: action.payload.title,
+        error: initialState.get('error'),
       })
-    case RESET_LOGIN_ERROR:
-      return state.set('error', '')
     default:
       return state;
   }

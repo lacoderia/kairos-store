@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
@@ -19,9 +19,6 @@ import { addCard } from './cardsActions';
 import { maxLength } from '../../common/normalize';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   flex: {
     flex: 1,
   },
@@ -43,12 +40,6 @@ const styles = theme => ({
   cvvHelper: {
     height: 30,
   },
-  selectfield: {
-    textAlign: 'start',
-    '&:focus': {
-      background: 'transparent',
-    },
-  },
   error: {
     color: theme.palette.error.main,
     marginTop: theme.spacing.unit * 3,
@@ -59,13 +50,13 @@ const styles = theme => ({
 const validate = (values, props) => {
   const errors = {}
   if (!values.get('name')) {
-    errors.name = 'Ingrese el nombre del titular de la tarjeta';
+    errors.name = 'Ingresa el nombre del titular de la tarjeta';
   }
   if (!values.get('cardNumber') || values.get('cardNumber').toString().length < 15 || values.get('cardNumber').toString().length > 16) {
-    errors.cardNumber = 'Verifica el número de tu tarjeta';
+    errors.cardNumber = 'Verifica el número de la tarjeta';
   }
   if (!values.get('validThrough') || values.get('validThrough').toString().length != 4) {
-    errors.validThrough = 'Ingrese una fecha válida';
+    errors.validThrough = 'Ingresa una fecha válida';
   }
   if (!values.get('cvv') || values.get('cvv').toString().length < 3 || values.get('cvv').toString().length > 4) {
     errors.cvv = 'Verifica el código de seguridad';
@@ -76,12 +67,6 @@ const validate = (values, props) => {
 const form = {
   form: 'addCard',
   validate,
-  // initialValues: {
-  //   name: 'Ricardo Rosas Schultz',
-  //   cardNumber: '4111111111111111',
-  //   validThrough: '1119',
-  //   cvv: '123',
-  // }
 }
 
 const cardNumberMask = createTextMask({
@@ -94,7 +79,7 @@ const validThroughMask = createTextMask({
   guide: false,
 });
 
-class AddCardForm extends React.Component {
+class AddCardForm extends Component {
 
   handleSubmit = (values) => {
     this.props.addCard(values);
@@ -105,7 +90,7 @@ class AddCardForm extends React.Component {
 
     return (
       <Form onSubmit={handleSubmit(this.handleSubmit)}>
-        <AppBar className={classes.appBar}>
+        <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
               <CloseIcon />

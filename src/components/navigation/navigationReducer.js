@@ -5,7 +5,7 @@ const initialState = fromJS({
   mobileOpen: false
 })
 
-function loginViewReducer(state = initialState, action) {
+function navigationReducer(state = initialState, action) {
   switch(action.type){
     case TOGGLE_MENU: 
       return state.set('mobileOpen', !state.get('mobileOpen')) 
@@ -14,4 +14,4 @@ function loginViewReducer(state = initialState, action) {
   }
 }
 
-export default loginViewReducer;
+export default navigationReducer;

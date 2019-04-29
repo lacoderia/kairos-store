@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Link } from 'react-router-dom';
+import { CONTACT_EMAIL } from '../../common/constants';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import RecoverPasswordForm from './recoverPasswordForm';
 import ResetPasswordForm from './resetPasswordForm';
-import LinkButton from '../common/linkButton';
+import LoaderOverlay from '../common/loaderOverlay';
 
 import { recoverPassword, resetPassword } from '../../http/sessionActions';
 import { changeView } from '../../components/forgot/forgotActions';
@@ -18,18 +20,19 @@ import views from './forgotConstants';
 
 const styles = theme => ({
   mainContainer: {
-    margin: theme.spacing.unit * 6 + 'px 0',
+    margin: theme.spacing.unit * 4 + 'px 0',
     zIndex: 1,
   },
   title: {
     color: theme.palette.custom.lightGrey,
-    marginBottom: theme.spacing.unit * 6,
-    fontWeight: 400,
+    marginBottom: theme.spacing.unit * 4,
+    fontWeight: 500,
   },
   formContainer: {
     backgroundColor: theme.palette.custom.white,
     borderRadius: 4,
     color: theme.palette.text.secondary,
+    position: 'relative',
     padding: theme.spacing.unit * 6 + 'px 15%',
     textAlign: 'center',
   },
@@ -77,33 +80,34 @@ class ForgotContainer extends Component {
   }
 
   render() {
-    const { classes, view, title } = this.props;
+    const { classes, loading, view, title } = this.props;
 
     return(
       <Grid container justify="center">
-        <Grid item xs={10} sm={7} md={4} className={classes.mainContainer}>
+        <Grid item xs={12} sm={8} md={5} lg={4} className={classes.mainContainer}>
           <Typography variant="h6" align="center" className={classes.title}>
             {title}
           </Typography>
           <div className={classes.formContainer}>
+            <LoaderOverlay loading={loading} />
             {{
               [views.RECOVER_PASSWORD_FORM_VIEW]: (
                 <RecoverPasswordForm onSubmit={this.handleRecoverPassword} />
               ),
               [views.RECOVER_PASSWORD_INSTRUCTIONS_VIEW]: (
                 <React.Fragment>
-                  <Typography variant="body1" align="left">
+                  <Typography variant="body2" align="left">
                     Hemos enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para poder actualizar tu contraseña.
                   </Typography>
                   <div className={classes.buttonContainer}>
-                    <LinkButton to="/login">
-                      <Button 
-                        variant="contained" 
-                        color="primary"
-                      >
-                        Continuar
-                      </Button>
-                    </LinkButton>
+                    <Button 
+                      component={Link}
+                      to="/login"
+                      variant="contained" 
+                      color="primary"
+                    >
+                      Continuar
+                    </Button>
                   </div>
                 </React.Fragment>
               ),
@@ -112,18 +116,18 @@ class ForgotContainer extends Component {
               ),
               [views.RESET_PASSWORD_INSTRUCTIONS_VIEW]: (
                 <React.Fragment>
-                  <Typography variant="body1" align="left">
+                  <Typography variant="body2" align="left">
                     ¡Tu contraseña ha sido actualizada! Ya puedes iniciar sesión con tu nueva contraseña.
                   </Typography>
                   <div className={classes.buttonContainer}>
-                    <LinkButton to="/login">
-                      <Button 
-                        variant="contained" 
-                        color="primary"
-                      >
-                        Continuar
-                      </Button>
-                    </LinkButton>
+                    <Button 
+                      component={Link}
+                      to="/login"
+                      variant="contained" 
+                      color="primary"
+                    >
+                      Continuar
+                    </Button>
                   </div>
                 </React.Fragment>
               ),
@@ -131,8 +135,8 @@ class ForgotContainer extends Component {
           </div>
           <div className={classes.footerContainer}>
             { (view == views.RECOVER_PASSWORD_FORM_VIEW || view == views.RECOVER_PASSWORD_FORM_VIEW) && (
-              <Typography variant="body2" align="right">
-                <a href="mailto:soporte@futuranetwork.com" className={classes.footerLink}>Ayuda</a>
+              <Typography variant="subtitle2" align="right">
+                <a href={'mailto:' + CONTACT_EMAIL} className={classes.footerLink}>Ayuda</a>
               </Typography>
             )}
           </div>
@@ -144,6 +148,7 @@ class ForgotContainer extends Component {
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
+    loading: state.get('forgot').get('loading'),
     view: state.get('forgot').get('view'),
     title: state.get('forgot').get('title'),
   };

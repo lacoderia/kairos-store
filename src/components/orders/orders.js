@@ -139,135 +139,135 @@ class Orders extends Component {
         <Typography variant="h5" className={classes.title}>
           Pedidos
         </Typography>
-          { ordersIdArray.length > 0 ? (
-            <React.Fragment>
-              {ordersIdArray && ordersIdArray.map(id => {
-                const order = orders[id];
+        { ordersIdArray.length > 0 ? (
+          <React.Fragment>
+            {ordersIdArray && ordersIdArray.map(id => {
+              const order = orders[id];
 
-                return(
-                  <div className={classes.order} key={order.id}>
-                    <div className={classes.orderHeader}>
+              return(
+                <div className={classes.order} key={order.id}>
+                  <div className={classes.orderHeader}>
+                    <div>
+                      <Typography variant="body1" className={classes.lightGreyText} gutterBottom>
+                        Pedido no. {order.number}
+                      </Typography>
+                    </div>
+                    <div className={classes.orderSubheader}>
                       <div>
-                        <Typography variant="body1" className={classes.lightGreyText} gutterBottom>
-                          Pedido no. {order.number}
+                        <Typography variant="body1" className={classes.dataTitle}>
+                          Realizado el:
+                        </Typography>
+                        <Typography variant="body1" className={classes.data}>
+                          <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
                         </Typography>
                       </div>
-                      <div className={classes.orderSubheader}>
-                        <div>
-                          <Typography variant="body1" className={classes.dataTitle}>
-                            Realizado el:
-                          </Typography>
-                          <Typography variant="body1" className={classes.data}>
-                            <Moment format="DD/MM/YYYY">{order.createdAt}</Moment>
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography variant="body1" className={classes.dataTitle}>
-                            VP:
-                          </Typography>
-                          <Typography variant="body1" className={classes.data}>
-                            {order.volume}
-                          </Typography>
-                        </div>
-                        <div>
-                          <Typography variant="body1" className={classes.dataTitle}>
-                            Total:
-                          </Typography>
-                          <Typography variant="body1" className={classes.data}>
-                            <CurrencyFormat 
-                              value={order.total} 
-                              displayType={'text'} 
-                              thousandSeparator={true} 
-                              prefix={'$'} 
-                              decimalScale={2}
-                              fixedDecimalScale={true}
-                            />
-                          </Typography>
-                        </div>
+                      <div>
+                        <Typography variant="body1" className={classes.dataTitle}>
+                          VP:
+                        </Typography>
+                        <Typography variant="body1" className={classes.data}>
+                          {order.volume}
+                        </Typography>
                       </div>
-                    </div>
-                    <div className={classes.orderBody}>
-                      <div className={classes.productList}>
-                        {order.status && (
-                          <Typography variant="h6" className={classNames(classes.status, classes.dataTitle)}>
-                            {order.status}
-                          </Typography>
-                        )}
-                        {order.products && order.products.map(product => {
-                          return(
-                            <div key={product.id} className={classes.productContainer}>
-                              <div className={classes.pictureContainer}>
-                                <img src={product.picture} className={classes.picture}></img>
-                              </div>
-                              <div className={classes.productInfo}>
-                                <Typography variant="body1">
-                                  {product.name}
-                                </Typography>
-                                <Typography variant="body2" className={classes.data}>
-                                  ${product.price} x {product.quantity}
-                                </Typography>
-                              </div>
-                            </div>
-                          )
-                        })}
+                      <div>
+                        <Typography variant="body1" className={classes.dataTitle}>
+                          Total:
+                        </Typography>
+                        <Typography variant="body1" className={classes.data}>
+                          <CurrencyFormat 
+                            value={order.total} 
+                            displayType={'text'} 
+                            thousandSeparator={true} 
+                            prefix={'$'} 
+                            decimalScale={2}
+                            fixedDecimalScale={true}
+                          />
+                        </Typography>
                       </div>
-                      {order.shippingAddress && (
-                        <div className={classes.orderSidebar}>
-                          <div className={classNames(classes.flex, classes.lightGreyText)}>
-                            <Typography variant="body1" className={classes.dataTitle}>
-                              Dirección de entrega
-                            </Typography>
-                            <Typography variant="body1" color="inherit">
-                              {order.shippingAddress.address}
-                            </Typography>
-                            <Typography variant="body1" color="inherit">
-                              {order.shippingAddress.city}, {order.shippingAddress.state}
-                            </Typography>
-                            <Typography variant="body1" color="inherit">
-                              {order.shippingAddress.zip}
-                            </Typography>
-                            <Typography variant="body1" color="inherit">
-                              {order.shippingAddress.country}
-                            </Typography>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
-                )
-              })}
-            </React.Fragment>
-          ) : (
-            <Paper elevation={0} className={classes.noResultsContainer}>
-              {loading ? (
-                <div className={classes.loaderContainer}>
-                  <CircularProgress className={classes.progress} size={40} />
+                  <div className={classes.orderBody}>
+                    <div className={classes.productList}>
+                      {order.status && (
+                        <Typography variant="h6" className={classNames(classes.status, classes.dataTitle)}>
+                          {order.status}
+                        </Typography>
+                      )}
+                      {order.products && order.products.map(product => {
+                        return(
+                          <div key={product.id} className={classes.productContainer}>
+                            <div className={classes.pictureContainer}>
+                              <img src={product.picture} className={classes.picture}></img>
+                            </div>
+                            <div className={classes.productInfo}>
+                              <Typography variant="body1">
+                                {product.name}
+                              </Typography>
+                              <Typography variant="body2" className={classes.data}>
+                                ${product.price} x {product.quantity}
+                              </Typography>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                    {order.shippingAddress && (
+                      <div className={classes.orderSidebar}>
+                        <div className={classNames(classes.flex, classes.lightGreyText)}>
+                          <Typography variant="body1" className={classes.dataTitle}>
+                            Dirección de entrega
+                          </Typography>
+                          <Typography variant="body1" color="inherit">
+                            {order.shippingAddress.address}
+                          </Typography>
+                          <Typography variant="body1" color="inherit">
+                            {order.shippingAddress.city}, {order.shippingAddress.state}
+                          </Typography>
+                          <Typography variant="body1" color="inherit">
+                            {order.shippingAddress.zip}
+                          </Typography>
+                          <Typography variant="body1" color="inherit">
+                            {order.shippingAddress.country}
+                          </Typography>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )
+            })}
+          </React.Fragment>
+        ) : (
+          <Paper elevation={0} className={classes.noResultsContainer}>
+            {loading ? (
+              <div className={classes.loaderContainer}>
+                <CircularProgress size={40} />
+              </div>
+            ) : (
+              error ? (
+                <div className={classes.errorContainer}>
+                  <Typography variant="body2" className={classes.errorText}>{error}</Typography>
                 </div>
               ) : (
-                error ? (
-                  <div className={classes.errorContainer}>
-                    <Typography variant="body2" className={classes.errorText}>{error}</Typography>
-                  </div>
-                ) : (
-                  <div className={classes.noResultsText}>
-                    <Typography variant="subtitle1" gutterBottom>
-                      Aún no has levantado ningún pedido
-                    </Typography>
-                    <Button 
-                      component={Link}
-                      to="/shop"
-                      aria-label="Go shopping"
-                      variant="contained"
-                      color="primary"
-                      className={classes.goShoppingButton}
-                    >
-                      Ver productos
-                    </Button>
-                  </div>
-                )
-              )}
-            </Paper>
-          )}
+                <div className={classes.noResultsText}>
+                  <Typography variant="subtitle1" gutterBottom>
+                    Aún no has levantado ningún pedido
+                  </Typography>
+                  <Button 
+                    component={Link}
+                    to="/shop"
+                    aria-label="Go shopping"
+                    variant="contained"
+                    color="primary"
+                    className={classes.goShoppingButton}
+                  >
+                    Ver productos
+                  </Button>
+                </div>
+              )
+            )}
+          </Paper>
+        )}
       </React.Fragment>
     )
   }

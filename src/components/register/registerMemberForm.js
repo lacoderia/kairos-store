@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
-import LoaderButton from '../common/loaderButton';
 
 const validate = values => {
   const errors = {}
@@ -44,7 +42,7 @@ const form = {
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
     textAlign: 'left'
   },
   buttonContainer: {
@@ -57,10 +55,10 @@ const styles = theme => ({
 class RegisterMemberForm extends Component {
 
   render() {
-    const { classes, handleSubmit, loading, formError } = this.props;
+    const { classes, handleSubmit, formError } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
           <Field
             name="externalId"
@@ -68,6 +66,7 @@ class RegisterMemberForm extends Component {
             label="ID Omein *"
             margin="dense"
             autoFocus={true}
+            helperText=" "
           />
         </div>
         <div>
@@ -76,6 +75,7 @@ class RegisterMemberForm extends Component {
             component={TextField}
             label="ID Omein de patrocinio *"
             margin="dense"
+            helperText=" "
           />
         </div>
         <div>
@@ -84,6 +84,7 @@ class RegisterMemberForm extends Component {
             component={TextField}
             label="ID Omein de colocación *"
             margin="dense"
+            helperText=" "
           />
         </div>
         <div>
@@ -92,6 +93,7 @@ class RegisterMemberForm extends Component {
             component={TextField}
             label="ID Iuvare *"
             margin="dense"
+            helperText=" "
           />
         </div>
         <div>
@@ -100,24 +102,22 @@ class RegisterMemberForm extends Component {
             component={TextField}
             label="Número de registro *"
             margin="dense"
+            helperText=" "
           />
         </div>
-        <Typography variant="body1" className={classes.error}>
+        <Typography variant="body2" className={classes.error}>
           {formError}
         </Typography>
         <div className={classes.buttonContainer}>
-          <LoaderButton loading={loading}>
-            <Button 
-              type="submit" 
-              variant="contained" 
-              color="primary"
-              disabled={loading}
-            >
-              Crear cuenta
-            </Button>
-          </LoaderButton>
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+          >
+            Crear cuenta
+          </Button>
         </div>
-      </form>
+      </Form>
     )
   }
 }

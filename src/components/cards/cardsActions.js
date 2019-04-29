@@ -16,6 +16,7 @@ export const SET_PRIMARY_CARD_SUCCESS = 'SET_PRIMARY_CARD_SUCCESS';
 export const SET_PRIMARY_CARD_ERROR = 'SET_PRIMARY_CARD_ERROR';
 export const OPEN_CARDS_DIALOG = 'OPEN_CARDS_DIALOG';
 export const CLOSE_CARDS_DIALOG = 'CLOSE_CARDS_DIALOG';
+export const EXIT_CARDS_DIALOG = 'EXIT_CARDS_DIALOG';
 
 function toJSObject(item) {
   return {
@@ -185,6 +186,14 @@ export function closeDialog() {
   }
 }
 
+export function exitDialog() {
+  return (dispatch) => {
+    dispatch({ 
+      type: EXIT_CARDS_DIALOG,
+    });
+  }
+}
+
 const cardsActions = {
   getCards,
   addCard,
@@ -192,6 +201,7 @@ const cardsActions = {
   setPrimaryCard,
   openDialog,
   closeDialog,
+  exitDialog,
 };
 
 export default cardsActions;

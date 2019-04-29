@@ -1,7 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { withStyles } from '@material-ui/core/styles';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
@@ -27,10 +25,22 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class CustomDialog extends React.Component {
+class DialogWrapper extends Component {
+
+  onClose = () => {
+    if(this.props.handleClose) {
+      this.props.handleClose();
+    }
+  }
+
+  onExited = () => {
+    if(this.props.handleExited) {
+      this.props.handleExited();
+    }
+  }
 
   render() {
-    const { classes, loading, open, handleClose, fullScreen } = this.props;
+    const { classes, loading, open, fullScreen } = this.props;
     const disableFullScreen = this.props.disableFullScreen || false;
     const disableBackdropClick = this.props.disableBackdropClick || false;
 
@@ -38,7 +48,8 @@ class CustomDialog extends React.Component {
       <Dialog
         fullScreen={disableFullScreen ? false : fullScreen}
         open={open}
-        onClose={handleClose}
+        onClose={this.onClose}
+        onExited={this.onExited}
         TransitionComponent={Transition}
         disableRestoreFocus={true}
         disableBackdropClick={disableBackdropClick}
@@ -54,19 +65,8 @@ class CustomDialog extends React.Component {
   }
 }
 
-CustomDialog.propTypes = {
+DialogWrapper.propTypes = {
   fullScreen: PropTypes.bool.isRequired,
 };
-
-const mapStateToProps = function mapStateToProps(state, props) {
-  return {};
-};
-
-function mapDispatchToProps(dispatch) {
-  return {};
-}
  
-export default withStyles(styles)(withMobileDialog()(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CustomDialog)));
+export default withStyles(styles)(withMobileDialog()(DialogWrapper));
