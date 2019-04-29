@@ -14,6 +14,7 @@ import {
   SET_PRIMARY_CARD_ERROR,
   OPEN_CARDS_DIALOG,
   CLOSE_CARDS_DIALOG,
+  EXIT_CARDS_DIALOG,
 } from './cardsActions';
 
 const initialState = fromJS({
@@ -32,46 +33,47 @@ function cardsReducer(state = initialState, action) {
     case GET_CARDS_FETCH:
       return state.merge({
         getCardsLoading: true,
-        getCardsError: '',
+        getCardsError: initialState.get('getCardsError'),
+        cards: initialState.get('cards'),
       })
     case GET_CARDS_SUCCESS:
       return state.merge({
-        getCardsLoading: false,
+        getCardsLoading: initialState.get('getCardsLoading'),
         cards: fromJS(action.payload)
       })
     case GET_CARDS_ERROR:
       return state.merge({
-        getCardsLoading: false,
+        getCardsLoading: initialState.get('getCardsLoading'),
         getCardsError: action.payload,
       })
     case ADD_CARD_FETCH:
       return state.merge({
         dialogLoading: true,
-        dialogError: '',
+        dialogError: initialState.get('dialogError'),
       })
     case ADD_CARD_SUCCESS:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         cards: state.get('cards').set(action.payload.id.toString(), fromJS(action.payload)),
       })
     case ADD_CARD_ERROR:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         dialogError: action.payload,
       })
     case DELETE_CARD_FETCH:
       return state.merge({
         dialogLoading: true,
-        dialogError: '',
+        dialogError: initialState.get('dialogError'),
       })
     case DELETE_CARD_SUCCESS:
       return state.merge({
-        dialogLoading: true,
+        dialogLoading: initialState.get('dialogLoading'),
         cards: fromJS(action.payload)
       })
     case DELETE_CARD_ERROR:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         dialogError: action.payload,
       })
     case SET_PRIMARY_CARD_SUCCESS:
@@ -93,6 +95,11 @@ function cardsReducer(state = initialState, action) {
         openDialog: initialState.get('openDialog'),
         selectedCardId: initialState.get('selectedCardId'),
       })
+    case EXIT_CARDS_DIALOG: {
+      return state.merge({
+        dialog: initialState.get('dialog'),
+      })
+    }
     default:
       return state;
   }

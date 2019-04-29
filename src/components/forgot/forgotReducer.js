@@ -10,7 +10,6 @@ import {
 } from '../../http/sessionActions';
 import {
   FORGOT_VIEW_CHANGE,
-  RESET_FORGOT_ERROR,
 } from './forgotActions';
 
 const initialState = fromJS({
@@ -25,42 +24,41 @@ function forgotReducer(state = initialState, action) {
     case PASSWORD_RECOVERY_FETCH: 
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case PASSWORD_RECOVERY_SUCCESS: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.RECOVER_PASSWORD_INSTRUCTIONS_VIEW,
         title: 'Correo enviado',
       })
     case PASSWORD_RECOVERY_ERROR: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case PASSWORD_RESET_FETCH: 
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case PASSWORD_RESET_SUCCESS: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.RESET_PASSWORD_INSTRUCTIONS_VIEW,
         title: 'Contraseña actualizada',
       })
     case PASSWORD_RESET_ERROR: 
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case FORGOT_VIEW_CHANGE:
       return state.merge({
         view: action.payload.view,
         title: action.payload.title,
+        error: initialState.get('error'),
       })
-    case RESET_FORGOT_ERROR:
-      return state.set('error', '')
     default:
       return state;
   }

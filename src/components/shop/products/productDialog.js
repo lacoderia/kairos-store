@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,17 +22,6 @@ import { Typography } from '@material-ui/core';
 const styles = theme => ({
   flex: {
     flex: 1,
-  },
-  overlay: {
-    background: '#fafafa',
-    bottom: 0,
-    left: 0,
-    opacity: '0.5',
-    outline: 'none',
-    position: 'absolute',
-    top: 0,
-    width: '100%',
-    zIndex: theme.zIndex.appBar + 1,
   },
   closeButton: {
     position: 'absolute',
@@ -83,7 +72,7 @@ function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
-class ProductDialog extends React.Component {
+class ProductDialog extends Component {
 
   handleClose = () => {
     this.props.closeProductDialog();
@@ -107,7 +96,7 @@ class ProductDialog extends React.Component {
   }
 
   render() {
-    const { classes, loading, open, fullScreen } = this.props;
+    const { classes, open, fullScreen } = this.props;
     const product = this.props.product ? this.props.product.toJS() : undefined;
 
     return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -27,7 +27,7 @@ const styles = theme => ({
   }
 });
 
-class DeleteCard extends React.Component {
+class DeleteCard extends Component {
 
   handleDelete = () => {
     this.props.deleteCard(this.props.selectedCardId);

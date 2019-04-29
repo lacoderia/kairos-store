@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form/immutable';
+import { reduxForm, Form } from 'redux-form/immutable';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import PasswordField from '../common/passwordField';
-import LoaderButton from '../common/loaderButton';
 
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
     textAlign: 'left'
   },
   buttonContainer: {
@@ -40,12 +39,12 @@ const form = {
 class ResetPasswordForm extends Component {
 
   render() {
-    const { classes, handleSubmit, loading, formError } = this.props;
+    const { classes, handleSubmit, formError } = this.props;
 
     return(
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
-          <Typography variant="body1" align="left">
+          <Typography variant="body2" align="left">
             Introduce la nueva contraseña que deseas usar para iniciar sesión
           </Typography>
         </div>
@@ -54,32 +53,29 @@ class ResetPasswordForm extends Component {
             name="password"
             label="Contraseña"
             margin="normal"
+            helperText=" "
             autoFocus={true}
           />
         </div>
-        <Typography variant="body1" className={classes.error}>
+        <Typography variant="body2" className={classes.error}>
           {formError}
         </Typography>
         <div className={classes.buttonContainer}>
-          <LoaderButton loading={loading}>
-            <Button 
-              type="submit" 
-              variant="contained" 
-              color="primary"
-              disabled={loading}
-            >
-              Actualizar contraseña
-            </Button>
-          </LoaderButton>
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+          >
+            Actualizar contraseña
+          </Button>
         </div>
-      </form>
+      </Form>
     )
   }
 }
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
-    loading: state.get('forgot').get('loading'),
     formError: state.get('forgot').get('error'),
   };
 };

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -17,9 +17,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { updateAddress } from './addressActions';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   flex: {
     flex: 1,
   },
@@ -77,7 +74,7 @@ const form = {
   validate
 }
 
-class EditAddress extends React.Component {
+class EditAddress extends Component {
 
   handleSubmit = (values) => {
     this.props.updateAddress(values);
@@ -87,8 +84,8 @@ class EditAddress extends React.Component {
     const { classes, handleClose, handleSubmit, formError } = this.props;
 
     return (
-      <form onSubmit={handleSubmit(this.handleSubmit)} className={classes.form}>
-        <AppBar className={classes.appBar}>
+      <Form onSubmit={handleSubmit(this.handleSubmit)} className={classes.form}>
+        <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
               <CloseIcon />
@@ -112,6 +109,7 @@ class EditAddress extends React.Component {
               label="Nombre de quien recibe *"
               margin="dense"
               autoFocus={true}
+              helperText=" "
             />
           </div>
           <div>
@@ -120,7 +118,7 @@ class EditAddress extends React.Component {
               component={TextField}
               label="Calle, número y colonia *"
               margin="dense"
-              autoFocus={true}
+              helperText=" "
             />
           </div>
           <div>
@@ -129,6 +127,7 @@ class EditAddress extends React.Component {
               component={TextField}
               label="Ciudad *"
               margin="dense"
+              helperText=" "
             />
           </div>
           <div>
@@ -137,6 +136,7 @@ class EditAddress extends React.Component {
               component={TextField}
               label="Estado *"
               margin="dense"
+              helperText=" "
             />
           </div>
           <div>
@@ -145,6 +145,7 @@ class EditAddress extends React.Component {
               component={TextField}
               label="Código postal *"
               margin="dense"
+              helperText=" "
             />
           </div>
           <div>
@@ -167,7 +168,7 @@ class EditAddress extends React.Component {
             {formError}
           </Typography>
         </DialogContent>
-      </form>
+      </Form>
     );
   }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -22,7 +22,7 @@ const styles = theme => ({
   }
 });
 
-class DeleteAddress extends React.Component {
+class DeleteAddress extends Component {
 
   handleDelete = () => {
     this.props.deleteAddress(this.props.selectedAddressId);

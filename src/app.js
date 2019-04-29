@@ -7,7 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
 
 import LoginView from './views/login/loginView';
-import RegisterView from './views/register/registerView';
 import ForgotView from './views/forgot/forgotView';
 import ProductsView from './views/shop/productsView';
 import CartView from './views/shop/cartView';
@@ -60,7 +59,6 @@ class App extends Component {
             <CssBaseline />
             <Switch>
               <Route exact path="/login" component={LoginView} />
-              <Route path="/register" component={RegisterView} />
               <Route path="/forgot" component={ForgotView} />
               <PrivateRoute path="/shop" component={ProductsView}/>
               <PrivateRoute path="/cart" component={CartView}/>

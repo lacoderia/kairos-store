@@ -3,10 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
-import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -21,16 +19,9 @@ import {
 } from '../cart/cartActions';
 
 const styles = theme => ({
-  root: {
-    height: 'auto',
-  },
-  container: {
-    padding: `${theme.spacing.unit * 4}px 0`,
-    [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing.unit * 6,
-    },
-  },
   title: {
+    display: 'flex',
+    alignItems: 'baseline',
     fontWeight: 500,
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
@@ -167,9 +158,6 @@ class Cart extends Component {
         this.props.updateProductQuantity(id, parseInt(event.target.value));
       }
     }
-
-    
-    
   };
 
   handleQuantityChangeKeyPress = (event, id) => {
@@ -190,138 +178,133 @@ class Cart extends Component {
     const cartProductsTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
 
     return (
-      <Grid container 
-        justify="center"
-        className={classNames(classes.root, classes.container)}
-      >
-        <Grid item xs={12} xl={9}>
-          <div className={classes.title}>
-            <Typography variant="h5" style={{ display: 'inline-block' }}>
-              Carrito
-            </Typography>
-            <Typography variant="body1" style={{ display: 'inline-block', marginLeft: 8 }}>
-              ({cartProductsTotal} {cartProductsTotal == 1 ? 'producto' : 'productos'})
-            </Typography>
-          </div>
-          <Paper elevation={0} className={classes.paper}>
-            { productsIdArray.length > 0 ? (
-              <div className={classes.productList}>
-                <div className={classes.productListHeader}>
-                  <div className={classes.productTitle} />
-                  <div className={classes.productListHeaderCell100}>
-                    <Typography variant="body1">
-                      Precio
-                    </Typography>
-                  </div>
-                  <div className={classes.productListHeaderCell120}>
-                    <Typography variant="body1">
-                      Cant.
-                    </Typography>
-                  </div>
-                  <div className={classes.productListHeaderCell100} />
+      <React.Fragment>
+        <div className={classes.title}>
+          <Typography variant="h5" component="span">
+            Carrito
+          </Typography>
+          <Typography variant="body1" component="span" style={{ marginLeft: 8 }}>
+            ({cartProductsTotal} {cartProductsTotal == 1 ? 'producto' : 'productos'})
+          </Typography>
+        </div>
+        <Paper elevation={0} className={classes.paper}>
+          { productsIdArray.length > 0 ? (
+            <div className={classes.productList}>
+              <div className={classes.productListHeader}>
+                <div className={classes.productTitle} />
+                <div className={classes.productListHeaderCell100}>
+                  <Typography variant="body1">
+                    Precio
+                  </Typography>
                 </div>
-                {productsIdArray && productsIdArray.map(id => {
-                  const product = products[id];
+                <div className={classes.productListHeaderCell120}>
+                  <Typography variant="body1">
+                    Cant.
+                  </Typography>
+                </div>
+                <div className={classes.productListHeaderCell100} />
+              </div>
+              {productsIdArray && productsIdArray.map(id => {
+                const product = products[id];
 
-                  return(
-                    <div key={product.id} className={classes.productContainer}>
-                      <div className={classes.pictureContainer}>
-                        <img src={product.picture} className={classes.picture}></img>
-                      </div>
-                      <div className={classes.productInfo}>
-                        <Typography variant="body1" className={classes.productTitle}>
-                          {product.name}
-                        </Typography>
-                        <Typography variant="body1">
-                          <CurrencyFormat 
-                            value={product.price * product.quantity} 
-                            displayType={'text'} 
-                            thousandSeparator={true} 
-                            prefix={'$'} 
-                            decimalScale={2}
-                            fixedDecimalScale={true}
-                            className={classes.productPrice}
-                          />
-                        </Typography>
-                        <div className={classes.productQuantityContainer}>
-                          {product.quantity < 10 && (
-                            <TextField
-                              select
-                              value={product.quantity}
-                              onChange={(event) => this.handleQuantityChange(event, product.id)}
-                              InputProps={{
-                                classes: {
-                                  inputMarginDense: classes.marginDense,
-                                },
-                              }}
-                              margin="dense"
-                              variant="outlined"
-                              className={classes.productQuantity}
-                            >
-                              {quantities.map(quantity => (
-                                <MenuItem key={quantity} value={quantity} className={classes.menuItem}>
-                                  {quantity}
-                                </MenuItem>
-                              ))}
-                            </TextField>
-                          )}
-                          {product.quantity >= 10 && (
-                            <CurrencyFormat
-                              customInput={TextField}
-                              value={product.displayQuantity}
-                              onChange={(event) => this.handleDisplayQuantityChange(event, product.id)}
-                              onBlur={(event) => this.handleQuantityChangeBlur(event, product.id)}
-                              onKeyDown={(event) => this.handleQuantityChangeKeyPress(event, product.id)}
-                              InputProps={{
-                                classes: {
-                                  inputMarginDense: classes.marginDense,
-                                },
-                              }}
-                              inputProps={{
-                                className: classes.input
-                              }}
-                              margin="dense"
-                              variant="outlined"
-                              className={classes.productQuantity}
-                            />
-                          )}
-                        </div>
-                        <Typography variant="body2">
-                          <a 
-                            aria-label="Delete item"
-                            className={classes.deleteItemButton}
-                            href="#"
-                            onClick={(event) => this.removeProduct(event, product.id)}
-                          >
-                            Eliminar
-                          </a>
-                        </Typography>
-                      </div>
+                return(
+                  <div key={product.id} className={classes.productContainer}>
+                    <div className={classes.pictureContainer}>
+                      <img src={product.picture} className={classes.picture}></img>
                     </div>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className={classes.noResultsText}>
-                <Typography variant="subtitle1" gutterBottom>
-                  Tu carrito de compras está vacio
-                </Typography>
-                <Button 
-                  component={Link}
-                  to="/shop"
-                  aria-label="Continue shopping"
-                  variant="contained"
-                  color="primary"
-                  className={classes.continueShoppingButton}
-                >
-                  Continuar comprando
-                </Button>
-              </div>
-            )}
-            
-          </Paper>
-        </Grid>
-      </Grid>
+                    <div className={classes.productInfo}>
+                      <Typography variant="body1" className={classes.productTitle}>
+                        {product.name}
+                      </Typography>
+                      <Typography variant="body1">
+                        <CurrencyFormat 
+                          value={product.price * product.quantity} 
+                          displayType={'text'} 
+                          thousandSeparator={true} 
+                          prefix={'$'} 
+                          decimalScale={2}
+                          fixedDecimalScale={true}
+                          className={classes.productPrice}
+                        />
+                      </Typography>
+                      <div className={classes.productQuantityContainer}>
+                        {product.quantity < 10 && (
+                          <TextField
+                            select
+                            value={product.quantity}
+                            onChange={(event) => this.handleQuantityChange(event, product.id)}
+                            InputProps={{
+                              classes: {
+                                inputMarginDense: classes.marginDense,
+                              },
+                            }}
+                            margin="dense"
+                            variant="outlined"
+                            className={classes.productQuantity}
+                          >
+                            {quantities.map(quantity => (
+                              <MenuItem key={quantity} value={quantity} className={classes.menuItem}>
+                                {quantity}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+                        )}
+                        {product.quantity >= 10 && (
+                          <CurrencyFormat
+                            customInput={TextField}
+                            value={product.displayQuantity}
+                            onChange={(event) => this.handleDisplayQuantityChange(event, product.id)}
+                            onBlur={(event) => this.handleQuantityChangeBlur(event, product.id)}
+                            onKeyDown={(event) => this.handleQuantityChangeKeyPress(event, product.id)}
+                            InputProps={{
+                              classes: {
+                                inputMarginDense: classes.marginDense,
+                              },
+                            }}
+                            inputProps={{
+                              className: classes.input
+                            }}
+                            margin="dense"
+                            variant="outlined"
+                            className={classes.productQuantity}
+                          />
+                        )}
+                      </div>
+                      <Typography variant="body2">
+                        <a 
+                          aria-label="Delete item"
+                          className={classes.deleteItemButton}
+                          href="#"
+                          onClick={(event) => this.removeProduct(event, product.id)}
+                        >
+                          Eliminar
+                        </a>
+                      </Typography>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className={classes.noResultsText}>
+              <Typography variant="subtitle1" gutterBottom>
+                Tu carrito de compras está vacio
+              </Typography>
+              <Button 
+                component={Link}
+                to="/shop"
+                aria-label="Continue shopping"
+                variant="contained"
+                color="primary"
+                className={classes.continueShoppingButton}
+              >
+                Continuar comprando
+              </Button>
+            </div>
+          )}
+          
+        </Paper>
+      </React.Fragment>
     )
   }
   

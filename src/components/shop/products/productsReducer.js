@@ -21,16 +21,17 @@ function productsReducer(state = initialState, action) {
     case GET_PRODUCTS_FETCH:
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
+        products: initialState.get('products'),
       })
     case GET_PRODUCTS_SUCCESS:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         products: fromJS(action.payload),
       })
     case GET_PRODUCTS_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case OPEN_PRODUCT_DIALOG:
@@ -40,7 +41,7 @@ function productsReducer(state = initialState, action) {
       })
     case CLOSE_PRODUCT_DIALOG:
       return state.merge({
-        openDialog: false,
+        openDialog: initialState.get('openDialog'),
       })
     case EXIT_PRODUCT_DIALOG:
       return state.merge({

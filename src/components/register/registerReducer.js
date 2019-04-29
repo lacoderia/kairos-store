@@ -10,7 +10,6 @@ import {
 } from '../../http/sessionActions';
 import {
   REGISTER_VIEW_CHANGE,
-  RESET_REGISTER_ERROR,
 } from './registerActions';
 
 const initialState = fromJS({
@@ -25,33 +24,33 @@ function registerReducer(state = initialState, action) {
     case REGISTER_FETCH:
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case REGISTER_SUCCESS:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.REGISTER_INSTRUCTIONS_VIEW,
         title: 'Confirma tu correo electrónico'
       })
     case REGISTER_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
       })
     case CONFIRM_REGISTRATION_FETCH:
       return state.merge({
         loading: true,
-        error: '',
+        error: initialState.get('error'),
       })
     case CONFIRM_REGISTRATION_SUCCESS:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         view: views.REGISTER_CONFIRMATION_VIEW,
         title: 'Correo electrónico confirmado'
       })
     case CONFIRM_REGISTRATION_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
         error: action.payload,
         view: views.REGISTER_CONFIRMATION_ERROR_VIEW,
         title: 'Lo sentimos mucho'
@@ -60,9 +59,8 @@ function registerReducer(state = initialState, action) {
       return state.merge({
         view: action.payload.view,
         title: action.payload.title,
+        error: initialState.get('error'),
       })
-    case RESET_REGISTER_ERROR:
-      return state.set('error', '')
     default:
       return state;
   }

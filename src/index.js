@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -60,6 +60,9 @@ const theme = createMuiTheme({
       },
       contained: {
         boxShadow: 'none',
+        '&:active': {
+          boxShadow: 'none',
+        },
       },
     },
     MuiInput: {
@@ -89,18 +92,41 @@ const theme = createMuiTheme({
     MuiFormControl: {
       root: {
         width: '100%',
+      },
+      marginNormal: {
+        marginTop: 12,
+        marginBottom: 4,
+      },
+      marginDense: {
+        marginTop: 2,
+        marginBottom: 2,
+      }
+    },
+    MuiFormHelperText: {
+      root: {
+        marginTop: 4,
+      },
+      error: {
+        marginTop: 4,
       }
     }
   },
 });
 
-render(
-  <MuiThemeProvider theme={theme}>
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  </MuiThemeProvider>, 
-  document.getElementById('root'));
+class Index extends Component {
+  
+  render() {
+    return (
+      <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+          <Router basename="/store/omein">
+            <App />
+          </Router>
+        </Provider>
+      </MuiThemeProvider>
+    );
+  }
+};
+
+render(<Index />, document.getElementById('root'));
 

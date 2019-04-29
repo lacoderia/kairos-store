@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -16,9 +16,6 @@ import { changeCheckoutAddress } from './checkoutActions';
 import { Button } from '@material-ui/core';
 
 const styles = theme => ({
-  appBar: {
-    position: 'relative',
-  },
   flex: {
     flex: 1,
   },
@@ -43,7 +40,7 @@ const styles = theme => ({
   }
 });
 
-class CheckoutAddressList extends React.Component {
+class CheckoutAddressList extends Component {
 
   handleSelectedAddress = (id) => {
     this.props.changeCheckoutAddress(id);
@@ -58,7 +55,7 @@ class CheckoutAddressList extends React.Component {
 
     return (
       <React.Fragment>
-        <AppBar className={classes.appBar}>
+        <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
               <CloseIcon />
@@ -122,7 +119,6 @@ class CheckoutAddressList extends React.Component {
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
-    formError: state.get('checkout').get('error'),
     addresses: state.get('checkout').get('addresses'),
   };
 };

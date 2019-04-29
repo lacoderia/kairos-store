@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
 
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import LoaderButton from '../common/loaderButton';
-
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
     textAlign: 'left'
   },
   buttonContainer: {
@@ -40,12 +38,12 @@ const form = {
 class RecoverPasswordForm extends Component {
 
   render() {
-    const { classes, handleSubmit, loading, formError } = this.props;
+    const { classes, handleSubmit, formError } = this.props;
 
     return(
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
-          <Typography variant="body1" align="left">
+          <Typography variant="body2" align="left">
             Proporciona tu correo electrónico registrado
           </Typography>
         </div>
@@ -56,32 +54,29 @@ class RecoverPasswordForm extends Component {
             component={TextField}
             label="Correo electrónico"
             margin="normal"
+            helperText=" "
             autoFocus={true}
           />
         </div>
-        <Typography variant="body1" className={classes.error}>
+        <Typography variant="body2" className={classes.error}>
           {formError}
         </Typography>
         <div className={classes.buttonContainer}>
-          <LoaderButton loading={loading}>
-            <Button 
-              type="submit" 
-              variant="contained" 
-              color="primary"
-              disabled={loading}
-            >
-              Recuperar contraseña
-            </Button>
-          </LoaderButton>
+          <Button 
+            type="submit" 
+            variant="contained" 
+            color="primary"
+          >
+            Recuperar contraseña
+          </Button>
         </div>
-      </form>
+      </Form>
     )
   }
 }
 
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
-    loading: state.get('forgot').get('loading'),
     formError: state.get('forgot').get('error'),
   };
 };

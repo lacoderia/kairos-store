@@ -17,18 +17,6 @@ const styles = theme => ({
       padding: theme.spacing.unit * 6,
     },
   },
-  title: {
-    fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
-    },
-  },
 });
 
 class PaymentMethodsView extends Component {

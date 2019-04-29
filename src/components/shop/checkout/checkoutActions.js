@@ -22,11 +22,12 @@ export const ADD_CHECKOUT_CARD_SUCCESS = 'ADD_CHECKOUT_CARD_SUCCESS';
 export const ADD_CHECKOUT_CARD_ERROR = 'ADD_CHECKOUT_CARD_ERROR';
 export const CHANGE_CHECKOUT_CARD = 'CHANGE_CHECKOUT_CARD';
 export const CHANGE_ACTIVE_SECTION = 'CHANGE_ACTIVE_SECTION';
-export const OPEN_CHECKOUT_DIALOG = 'OPEN_CHECKOUT_DIALOG';
-export const CLOSE_CHECKOUT_DIALOG = 'CLOSE_CHECKOUT_DIALOG';
 export const PLACE_ORDER_FETCH = 'PLACE_ORDER_FETCH';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
+export const OPEN_CHECKOUT_DIALOG = 'OPEN_CHECKOUT_DIALOG';
+export const CLOSE_CHECKOUT_DIALOG = 'CLOSE_CHECKOUT_DIALOG';
+export const EXIT_CHECKOUT_DIALOG = 'EXIT_CHECKOUT_DIALOG';
 
 function toAddressObject(address) {
   return {
@@ -331,16 +332,27 @@ export function closeDialog() {
   }
 }
 
+export function exitDialog() {
+  return (dispatch) => {
+    dispatch({ 
+      type: EXIT_CHECKOUT_DIALOG,
+    });
+  }
+}
+
 const checkoutActions = {
   changeActiveSection,
   getAddresses,
   addAddress,
   changeCheckoutAddress,
+  getShippingCost,
   getCards,
   addCard,
   changeSelectedCard,
+  placeOrder,
   openDialog,
   closeDialog,
+  exitDialog,
 };
 
 export default checkoutActions;

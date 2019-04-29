@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CurrencyFormat from 'react-currency-format';
@@ -26,10 +26,15 @@ const styles = theme => ({
   }
 });
 
-class PlaceOrderConfirmation extends React.Component {
+class PlaceOrderConfirmation extends Component {
+
+  handleContinue = () => {
+    this.props.handleContinue();
+    this.props.handleClose();
+  }
 
   render() {
-    const { classes, handleClose, handleContinue, shippingCost } = this.props;
+    const { classes, handleClose, shippingCost } = this.props;
     const total = this.props.products.reduce((sum, item) => sum + (item.get('quantity') * item.get('price')), 0) + shippingCost;
 
     return (
@@ -41,7 +46,7 @@ class PlaceOrderConfirmation extends React.Component {
           <Button 
             variant="contained"
             color="primary"
-            onClick={handleContinue}
+            onClick={this.handleContinue}
           >
             Confirmar pago
           </Button>

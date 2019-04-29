@@ -109,6 +109,9 @@ function signout() {
   .then(response => {
     unsetHttpHeaders(response.headers);
     return response;
+  })
+  .catch(e => {
+    throw e;
   });
 }
 

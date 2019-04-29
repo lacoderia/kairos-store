@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { CONTACT_EMAIL } from '../../common/constants';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -10,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 
 import RegisterAccountForm from './registerAccountForm';
 import RegisterMemberForm from './registerMemberForm';
-import LinkButton from '../common/linkButton';
+import LoaderOverlay from '../common/loaderOverlay';
 
 import { register, confirmRegistration } from '../../http/sessionActions';
 import { changeView } from '../../components/register/registerActions';
@@ -19,19 +20,20 @@ import views from './registerConstants';
 
 const styles = theme => ({
   mainContainer: {
-    margin: theme.spacing.unit * 6 + 'px 0',
+    margin: theme.spacing.unit * 4 + 'px 0',
     zIndex: 1,
   },
   title: {
     color: theme.palette.custom.lightGrey,
-    marginBottom: theme.spacing.unit * 6,
-    fontWeight: 400,
+    marginBottom: theme.spacing.unit * 4,
+    fontWeight: 500,
   },
   formContainer: {
     backgroundColor: theme.palette.custom.white,
     borderRadius: 4,
     color: theme.palette.text.secondary,
     padding: theme.spacing.unit * 6 + 'px 15%',
+    position: 'relative',
     textAlign: 'center',
   },
   buttonContainer: {
@@ -66,14 +68,13 @@ class RegisterContainer extends Component {
         this.setState({ validatedToken: true });
         return response;
       });
+    } else {
+      this.setState({ validatedToken: true });
+      this.props.changeView({
+        view: views.REGISTER_VIEW,
+        title: 'Crear cuenta',
+      });
     }
-    // } else {
-    //   this.setState({ validatedToken: true });
-    //   this.props.changeView({
-    //     view: views.REGISTER_STEP_1_VIEW,
-    //     title: 'Crear cuenta',
-    //   });
-    // }
   }
 
   handleContinue = () => {
@@ -88,12 +89,7 @@ class RegisterContainer extends Component {
   }
 
   render() {
-    const { classes, loading, formError, view, title, token } = this.props;
-
-    // Si no viene ningun token entonces redirige a login
-    if (!token) {
-      return <Redirect to="/login" />;
-    }
+    const { classes, loading, formError, view, title } = this.props;
 
     return(
       <React.Fragment>
@@ -104,6 +100,7 @@ class RegisterContainer extends Component {
                 {title}
               </Typography>
               <div className={classes.formContainer}>
+                <LoaderOverlay loading={loading} />
                 {{
                   [views.REGISTER_STEP_1_VIEW]: (
                     <RegisterAccountForm onSubmit={this.handleContinue} formError={formError} />
@@ -113,40 +110,40 @@ class RegisterContainer extends Component {
                   ),
                   [views.REGISTER_INSTRUCTIONS_VIEW]: (
                     <React.Fragment>
-                      <Typography variant="body1" align="left">
+                      <Typography variant="body2" align="left">
                         Hemos enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para confirmar tu correo electrónico y activar tu cuenta.
                       </Typography>
                       <div className={classes.buttonContainer}>
-                        <LinkButton to="/login">
-                          <Button 
-                            variant="contained" 
-                            color="primary"
-                          >
-                            Continuar
-                          </Button>
-                        </LinkButton>
+                        <Button 
+                          component={Link}
+                          to="/login"
+                          variant="contained" 
+                          color="primary"
+                        >
+                          Continuar
+                        </Button>
                       </div>
                     </React.Fragment>
                   ),
                   [views.REGISTER_CONFIRMATION_VIEW]: (
                     <React.Fragment>
-                      <Typography variant="body1" align="left">
+                      <Typography variant="body2" align="left">
                         ¡Gracias por confirmar tu dirección de correo! Ya puedes iniciar sesión.
                       </Typography>
                       <div className={classes.buttonContainer}>
-                        <LinkButton to="/login">
-                          <Button 
-                            variant="contained" 
-                            color="primary"
-                          >
-                            Continuar
-                          </Button>
-                        </LinkButton>
+                        <Button 
+                          component={Link}
+                          to="/login"
+                          variant="contained" 
+                          color="primary"
+                        >
+                          Continuar
+                        </Button>
                       </div>
                     </React.Fragment>
                   ),
                   [views.REGISTER_CONFIRMATION_ERROR_VIEW]: (
-                    <Typography variant="body1" align="left">
+                    <Typography variant="body2" align="left">
                       Hubo un error al confirmar tu dirección de correo
                     </Typography>
                   ),
@@ -154,8 +151,8 @@ class RegisterContainer extends Component {
               </div>
               <div className={classes.footerContainer}>
                 { (view == views.REGISTER_STEP_1_VIEW || view == views.REGISTER_STEP_2_VIEW) && (
-                  <Typography variant="body2" align="right">
-                    <a href="mailto:soporte@futuranetwork.com" className={classes.footerLink}>Ayuda</a>
+                  <Typography variant="subtitle2" align="right">
+                    <a href={'mailto:' + CONTACT_EMAIL} className={classes.footerLink}>Ayuda</a>
                   </Typography>
                 )}
               </div>

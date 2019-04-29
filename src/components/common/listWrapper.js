@@ -38,7 +38,7 @@ class ListWrapper extends Component {
     return(
       loading ? (
         <div className={classes.loaderContainer}>
-          <CircularProgress className={classes.progress} size={40} />
+          <CircularProgress size={40} />
         </div>
       ) : (
         error ? (
@@ -64,4 +64,3 @@ class ListWrapper extends Component {
 }
 
 export default withStyles(styles)(ListWrapper);
-

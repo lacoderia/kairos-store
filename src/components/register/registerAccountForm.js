@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { reduxForm, Field } from 'redux-form/immutable';
+import { reduxForm, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -44,7 +44,7 @@ const form = {
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
     textAlign: 'left'
   },
   buttonContainer: {
@@ -60,13 +60,14 @@ class RegisterUserForm extends Component {
     const { classes, handleSubmit, formError } = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div>
           <Field
             name="name"
             component={TextField}
             label="Nombre *"
             margin="dense"
+            helperText=" "
             autoFocus={true}
           />
         </div>
@@ -76,6 +77,7 @@ class RegisterUserForm extends Component {
             component={TextField}
             label="Apellido(s) *"
             margin="dense"
+            helperText=" "
           />
         </div>
         <div>
@@ -85,6 +87,7 @@ class RegisterUserForm extends Component {
             component={TextField}
             label="Correo electrónico *"
             margin="dense"
+            helperText=" "
           />
         </div>
         <div>
@@ -92,11 +95,11 @@ class RegisterUserForm extends Component {
             name="phone"
             component={TextField}
             label="Teléfono *"
-            helperText="Sólo números y espacios"
             inputProps={{
               maxLength: 15,
             }}
             margin="dense"
+            helperText="Sólo números y espacios"
           />
         </div>
         <div>
@@ -104,13 +107,12 @@ class RegisterUserForm extends Component {
             name="password"
             label="Contraseña"
             margin="dense"
+            helperText=" "
           />
         </div>
-        <div>
-          <Typography variant="body1" className={classes.error}>
-            {formError}
-          </Typography>
-        </div>
+        <Typography variant="body2" className={classes.error}>
+          {formError}
+        </Typography>
         <div className={classes.buttonContainer}>
           <Button 
             type="submit"
@@ -120,7 +122,7 @@ class RegisterUserForm extends Component {
             Siguiente
           </Button>
         </div>
-      </form>
+      </Form>
     )
   }
 }

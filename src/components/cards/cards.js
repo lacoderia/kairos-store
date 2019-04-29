@@ -11,10 +11,10 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 
 import ListWrapper from '../common/listWrapper';
-import CardDialog from './cardDialog';
+import DialogWrapper from '../common/dialogWrapper';
 import AddCardForm from './addCardForm';
 import DeleteCard from './deleteCard';
-import { getCards, setPrimaryCard, openDialog, closeDialog } from './cardsActions';
+import { getCards, setPrimaryCard, openDialog, closeDialog, exitDialog } from './cardsActions';
 import { dialogs } from './cardsConstants';
 
 const styles = theme => ({
@@ -97,13 +97,17 @@ const styles = theme => ({
 
 class Cards extends Component {
 
+  handleDialogOpen = (dialog, id) => {
+    this.props.openDialog(dialog, id);
+  }
+
   handleDialogClose = () => {
     this.props.closeDialog();
   }
 
-  handleDialogOpen = (dialog, id) => {
-    this.props.openDialog(dialog, id);
-  }
+  handleDialogExited = () => {
+    this.props.exitDialog();
+  } 
 
   handleSetPrimary = (id) => {
     this.props.setPrimaryCard(id);
@@ -114,7 +118,7 @@ class Cards extends Component {
   }
 
   render() {    
-    const { classes, loading, error, dialog } = this.props;
+    const { classes, loading, error, dialog, dialogLoading, open } = this.props;
 
     const cards = this.props.cards ? this.props.cards.toJS() : null;
     const cardsIdArray = this.props.cards ? Object.keys(cards) : null;
@@ -191,7 +195,12 @@ class Cards extends Component {
             })
           }
         </ListWrapper>
-        <CardDialog>
+        <DialogWrapper
+          loading={dialogLoading} 
+          open={open} 
+          handleClose={this.handleDialogClose} 
+          handleExited={this.handleDialogExited}
+          disableFullScreen={dialog == dialogs.DELETE_CARD_DIALOG}>
           {{
             [dialogs.ADD_CARD_DIALOG]: (
               <AddCardForm handleClose={this.handleDialogClose} />
@@ -200,7 +209,7 @@ class Cards extends Component {
               <DeleteCard handleClose={this.handleDialogClose} />
             ),
           }[dialog]}
-        </CardDialog>
+        </DialogWrapper>
         <div className={classes.addCardContainer}>
           <Button
             size="small"
@@ -220,6 +229,8 @@ const mapStateToProps = function mapStateToProps(state, props) {
     loading: state.get('cards').get('getCardsLoading'),
     error: state.get('cards').get('getCardsError'),
     dialog: state.get('cards').get('dialog'),
+    dialogLoading: state.get('cards').get('dialogLoading'),
+    open: state.get('cards').get('openDialog'),
     cards: state.get('cards').get('cards'),
   };
 };
@@ -230,6 +241,7 @@ function mapDispatchToProps(dispatch) {
     bindActionCreators({ setPrimaryCard }, dispatch),
     bindActionCreators({ openDialog }, dispatch),
     bindActionCreators({ closeDialog }, dispatch),
+    bindActionCreators({ exitDialog }, dispatch),
   );
 }
 

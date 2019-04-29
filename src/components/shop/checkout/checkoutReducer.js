@@ -20,6 +20,7 @@ import {
   CHANGE_ACTIVE_SECTION,
   OPEN_CHECKOUT_DIALOG,
   CLOSE_CHECKOUT_DIALOG,
+  EXIT_CHECKOUT_DIALOG,
   PLACE_ORDER_FETCH,
   PLACE_ORDER_SUCCESS,
   PLACE_ORDER_ERROR,
@@ -52,6 +53,8 @@ function checkoutReducer(state = initialState, action) {
       return state.merge({
         getAddressesLoading: true,
         getAddressesError: initialState.get('getAddressesError'),
+        addresses: initialState.get('addresses'),
+        selectedShippingAddress: initialState.get('selectedShippingAddress'),
       })
     case GET_CHECKOUT_ADDRESSES_SUCCESS:
       return state.merge({
@@ -103,6 +106,8 @@ function checkoutReducer(state = initialState, action) {
       return state.merge({
         getCardsLoading: true,
         getCardsError: initialState.get('getCardsError'),
+        cards: initialState.get('cards'),
+        selectedCard: initialState.get('selectedCard'),
       })
     case GET_CHECKOUT_CARDS_SUCCESS:
       return state.merge({
@@ -140,20 +145,10 @@ function checkoutReducer(state = initialState, action) {
         activeSection: action.payload,
         touchedSections: state.get('touchedSections').add(action.payload),
       })
-    case OPEN_CHECKOUT_DIALOG:
-      return state.merge({
-        dialog: action.payload,
-        openDialog: true,
-      })
-    case CLOSE_CHECKOUT_DIALOG:
-      return state.merge({
-        openDialog: initialState.get('openDialog'),
-      })
     case PLACE_ORDER_FETCH:
       return state.merge({
         loading: true,
         placeOrderError: initialState.get('placeOrderError'),
-        openDialog: false,
       })
     case PLACE_ORDER_SUCCESS:
       return state.merge({
@@ -163,6 +158,24 @@ function checkoutReducer(state = initialState, action) {
       return state.merge({
         loading: initialState.get('loading'),
         placeOrderError: action.payload,
+      })
+    case OPEN_CHECKOUT_DIALOG:
+      return state.merge({
+        dialogLoading: initialState.get('dialogLoading'),
+        dialogError: initialState.get('dialogError'),
+        dialog: action.payload,
+        openDialog: true,
+        placeOrderError: initialState.get('placeOrderError'),
+      })
+    case CLOSE_CHECKOUT_DIALOG:
+      return state.merge({
+        dialogLoading: initialState.get('dialogLoading'),
+        dialogError: initialState.get('dialogError'),
+        openDialog: initialState.get('openDialog'),
+      })
+    case EXIT_CHECKOUT_DIALOG:
+      return state.merge({
+        dialog: initialState.get('dialog'),
       })
     default:
       return state;

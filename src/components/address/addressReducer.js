@@ -14,6 +14,7 @@ import {
   DELETE_ADDRESS_ERROR,
   OPEN_ADDRESS_DIALOG,
   CLOSE_ADDRESS_DIALOG,
+  EXIT_ADDRESS_DIALOG,
 } from './addressActions';
 
 const initialState = fromJS({
@@ -32,58 +33,62 @@ function addressReducer(state = initialState, action) {
     case GET_ADDRESSES_FETCH:
       return state.merge({
         getAddressesLoading: true,
-        getAddressesError: '',
+        getAddressesError: initialState.get('getAddressesError'),
+        addresses: initialState.get('addresses'),
       })
     case GET_ADDRESSES_SUCCESS:
       return state.merge({
-        getAddressesLoading: false,
+        getAddressesLoading: initialState.get('getAddressesLoading'),
         addresses: fromJS(action.payload)
       })
     case GET_ADDRESSES_ERROR:
       return state.merge({
-        getAddressesLoading: false,
+        getAddressesLoading: initialState.get('getAddressesLoading'),
         getAddressesError: action.payload,
       })
     case ADD_ADDRESS_FETCH:
       return state.merge({
         dialogLoading: true,
-        dialogError: '',
+        dialogError: initialState.get('dialogError'),
       })
     case ADD_ADDRESS_SUCCESS:
       return state.merge({
+        dialogLoading: initialState.get('dialogLoading'),
         addresses: state.get('addresses').set(action.payload.id.toString(), action.payload),
       })
     case ADD_ADDRESS_ERROR:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         dialogError: action.payload,
       })
     case UPDATE_ADDRESS_FETCH:
       return state.merge({
         dialogLoading: true,
-        dialogError: '',
+        dialogError: initialState.get('dialogError'),
       })
     case UPDATE_ADDRESS_SUCCESS:
       return state.merge({
+        dialogLoading: initialState.get('dialogLoading'),
         addresses: state.get('addresses').set(action.payload.id.toString(), action.payload),
       })
     case UPDATE_ADDRESS_ERROR:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         dialogError: action.payload,
       })
     case DELETE_ADDRESS_FETCH:
       return state.merge({
         dialogLoading: true,
-        dialogError: '',
+        dialogError: initialState.get('dialogError'),
       })
     case DELETE_ADDRESS_SUCCESS:
       return state.merge({
+        dialogLoading: initialState.get('dialogLoading'),
         addresses: state.get('addresses').delete(action.payload.toString()),
       })
     case DELETE_ADDRESS_ERROR:
       return state.merge({
-        dialogLoading: false,
+        dialogLoading: initialState.get('dialogLoading'),
         dialogError: action.payload,
       })
     case OPEN_ADDRESS_DIALOG:
@@ -100,6 +105,10 @@ function addressReducer(state = initialState, action) {
         dialogError: initialState.get('dialogError'),
         openDialog: initialState.get('openDialog'),
         selectedAddressId: initialState.get('selectedAddressId'),
+      })
+    case EXIT_ADDRESS_DIALOG:
+      return state.merge({
+        dialog: initialState.get('dialog'),
       })
     default:
       return state;

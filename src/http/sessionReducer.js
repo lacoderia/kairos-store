@@ -36,7 +36,7 @@ function sessionReducer(state = initialState, action) {
       return initialState;
     case SIGNOUT_ERROR:
       return state.merge({
-        loading: false,
+        loading: initialState.get('loading'),
       });
     default:
       return state;

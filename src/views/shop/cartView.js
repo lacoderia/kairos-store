@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { withStyles } from '@material-ui/core';
+import { withStyles, withWidth } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 
@@ -11,53 +11,71 @@ import Summary from '../../components/shop/summary/summary';
 const styles = theme => ({
   root: {
     display: 'flex',
+    flex: 1,
     flexDirection: 'column',
-    height: '100vh',
-    width: '100%',
   },
   main: {
     display: 'flex',
-    flexDirection: 'row',
     flex: 1,
-    minWidth: 0, // So the Typography noWrap works,
-    height: 'calc(100% - 57px)',
-  },
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
     overflow: 'auto',
-  }
+  },
+  container: {
+    maxHeight: '100%',
+    overflow: 'hidden',
+    overflowY: 'auto',
+    paddingTop: 8,
+    [theme.breakpoints.up('sm')]: {
+      maxHeight: 'none',
+      padding: 48,
+      paddingTop: 32,
+    },
+  },
+  gridContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    maxHeight: '100%',
+    [theme.breakpoints.up('md')]: {
+      maxHeight: 'none',
+    },
+  },
 });
 
 class CartView extends Component {
 
   render() {
-    const { classes } = this.props;
+    const { classes, width } = this.props;
 
     return (
       <div className={classes.root}>
         <Navigation />
         <div className={classes.main}>
-          <div className={classes.content}>
-            <Grid container 
-              justify="center"
-            >
-              <Hidden mdUp>
-                <Grid item xs={12} md={3}>
-                  <Summary showPaymentButton={true}/>
+          <Grid 
+            container 
+            justify="center"
+            className={classes.container}
+          >
+            <Grid item xs={12} xl={10} className={classes.gridContainer}>
+              <Grid container 
+                justify="center"
+                spacing={width == 'xs' ? 16 : 40}
+              >
+                <Hidden mdUp>
+                  <Grid item xs={12} md={4} lg={3}>
+                    <Summary showPaymentButton={true}/>
+                  </Grid>
+                </Hidden>
+                <Grid item xs={12} md={8} lg={9}>
+                  <Cart />
                 </Grid>
-              </Hidden>
-              <Grid item xs={12} md={9}>
-                <Cart />
+                <Hidden smDown>
+                  <Grid item xs={12} md={4} lg={3}>
+                    <Summary showPaymentButton={true}/>
+                  </Grid>
+                </Hidden>
               </Grid>
-              <Hidden smDown>
-                <Grid item xs={12} md={3}>
-                  <Summary showPaymentButton={true}/>
-                </Grid>
-              </Hidden>
             </Grid>
-          </div>
+          </Grid>       
         </div>
       </div>
     )
@@ -65,4 +83,4 @@ class CartView extends Component {
  
 }
 
-export default withStyles(styles)(CartView);
+export default withWidth()(withStyles(styles)(CartView));

@@ -16,6 +16,7 @@ export const DELETE_ADDRESS_SUCCESS = 'DELETE_ADDRESS_SUCCESS';
 export const DELETE_ADDRESS_ERROR = 'DELETE_ADDRESS_ERROR';
 export const OPEN_ADDRESS_DIALOG = 'OPEN_ADDRESS_DIALOG';
 export const CLOSE_ADDRESS_DIALOG = 'CLOSE_ADDRESS_DIALOG';
+export const EXIT_ADDRESS_DIALOG = 'EXIT_ADDRESS_DIALOG';
 
 function toJSObject(address) {
   return {
@@ -177,6 +178,14 @@ export function closeDialog() {
   }
 }
 
+export function exitDialog() {
+  return (dispatch) => {
+    dispatch({ 
+      type: EXIT_ADDRESS_DIALOG,
+    });
+  }
+}
+
 const addressActions = {
   getAddresses,
   addAddress,
@@ -184,6 +193,7 @@ const addressActions = {
   deleteAddress,
   openDialog,
   closeDialog,
+  exitDialog,
 };
 
 export default addressActions;
