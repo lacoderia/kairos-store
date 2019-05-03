@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { generateStoreUrl } from '../../services/store';
 
 import PublicTemplate from '../../templates/publicTemplate';
 import Login from '../../components/login/login';
@@ -8,7 +9,7 @@ import Login from '../../components/login/login';
 class LoginView extends Component {
   
   render() {
-    const { from } = this.props.location.state || { from: { pathname: "/shop" } };
+    const { from } = this.props.location.state || { from: { pathname: generateStoreUrl('/shop') } };
 
     if (this.props.redirectToReferrer) {
       return <Redirect to={from} />;

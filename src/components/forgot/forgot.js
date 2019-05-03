@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { CONTACT_EMAIL } from '../../common/constants';
+import { generateStoreUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -102,7 +103,7 @@ class ForgotContainer extends Component {
                   <div className={classes.buttonContainer}>
                     <Button 
                       component={Link}
-                      to="/login"
+                      to={generateStoreUrl('/login')}
                       variant="contained" 
                       color="primary"
                     >
@@ -122,7 +123,7 @@ class ForgotContainer extends Component {
                   <div className={classes.buttonContainer}>
                     <Button 
                       component={Link}
-                      to="/login"
+                      to={generateStoreUrl('/login')}
                       variant="contained" 
                       color="primary"
                     >

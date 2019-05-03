@@ -17,7 +17,7 @@ const styles = theme => ({
     flexDirection: 'row',
     flex: 1,
     minWidth: 0, // So the Typography noWrap works,
-    height: 'calc(100% - 57px)',
+    height: 'calc(100% - 64px)',
   },
   content: {
     display: 'flex',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
+import { generateStoreUrl } from './services/store';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return(
@@ -12,7 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              pathname: generateStoreUrl('/login'),
               state: { from: props.location }
             }}
           />

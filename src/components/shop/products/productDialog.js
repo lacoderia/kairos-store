@@ -11,7 +11,6 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
 
@@ -29,19 +28,30 @@ const styles = theme => ({
     top: theme.spacing.unit,
     color: theme.palette.grey[500],
   },
-  leftColumn: {
+  columnContainer: {
+    height: '100%',
+    overflow: 'auto',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex',
+      flexDirection: 'row',
+    } 
+  },
+  column: {
     borderRight: '1px solid #ddd',
+    maxHeight: '100%',
+    [theme.breakpoints.up('md')]: {
+      flex: 1,
+      overflow: 'auto',
+    }
   },
   leftColumnContent: {
     textAlign: 'center',
     padding: 48,
   },
   rigthColumnContent: {
+    flex: 1,
     padding: 48,
     paddingBottom: 60,
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
   },
   picture: {
     objectFit: 'cover',
@@ -111,18 +121,16 @@ class ProductDialog extends Component {
             TransitionComponent={Transition}
             disableRestoreFocus={true}
           >
-            <IconButton aria-label="Close" className={classes.closeButton} onClick={this.handleClose}>
-              <CloseIcon />
-            </IconButton>
-            <Grid container 
-              justify="center"
-            >
-              <Grid item xs={12} md={6} className={classes.leftColumn}>
+            <div className={classes.columnContainer}>
+              <IconButton aria-label="Close" className={classes.closeButton} onClick={this.handleClose}>
+                <CloseIcon />
+              </IconButton>
+              <div className={classes.column}>
                 <div className={classes.leftColumnContent}>
                   <img src={product.picture} className={classes.picture}></img>
                 </div>
-              </Grid>
-              <Grid item xs={12} md={6}>
+              </div>
+              <div className={classes.column}>
                 <div className={classes.rigthColumnContent}>
                   <div className={classes.title}>
                     <Typography variant="h5" gutterBottom style={{ fontWeight: 500 }}>
@@ -163,8 +171,8 @@ class ProductDialog extends Component {
                     </Button>
                   </div>
                 </div>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           </Dialog>
         )}
       </React.Fragment>

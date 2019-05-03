@@ -3,6 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
+import { generateStoreUrl } from '../../../services/store';
 
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -177,7 +178,7 @@ class Checkout extends Component {
             variant: 'info',
           })
 
-          this.props.history.push('/orders');
+          this.props.history.push(generateStoreUrl('/orders'));
         },
         (e) => {}
       )
@@ -205,7 +206,7 @@ class Checkout extends Component {
     const selectedCard = this.props.selectedCard ? this.props.selectedCard.toJS() : undefined;
 
     if (!products.size) {
-      return <Redirect to="/cart" />;
+      return <Redirect to={generateStoreUrl('/cart')} />;
     }
 
     return (

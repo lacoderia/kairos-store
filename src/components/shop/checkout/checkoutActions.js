@@ -1,6 +1,7 @@
 import axios from 'axios';
 import session from '../../../http/session';
 import openpayService from '../../../services/openpay';
+import storeService from '../../../services/store';
 import { arrayToHash } from '../../../common/commonFunctions';
 import { STORE_PICKUP_ADDRESS } from '../../../common/constants';
 
@@ -191,7 +192,7 @@ export function getCards() {
     dispatch({ 
       type: GET_CHECKOUT_CARDS_FETCH,
     });
-    return axios.get('/cards/all?company=omein')
+    return axios.get('/cards/all')
     .then(response => {
       dispatch({ 
         type: GET_CHECKOUT_CARDS_SUCCESS,
@@ -229,7 +230,7 @@ export function addCard(values) {
           axios.post('/cards/create', {
             token: response.data.id,
             device_session_id: openpayService.deviceSessionId,
-            company: 'OMEIN',
+            company: storeService.getStore(),
           })
           .then(response => {
             dispatch({
@@ -294,7 +295,7 @@ export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost)
         items: products,
         total: products.reduce((sum, item) => sum + (item.amount * item.price), 0) + shippingCost,
         device_session_id: openpayService.deviceSessionId,
-        company: 'OMEIN',
+        company: storeService.getStore(),
     })
     .then(response => {
       dispatch({
