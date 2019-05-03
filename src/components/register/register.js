@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { CONTACT_EMAIL } from '../../common/constants';
+import { generateStoreUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -64,10 +65,13 @@ class RegisterContainer extends Component {
   componentDidMount() {
     if(this.props.token){
       this.props.confirmRegistration(this.props.token)
-      .then(response => {
-        this.setState({ validatedToken: true });
-        return response;
-      });
+      .then(
+        (response) => {
+          this.setState({ validatedToken: true });
+          return response;
+        },
+        (e) => {}
+      );
     } else {
       this.setState({ validatedToken: true });
       this.props.changeView({
@@ -116,7 +120,7 @@ class RegisterContainer extends Component {
                       <div className={classes.buttonContainer}>
                         <Button 
                           component={Link}
-                          to="/login"
+                          to={generateStoreUrl('/login')}
                           variant="contained" 
                           color="primary"
                         >
@@ -133,7 +137,7 @@ class RegisterContainer extends Component {
                       <div className={classes.buttonContainer}>
                         <Button 
                           component={Link}
-                          to="/login"
+                          to={generateStoreUrl('/login')}
                           variant="contained" 
                           color="primary"
                         >

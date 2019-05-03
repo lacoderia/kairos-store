@@ -55,7 +55,7 @@ export function getOrders() {
     dispatch({ 
       type: GET_ORDERS_FETCH,
     });
-    return axios.get('/orders/all?company=omein')
+    return axios.get('/orders/all')
     .then(response => {
       dispatch({ 
         type: GET_ORDERS_SUCCESS,

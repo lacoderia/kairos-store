@@ -211,7 +211,7 @@ const sessionActions = {
   recoverPassword,
   resetPassword,
   signout,
-  getCurrentSession
+  getCurrentSession,
 };
 
 export default sessionActions;

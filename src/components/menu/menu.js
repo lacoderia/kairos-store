@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
+import { generateStoreUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -118,7 +119,7 @@ class Menu extends Component {
 
   handleMenuItemClick = route => {
     this.toggleMenu();
-    this.props.history.push(route);
+    this.props.history.push(generateStoreUrl(route));
   }
 
   handleSignoutClick = () => {
@@ -139,7 +140,6 @@ class Menu extends Component {
         }
       })
     })
-      
   }
 
   componentDidUpdate(prevProps) {
@@ -258,7 +258,6 @@ const mapStateToProps = function mapStateToProps(state, props) {
     name: state.get('session').get('name'),
     lastname: state.get('session').get('lastname'),
     externalId: state.get('session').get('externalId'),
-    email: state.get('session').get('email'),
   };
 };
 

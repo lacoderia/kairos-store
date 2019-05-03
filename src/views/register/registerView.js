@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { generateStoreUrl } from '../../services/store';
 
 import PublicTemplate from '../../templates/publicTemplate';
 import Register from '../../components/register/register';
@@ -12,7 +13,7 @@ class RegisterView extends Component {
     const params = queryString.parse(this.props.location.search);
 
     if (this.props.isAuthenticated) {
-      return <Redirect to="/shop" />;
+      return <Redirect to={generateStoreUrl('/shop')} />;
     }
     
     return (

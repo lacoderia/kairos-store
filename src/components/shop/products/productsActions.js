@@ -36,7 +36,7 @@ export function getProducts() {
     dispatch({ 
       type: GET_PRODUCTS_FETCH,
     });
-    return axios.get('/items/by_company?company=omein')
+    return axios.get('/items/by_company')
     .then(response => {
       dispatch({ 
         type: GET_PRODUCTS_SUCCESS,

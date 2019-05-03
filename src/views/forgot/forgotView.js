@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
+import { generateStoreUrl } from '../../services/store';
 
 import PublicTemplate from '../../templates/publicTemplate';
 import Forgot from '../../components/forgot/forgot';
@@ -12,7 +13,7 @@ class ForgotView extends Component {
     const params = queryString.parse(this.props.location.search);
 
     if (this.props.isAuthenticated) {
-      return <Redirect to="/shop" />;
+      return <Redirect to={generateStoreUrl('/shop')} />;
     }
 
     return (

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
+import { generateStoreUrl } from '../../../services/store';
 
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -175,7 +176,7 @@ class Cart extends Component {
     const { classes } = this.props;
     const products = this.props.products ? this.props.products.toJS() : null;
     const productsIdArray = this.props.products ? Object.keys(products) : [];
-    const cartProductsTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
+    const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
 
     return (
       <React.Fragment>
@@ -184,7 +185,7 @@ class Cart extends Component {
             Carrito
           </Typography>
           <Typography variant="body1" component="span" style={{ marginLeft: 8 }}>
-            ({cartProductsTotal} {cartProductsTotal == 1 ? 'producto' : 'productos'})
+            ({productsCount} {productsCount == 1 ? 'producto' : 'productos'})
           </Typography>
         </div>
         <Paper elevation={0} className={classes.paper}>
@@ -292,7 +293,7 @@ class Cart extends Component {
               </Typography>
               <Button 
                 component={Link}
-                to="/shop"
+                to={generateStoreUrl('/shop')}
                 aria-label="Continue shopping"
                 variant="contained"
                 color="primary"

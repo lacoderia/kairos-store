@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { arrayToHash } from '../../common/commonFunctions';
 import openpayService from '../../services/openpay';
+import storeService from '../../services/store';
 
 export const GET_CARDS_FETCH = 'GET_CARDS_FETCH';
 export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
@@ -42,7 +43,7 @@ export function getCards() {
     dispatch({ 
       type: GET_CARDS_FETCH,
     });
-    return axios.get('/cards/all?company=OMEIN')
+    return axios.get('/cards/all')
     .then(response => {
       dispatch({ 
         type: GET_CARDS_SUCCESS,
@@ -80,7 +81,7 @@ export function addCard(values) {
           axios.post('/cards/create', {
             token: response.data.id,
             device_session_id: openpayService.deviceSessionId,
-            company: 'OMEIN',
+            company: storeService.getStore(),
           })
           .then(response => {
             dispatch({
@@ -120,7 +121,7 @@ export function deleteCard(id) {
     })
     return axios.post('/cards/delete/', {
       id: id,
-      company: 'OMEIN',
+      company: storeService.getStore(),
     })
     .then(response => {
       dispatch({
@@ -148,7 +149,7 @@ export function setPrimaryCard(id) {
     })
     return axios.post('/cards/set_primary/', {
       id: id,
-      company: 'OMEIN',
+      company: storeService.getStore(),
     })
     .then(response => {
       dispatch({

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
+import { generateStoreUrl } from '../../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -49,7 +50,7 @@ class Summary extends Component {
   
   render() {
     const { classes, showPaymentButton } = this.props;
-    const cartProductsTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
+    const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
     const orderTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity') * item.get('price'), 0);
     const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
@@ -106,12 +107,12 @@ class Summary extends Component {
               <div className={classes.buttonContainer}>
                 <Button 
                   component={Link}
-                  to="/checkout"
+                  to={generateStoreUrl('/checkout')}
                   aria-label="Proceed to checkout"
                   variant="contained" 
                   color="primary" 
                   size="large"
-                  disabled={cartProductsTotal == 0}
+                  disabled={productsCount == 0}
                 >
                   Proceder al pago
                 </Button>

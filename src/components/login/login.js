@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { reduxForm, formValueSelector, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
 import { CONTACT_EMAIL } from '../../common/constants';
+import { generateStoreUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -144,7 +145,7 @@ class LoginContainer extends Component {
                   </div>
                   <div className={classes.linkContainer}>
                     <Typography variant="subtitle2" align="left">
-                      <Link to="/forgot" className={classes.link}>¿Has olvidado tu contraseña?</Link>
+                      <Link to={generateStoreUrl('/forgot')} className={classes.link}>¿Has olvidado tu contraseña?</Link>
                     </Typography>
                   </div>
                   <Typography variant="subtitle2" className={classes.error}>
@@ -203,7 +204,7 @@ class LoginContainer extends Component {
                   <div className={classes.buttonContainer}>
                     <Button 
                       component={Link}
-                      to="/login/refresh"
+                      to={generateStoreUrl('/')}
                       variant="contained" 
                       color="primary"
                     >

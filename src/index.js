@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './store';
 import axios from 'axios';
@@ -9,6 +9,7 @@ import Moment from 'react-moment';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import App from './app';
+import StorePicker from './components/storePicker/storePicker';
 
 axios.defaults.baseURL = API_ROOT;
 
@@ -119,8 +120,12 @@ class Index extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
-          <Router basename="/store/omein">
-            <App />
+          <Router basename="/">
+            <Switch>
+              <Route path="/:store(omein|prana)" component={App} />
+              <Route path="/select-store" component={StorePicker} />
+              <Redirect to="/select-store" />
+            </Switch>
           </Router>
         </Provider>
       </MuiThemeProvider>

@@ -5,6 +5,8 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import PrivateRoute from './privateRoute';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
+import storeService from './services/store';
+import openpayService from './services/openpay';
 
 import LoginView from './views/login/loginView';
 import ForgotView from './views/forgot/forgotView';
@@ -47,10 +49,13 @@ class App extends Component {
     } else {
       this.setState({ validatedSession: true });
     }
+
+    storeService.setStore(this.props.match.params.store);
+    openpayService.setStore(this.props.match.params.store);
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, match } = this.props;
 
     return(
       <div className={classes.root}>
@@ -58,15 +63,15 @@ class App extends Component {
           <React.Fragment>
             <CssBaseline />
             <Switch>
-              <Route exact path="/login" component={LoginView} />
-              <Route path="/forgot" component={ForgotView} />
-              <PrivateRoute path="/shop" component={ProductsView}/>
-              <PrivateRoute path="/cart" component={CartView}/>
-              <PrivateRoute path="/checkout" component={CheckoutView}/>
-              <PrivateRoute path="/orders" component={OrdersView}/>
-              <PrivateRoute path="/payment-methods" component={PaymentMethods}/>
-              <PrivateRoute path="/addresses" component={Addresses}/>
-              <Redirect to="/login" />
+              <Route path={`${match.url}/login`} component={LoginView} />
+              <Route path={`${match.url}/forgot`} component={ForgotView} />
+              <PrivateRoute exact path={`${match.url}/shop`} component={ProductsView}/>
+              <PrivateRoute path={`${match.url}/cart`} component={CartView}/>
+              <PrivateRoute path={`${match.url}/checkout`} component={CheckoutView}/>
+              <PrivateRoute path={`${match.url}/orders`} component={OrdersView}/>
+              <PrivateRoute path={`${match.url}/payment-methods`} component={PaymentMethods}/>
+              <PrivateRoute path={`${match.url}/addresses`} component={Addresses}/>
+              <Redirect to={`${match.url}/login`} />
             </Switch>
             <Snackbars />
           </React.Fragment>

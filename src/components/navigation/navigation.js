@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { toggleMenu } from './navigationActions';
+import { generateStoreUrl, getStoreLogoUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -65,7 +66,7 @@ class Navigation extends Component {
 
   render() {
     const { classes, isAuthenticated } = this.props;
-    const cartProductsTotal = this.props.cartProducts.reduce((sum, item) => sum + item.get('quantity'), 0);
+    const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
 
     return (
       <AppBar 
@@ -77,8 +78,8 @@ class Navigation extends Component {
           <Grid item className={classes.main}>
             <Toolbar>
               <div className={classes.logoContainer}>
-                <Link to="/" className={classes.logo}>
-                  <img src="/images/logo-omein.png" className={classes.img} alt="Logo Prana"/>
+                <Link to={generateStoreUrl('/')} className={classes.logo}>
+                  <img src={getStoreLogoUrl()} className={classes.img} alt="Logo Prana"/>
                 </Link>
               </div>
               <Hidden mdUp>
@@ -98,17 +99,17 @@ class Navigation extends Component {
               { isAuthenticated ? (
                 <Button 
                   component={Link} 
-                  to="/cart"
+                  to={generateStoreUrl('/cart')}
                   aria-label="Cart"
                   className={classes.cartButton}
                 >
                   <ShoppingCartIcon />
-                  <Typography variant="h6" className={classes.cartText}>{cartProductsTotal}</Typography>
+                  <Typography variant="h6" className={classes.cartText}>{productsCount}</Typography>
                 </Button>
               ) : (
                 <Button 
                   component={Link}
-                  to="/login"
+                  to={generateStoreUrl('/login')}
                   variant="contained" 
                   color="primary"
                   className={classes.actionButton}
@@ -127,7 +128,7 @@ class Navigation extends Component {
 const mapStateToProps = function mapStateToProps(state, props) {
   return {
     isAuthenticated: state.get('session').get('isAuthenticated'),
-    cartProducts: state.get('cart').get('products'),
+    products: state.get('cart').get('products'),
   };
 };
 
