@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import storeService from '../../services/store';
+import { setStore } from './storeActions';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -31,6 +33,7 @@ const styles = theme => ({
 class StorePicker extends Component {
 
   selectStore = store => {
+    this.props.setStore(store);
     storeService.setStore(store);
     this.props.history.push(storeService.generateStoreUrl('/'));
   }
@@ -87,6 +90,7 @@ const mapStateToProps = function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
+    bindActionCreators({ setStore }, dispatch),
   );
 }
 
