@@ -4,6 +4,7 @@ import login from './components/login/loginReducer';
 import register from './components/register/registerReducer';
 import forgot from './components/forgot/forgotReducer';
 import session from './http/sessionReducer';
+import store from './components/store/storeReducer';
 import orders from './components/orders/ordersReducer';
 import address from './components/address/addressReducer';
 import cards from './components/cards/cardsReducer';
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   register,
   forgot,
   session,
+  store,
   orders,
   address,
   cards,

@@ -1,97 +1,56 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import PrivateRoute from './privateRoute';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
-import storeService from './services/store';
-import openpayService from './services/openpay';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import LoginView from './views/login/loginView';
-import ForgotView from './views/forgot/forgotView';
-import ProductsView from './views/shop/productsView';
-import CartView from './views/shop/cartView';
-import CheckoutView from './views/shop/checkoutView';
-import OrdersView from './views/shop/ordersView';
-import PaymentMethods from './views/shop/paymentMethodsView';
-import Addresses from './views/shop/addressesView';
-import Snackbars from './components/snackbars/snackbars';
+import StorePicker from './components/store/storePicker';
+import StoreView from './views/store/storeView';
 
-import session from '../src/http/session';
-import { getCurrentSession } from '../src/http/sessionActions';
-
-const styles = {
-  root: {
-    display: 'flex',
-    flexGrow: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    height: '100%',
-  },
-}
+import defaultTheme from './styles/defaultTheme';
+import omeinTheme from './styles/omeinTheme';
+import pranaTheme from './styles/pranaTheme';
 
 class App extends Component {
 
-  state = {
-    validatedSession: false
-  }
+  render() {
+    const { selectedStore } = this.props;
+    let theme = defaultTheme;
 
-  componentDidMount() {
-    if(session.isHttpHeaders()){
-      session.configHttpHeaders();
-      this.props.getCurrentSession()
-      .then(response => {
-        this.setState({ validatedSession: true });
-        return response;
-      });
-    } else {
-      this.setState({ validatedSession: true });
+    switch(selectedStore) {
+      case 'omein':
+        theme = omeinTheme;
+        break;
+      case 'prana':
+        theme = pranaTheme;
+        break;
+      default:
+        break;
     }
 
-    storeService.setStore(this.props.match.params.store);
-    openpayService.setStore(this.props.match.params.store);
-  }
-
-  render() {
-    const { classes, match } = this.props;
-
     return(
-      <div className={classes.root}>
-        {this.state.validatedSession && 
-          <React.Fragment>
-            <CssBaseline />
-            <Switch>
-              <Route path={`${match.url}/login`} component={LoginView} />
-              <Route path={`${match.url}/forgot`} component={ForgotView} />
-              <PrivateRoute exact path={`${match.url}/shop`} component={ProductsView}/>
-              <PrivateRoute path={`${match.url}/cart`} component={CartView}/>
-              <PrivateRoute path={`${match.url}/checkout`} component={CheckoutView}/>
-              <PrivateRoute path={`${match.url}/orders`} component={OrdersView}/>
-              <PrivateRoute path={`${match.url}/payment-methods`} component={PaymentMethods}/>
-              <PrivateRoute path={`${match.url}/addresses`} component={Addresses}/>
-              <Redirect to={`${match.url}/login`} />
-            </Switch>
-            <Snackbars />
-          </React.Fragment>
-        }
-      </div>
+      <MuiThemeProvider theme={createMuiTheme(theme)}>
+        <Switch>
+          <Route path="/:store(omein|prana)" component={StoreView} />
+          <Route path="/select-store" component={StorePicker} />
+          <Redirect to="/select-store" />
+        </Switch>
+      </MuiThemeProvider>
     )
   }
 }
 
 const mapStateToProps = function mapStateToProps(state, props) {
-  return {};
+  return {
+    selectedStore: state.get('store').get('store'),
+  };
 };
 
 function mapDispatchToProps(dispatch) {
   return Object.assign({},
-    bindActionCreators({ getCurrentSession }, dispatch),
   );
 }
 
-export default withStyles(styles)(withRouter(connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps
-  )(App)));
+  )(App);
