@@ -235,10 +235,10 @@ export function addCard(values) {
           .then(response => {
             dispatch({
               type: ADD_CHECKOUT_CARD_SUCCESS,
-              payload: toJSObject(response.data.card),
+              payload: toCardObject(response.data.card),
             });
             dispatch({ 
-              type: CLOSE_CARDS_DIALOG,
+              type: CLOSE_CHECKOUT_DIALOG,
             });
             resolve(response);
           })

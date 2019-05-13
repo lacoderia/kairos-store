@@ -23,7 +23,7 @@ export const getStoreLogoUrl = () => {
     case 'omein':
       url = '/images/logo-omein.png';
       break;
-    case 'omein':
+    case 'prana':
       url = '/images/logo-prana.png';
       break;
     default:

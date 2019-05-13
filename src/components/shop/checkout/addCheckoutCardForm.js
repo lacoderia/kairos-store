@@ -88,7 +88,7 @@ const validThroughMask = createTextMask({
 class AddCheckoutCardForm extends Component {
 
   handleSubmit = (values) => {
-    this.props.addAddress(values);
+    this.props.addCard(values);
   };
 
   render() {
