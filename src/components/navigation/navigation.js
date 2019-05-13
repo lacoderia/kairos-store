@@ -79,7 +79,7 @@ class Navigation extends Component {
             <Toolbar>
               <div className={classes.logoContainer}>
                 <Link to={generateStoreUrl('/')} className={classes.logo}>
-                  <img src={getStoreLogoUrl()} className={classes.img} alt="Logo Prana"/>
+                  <img src={getStoreLogoUrl()} className={classes.img} alt="Logo Tienda"/>
                 </Link>
               </div>
               <Hidden mdUp>
