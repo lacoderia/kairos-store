@@ -49,7 +49,7 @@ const styles = theme => ({
 class Summary extends Component {
   
   render() {
-    const { classes, showPaymentButton } = this.props;
+    const { classes, isCartView } = this.props;
     const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
     const orderTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity') * item.get('price'), 0);
     const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
@@ -75,19 +75,21 @@ class Summary extends Component {
               />
             </Typography>
           </div>
-          <div className={classes.justifiedText}>
-            <Typography variant="body1" component="span" gutterBottom>Envío:</Typography>
-            <Typography variant="body1" component="span">
-              <CurrencyFormat 
-                value={shippingCost} 
-                displayType={'text'} 
-                thousandSeparator={true} 
-                prefix={'$'} 
-                decimalScale={2}
-                fixedDecimalScale={true}
-              />
-            </Typography>
-          </div>
+          { !isCartView && (
+            <div className={classes.justifiedText}>
+              <Typography variant="body1" component="span" gutterBottom>Envío:</Typography>
+              <Typography variant="body1" component="span">
+                <CurrencyFormat 
+                  value={shippingCost} 
+                  displayType={'text'} 
+                  thousandSeparator={true} 
+                  prefix={'$'} 
+                  decimalScale={2}
+                  fixedDecimalScale={true}
+                />
+              </Typography>
+            </div>
+          )}
           <Divider className={classes.divider}/>
           <div className={classes.justifiedText}>
             <Typography variant="h6" component="span">Total a pagar:</Typography>
@@ -102,23 +104,20 @@ class Summary extends Component {
               />
             </Typography>
           </div>
-          {showPaymentButton && (
-            <React.Fragment>
-              <div className={classes.buttonContainer}>
-                <Button 
-                  component={Link}
-                  to={generateStoreUrl('/checkout')}
-                  aria-label="Proceed to checkout"
-                  variant="contained" 
-                  color="primary" 
-                  size="large"
-                  disabled={productsCount == 0}
-                >
-                  Proceder al pago
-                </Button>
-              </div>
-            </React.Fragment>
-            
+          {isCartView && (
+            <div className={classes.buttonContainer}>
+              <Button 
+                component={Link}
+                to={generateStoreUrl('/checkout')}
+                aria-label="Proceed to checkout"
+                variant="contained" 
+                color="primary" 
+                size="large"
+                disabled={productsCount == 0}
+              >
+                Proceder al pago
+              </Button>
+            </div>            
           )}
         </Paper>
       </React.Fragment>

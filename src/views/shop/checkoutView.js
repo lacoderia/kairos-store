@@ -62,7 +62,7 @@ class CheckoutView extends Component {
               >
                 <Hidden mdUp>
                   <Grid item xs={12} md={4} lg={3}>
-                    <Summary showPaymentButton={false}/>
+                    <Summary/>
                   </Grid>
                 </Hidden>
                 <Grid item xs={12} md={8} lg={9}>
@@ -70,7 +70,7 @@ class CheckoutView extends Component {
                 </Grid>
                 <Hidden smDown>
                   <Grid item xs={12} md={4} lg={3}>
-                    <Summary showPaymentButton={false}/>
+                    <Summary/>
                   </Grid>
                 </Hidden>
               </Grid>
