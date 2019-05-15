@@ -47,6 +47,10 @@ const styles = theme => ({
   leftColumnContent: {
     textAlign: 'center',
     padding: 48,
+    paddingBottom: 0,
+    [theme.breakpoints.up('md')]: {
+      paddingBottom: 48,
+    }
   },
   rigthColumnContent: {
     flex: 1,
@@ -55,7 +59,10 @@ const styles = theme => ({
   },
   picture: {
     objectFit: 'cover',
-    maxWidth: '100%',
+    maxWidth: '60%',
+    [theme.breakpoints.up('md')]: {
+      maxWidth: '100%',
+    }
   },
   title: {
     marginBottom: 24,

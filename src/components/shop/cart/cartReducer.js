@@ -6,7 +6,7 @@ import {
   UPDATE_PRODUCT_DISPLAY_QUANTITY,
   RESET_PRODUCT_QUANTITY,
 } from './cartActions';
-import { PLACE_ORDER_SUCCESS } from '../checkout/checkoutActions';
+import { CONFIRM_ORDER_SUCCESS } from '../checkout/checkoutActions';
 
 const initialState = fromJS({
   products: Map(),
@@ -36,7 +36,7 @@ function cartReducer(state = initialState, action) {
       return state.merge({
         products: state.get('products').setIn([action.payload.toString(), 'displayQuantity'], state.getIn(['products', action.payload.toString(), 'quantity'])),
       })
-    case PLACE_ORDER_SUCCESS:
+    case CONFIRM_ORDER_SUCCESS:
       return state.merge({
         products: initialState.get('products'),
       })

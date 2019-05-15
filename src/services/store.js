@@ -13,30 +13,18 @@ export const getStore = () => {
 }
 
 export const generateStoreUrl = url => {
-  return '/' + store + url;
+  return `/${store}` + url;
 }
 
-export const getStoreLogoUrl = () => {
-  let url = '';
-
-  switch(store){
-    case 'omein':
-      url = '/images/logo-omein.png';
-      break;
-    case 'prana':
-      url = '/images/logo-prana.png';
-      break;
-    default:
-      break;
-  }
-  return url;
+export const getStoreAssetUrl = (type, filename) => {
+  return `/${type}/${store}/${filename}`;
 }
 
 const storeService = {
   setStore,
   getStore,
   generateStoreUrl,
-  getStoreLogoUrl,
+  getStoreAssetUrl,
 };
 
 export default storeService;

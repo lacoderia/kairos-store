@@ -28,7 +28,6 @@ import {  getAddresses,
           openDialog, 
           closeDialog,
           exitDialog } from './checkoutActions';
-import { openSnackbar } from '../../snackbars/snackbarsActions';
 import { dialogs, sections } from './checkoutConstants';
 
 const styles = theme => ({
@@ -122,6 +121,23 @@ const styles = theme => ({
   capitalize: {
     textTransform: 'capitalize',
   },
+  paymentContainer : {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    [theme.breakpoints.up('md')]: {
+      justifyContent: 'normal',
+    },
+  },
+  imgContainer: {
+  },
+  img: {
+    height: 24,
+    [theme.breakpoints.up('md')]: {
+      height: 32,
+      marginLeft: 40,
+    },
+  },
 });
 
 class Checkout extends Component {
@@ -169,16 +185,7 @@ class Checkout extends Component {
       this.props.placeOrder(shippingAddress.id, selectedCard.id, products, shippingCost)
       .then(
         (response) => {
-
-          this.props.openSnackbar({
-            open: true,
-            title: 'Pedido recibido',
-            message: 'Tu pedido es el número ' + response.data.order.order_number,
-            showIcon: false,
-            variant: 'info',
-          })
-
-          this.props.history.push(generateStoreUrl('/orders'));
+          window.location.href = response.data.order.redirect_url;
         },
         (e) => {}
       )
@@ -373,16 +380,21 @@ class Checkout extends Component {
                     ) : (
                       <React.Fragment>
                         { selectedCard && (
-                          <div>
-                            <Typography variant="body1" className={classes.bold}>
-                              <span className={classes.capitalize}>{selectedCard.brand}</span> terminada en {selectedCard.cardNumber.slice(-4)} 
-                            </Typography>
-                            <Typography variant="body1">
-                              {selectedCard.name}
-                            </Typography>
-                            <Typography variant="body1">
-                              Vencimiento: {selectedCard.expiration}
-                            </Typography>
+                          <div className={classes.paymentContainer}>
+                            <div>
+                              <Typography variant="body1" className={classes.bold}>
+                                <span className={classes.capitalize}>{selectedCard.brand}</span> terminada en {selectedCard.cardNumber.slice(-4)} 
+                              </Typography>
+                              <Typography variant="body1">
+                                {selectedCard.name}
+                              </Typography>
+                              <Typography variant="body1">
+                                Vencimiento: {selectedCard.expiration}
+                              </Typography>
+                            </div>
+                            <div className={classes.imgContainer}>
+                              <img src="/images/logo-openpay.png" className={classes.img}/>
+                            </div>
                           </div>
                         )}
                         { cardsIdArray && cardsIdArray.length == 0 && (
@@ -425,16 +437,21 @@ class Checkout extends Component {
               ) : (
                 <div>
                   { selectedCard && touchedSections.includes(sections.PAYMENT_METHOD_SECTION) && (
-                    <div>
-                      <Typography variant="body1" className={classes.bold}>
-                        <span className={classes.capitalize}>{selectedCard.brand}</span> terminada en {selectedCard.cardNumber.slice(-4)} 
-                      </Typography>
-                      <Typography variant="body1">
-                        {selectedCard.name}
-                      </Typography>
-                      <Typography variant="body1">
-                        Vencimiento: {selectedCard.expiration}
-                      </Typography>
+                    <div className={classes.paymentContainer}>
+                      <div>
+                        <Typography variant="body1" className={classes.bold}>
+                          <span className={classes.capitalize}>{selectedCard.brand}</span> terminada en {selectedCard.cardNumber.slice(-4)} 
+                        </Typography>
+                        <Typography variant="body1">
+                          {selectedCard.name}
+                        </Typography>
+                        <Typography variant="body1">
+                          Vencimiento: {selectedCard.expiration}
+                        </Typography>
+                      </div>
+                      <div className={classes.imgContainer}>
+                        <img src="/images/logo-openpay.png" className={classes.img}/>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -511,7 +528,6 @@ function mapDispatchToProps(dispatch) {
     bindActionCreators({ openDialog }, dispatch),
     bindActionCreators({ closeDialog }, dispatch),
     bindActionCreators({ exitDialog }, dispatch),
-    bindActionCreators({ openSnackbar }, dispatch),
   );
 }
 

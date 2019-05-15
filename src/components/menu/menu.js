@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { generateStoreUrl } from '../../services/store';
+import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -68,8 +68,9 @@ const styles = theme => ({
   terms: {
     marginTop: 'auto',
   },
-  termsText: {
+  footerItem: {
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+    paddingTop: 0,
   }
 });
 
@@ -209,9 +210,16 @@ class Menu extends Component {
           </List>
         </div>
         <div className={classes.terms}>
-          {/* <Typography variant="body1" align="right" className={classes.termsText}>
-            Términos y condiciones
-          </Typography> */}
+          <a href={getStoreAssetUrl('docs', 'terminos-y-condiciones.pdf')} target="_blank">
+            <Typography variant="body1" align="right" className={classes.footerItem}>
+              Términos y condiciones
+            </Typography>
+          </a>
+          <a href={getStoreAssetUrl('docs', 'aviso-de-privacidad.pdf')} target="_blank">
+            <Typography variant="body1" align="right" className={classes.footerItem}>
+              Aviso de privacidad
+            </Typography>
+          </a>
         </div>
       </div>
     );
