@@ -58,6 +58,7 @@ function checkoutReducer(state = initialState, action) {
         getAddressesError: initialState.get('getAddressesError'),
         addresses: initialState.get('addresses'),
         selectedShippingAddress: initialState.get('selectedShippingAddress'),
+        shippingCost: initialState.get('shippingCost'),
       })
     case GET_CHECKOUT_ADDRESSES_SUCCESS:
       return state.merge({

@@ -62,7 +62,7 @@ class CartView extends Component {
               >
                 <Hidden mdUp>
                   <Grid item xs={12} md={4} lg={3}>
-                    <Summary showPaymentButton={true}/>
+                    <Summary isCartView={true}/>
                   </Grid>
                 </Hidden>
                 <Grid item xs={12} md={8} lg={9}>
@@ -70,7 +70,7 @@ class CartView extends Component {
                 </Grid>
                 <Hidden smDown>
                   <Grid item xs={12} md={4} lg={3}>
-                    <Summary showPaymentButton={true}/>
+                    <Summary isCartView={true}/>
                   </Grid>
                 </Hidden>
               </Grid>
