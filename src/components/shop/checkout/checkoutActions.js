@@ -24,8 +24,10 @@ export const ADD_CHECKOUT_CARD_ERROR = 'ADD_CHECKOUT_CARD_ERROR';
 export const CHANGE_CHECKOUT_CARD = 'CHANGE_CHECKOUT_CARD';
 export const CHANGE_ACTIVE_SECTION = 'CHANGE_ACTIVE_SECTION';
 export const PLACE_ORDER_FETCH = 'PLACE_ORDER_FETCH';
-export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
+export const CONFIRM_ORDER_FETCH = 'CONFIRM_ORDER_FETCH';
+export const CONFIRM_ORDER_SUCCESS = 'CONFIRM_ORDER_SUCCESS';
+export const CONFIRM_ORDER_ERROR = 'CONFIRM_ORDER_ERROR';
 export const OPEN_CHECKOUT_DIALOG = 'OPEN_CHECKOUT_DIALOG';
 export const CLOSE_CHECKOUT_DIALOG = 'CLOSE_CHECKOUT_DIALOG';
 export const EXIT_CHECKOUT_DIALOG = 'EXIT_CHECKOUT_DIALOG';
@@ -289,7 +291,7 @@ export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost)
       })
     })
 
-    return axios.post('/orders/create_with_items', {
+    return axios.post('/orders/validate_charge_and_redirect', {
         card_id: cardId, 
         shipping_address_id: shippingAddressId == 0 ? null : shippingAddressId, // puede ser null si es recolección en persona
         items: products,
@@ -298,9 +300,6 @@ export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost)
         company: storeService.getStore(),
     })
     .then(response => {
-      dispatch({
-        type: PLACE_ORDER_SUCCESS,
-      });
       return response;
     })
     .catch(e => {
@@ -309,6 +308,34 @@ export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost)
 
       dispatch({
         type: PLACE_ORDER_ERROR,
+        payload: errorText,
+      });
+      throw e;
+    });
+  }
+}
+
+export function confirmOrder(token) {
+  return (dispatch) => {
+    dispatch({
+      type: CONFIRM_ORDER_FETCH,
+    })
+
+    return axios.post('/orders/verify_and_apply_fee', {
+      openpay_id: token
+    })
+    .then(response => {
+      dispatch({
+        type: CONFIRM_ORDER_SUCCESS,
+      });
+      return response;
+    })
+    .catch(e => {
+      const error = (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0] : undefined;
+      const errorText = error ? error.title : 'Ocurrió un error al confirmar la orden. Por favor intenta nuevamente.';
+
+      dispatch({
+        type: CONFIRM_ORDER_ERROR,
         payload: errorText,
       });
       throw e;
@@ -351,6 +378,7 @@ const checkoutActions = {
   addCard,
   changeSelectedCard,
   placeOrder,
+  confirmOrder,
   openDialog,
   closeDialog,
   exitDialog,

@@ -22,8 +22,10 @@ import {
   CLOSE_CHECKOUT_DIALOG,
   EXIT_CHECKOUT_DIALOG,
   PLACE_ORDER_FETCH,
-  PLACE_ORDER_SUCCESS,
   PLACE_ORDER_ERROR,
+  CONFIRM_ORDER_FETCH,
+  CONFIRM_ORDER_SUCCESS,
+  CONFIRM_ORDER_ERROR,
 } from './checkoutActions';
 
 const initialState = fromJS({
@@ -43,8 +45,9 @@ const initialState = fromJS({
   getShippingCostError: '',
   cards: null,
   selectedCard: undefined,
-  placeOrderError: '',
   loading: false,
+  placeOrderError: '',
+  confirmOrderError: '',
 });
 
 function checkoutReducer(state = initialState, action) {
@@ -150,14 +153,24 @@ function checkoutReducer(state = initialState, action) {
         loading: true,
         placeOrderError: initialState.get('placeOrderError'),
       })
-    case PLACE_ORDER_SUCCESS:
-      return state.merge({
-        loading: initialState.get('loading'),
-      })
     case PLACE_ORDER_ERROR:
       return state.merge({
         loading: initialState.get('loading'),
         placeOrderError: action.payload,
+      })
+    case CONFIRM_ORDER_FETCH:
+      return state.merge({
+        loading: true,
+        confirmOrderError: initialState.get('confirmOrderError'),
+      })
+    case CONFIRM_ORDER_SUCCESS:
+      return state.merge({
+        loading: initialState.get('loading'),
+      })
+    case CONFIRM_ORDER_ERROR:
+      return state.merge({
+        loading: initialState.get('loading'),
+        confirmOrderError: action.payload,
       })
     case OPEN_CHECKOUT_DIALOG:
       return state.merge({

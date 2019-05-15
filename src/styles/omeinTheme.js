@@ -1,4 +1,4 @@
-const mainColor = '#40C3FD';
+const mainColor = '#2E8BD7';
 
 export const theme = {
   palette: {
@@ -28,7 +28,7 @@ export const theme = {
       darkBlue: '#27648C',
       lightBlue: '#F0F8FE',
       pink: '#D91D71',
-      navigation: '#2E8BD7',
+      navigation: mainColor,
     },
     background: {
       default: '#f8f8f8'

@@ -40,11 +40,13 @@ const styles = theme => ({
   cvvHelper: {
     height: 30,
   },
-  selectfield: {
-    textAlign: 'start',
-    '&:focus': {
-      background: 'transparent',
-    },
+  imgContainer: {
+    marginTop: 16,
+    textAlign: 'right',
+    width: '100%',
+  },
+  img: {
+    height: 32,
   },
   error: {
     color: theme.palette.error.main,
@@ -173,9 +175,14 @@ class AddCheckoutCardForm extends Component {
               }}
             />
           </div>
-          <Typography variant="body1" className={classes.error}>
-            {formError}
-          </Typography>
+          <div className={classes.imgContainer}>
+            <img src="/images/logo-openpay.png" className={classes.img}/>
+          </div>
+          { formError && (
+            <Typography variant="body1" className={classes.error}>
+              {formError}
+            </Typography>
+          )}
         </DialogContent>
       </Form>
     );

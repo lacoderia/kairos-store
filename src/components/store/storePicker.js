@@ -8,8 +8,8 @@ import { setStore } from './storeActions';
 import { withStyles } from '@material-ui/core/styles';
 
 import DialogWrapper from '../common/dialogWrapper';
-import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
+import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -47,7 +47,7 @@ class StorePicker extends Component {
       >
         <AppBar position="relative">
           <Toolbar>
-            <Typography variant="h6" color="inherit" className={classes.flex}>
+            <Typography variant="h6" color="inherit">
               Elige una tienda
             </Typography>
           </Toolbar>
@@ -77,7 +77,6 @@ class StorePicker extends Component {
             </Button>
           </div>
         </DialogContent>
-        
       </DialogWrapper>
     )
   }

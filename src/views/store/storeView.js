@@ -10,6 +10,7 @@ import openpayService from '../../services/openpay';
 
 import LoginView from '../login/loginView';
 import ForgotView from '../forgot/forgotView';
+import ConfirmOrderView from '../shop/confirmOrderView';
 import ProductsView from '../shop/productsView';
 import CartView from '../shop/cartView';
 import CheckoutView from '../shop/checkoutView';
@@ -67,7 +68,8 @@ class StoreView extends Component {
             <Switch>
               <Route path={`${match.url}/login`} component={LoginView} />
               <Route path={`${match.url}/forgot`} component={ForgotView} />
-              <PrivateRoute exact path={`${match.url}/shop`} component={ProductsView}/>
+              <PrivateRoute path={`${match.url}/confirm-order`} component={ConfirmOrderView} />
+              <PrivateRoute path={`${match.url}/shop`} component={ProductsView}/>
               <PrivateRoute path={`${match.url}/cart`} component={CartView}/>
               <PrivateRoute path={`${match.url}/checkout`} component={CheckoutView}/>
               <PrivateRoute path={`${match.url}/orders`} component={OrdersView}/>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { toggleMenu } from './navigationActions';
-import { generateStoreUrl, getStoreLogoUrl } from '../../services/store';
+import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -79,7 +79,7 @@ class Navigation extends Component {
             <Toolbar>
               <div className={classes.logoContainer}>
                 <Link to={generateStoreUrl('/')} className={classes.logo}>
-                  <img src={getStoreLogoUrl()} className={classes.img} alt="Logo Tienda"/>
+                  <img src={getStoreAssetUrl('images', 'logo.png')} className={classes.img} alt="Logo Tienda"/>
                 </Link>
               </div>
               <Hidden mdUp>
