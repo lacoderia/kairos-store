@@ -23,7 +23,7 @@ export const theme = {
       mediumGrey: '#777',
       darkGrey: '#111',
       white: '#fff',
-      background: '#40C3FD',
+      background: '#c8c8c8',
       red: '#ff5a5f',
       darkBlue: '#27648C',
       lightBlue: '#F0F8FE',

@@ -55,12 +55,22 @@ const styles = theme => ({
       display: 'flex',
     },
   },
-  productListHeaderCell100: {
-    textAlign: 'right',
+  productListCell70: {
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'right',
+    },
+    width: 70,
+  },
+  productListCell100: {
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'right',
+    },
     width: 100,
   },
-  productListHeaderCell120: {
-    textAlign: 'right',
+  productListCell120: {
+    [theme.breakpoints.up('sm')]: {
+      textAlign: 'right',
+    },
     width: 120,
   },
   productContainer: {
@@ -109,9 +119,7 @@ const styles = theme => ({
   productPrice: {
     color: theme.palette.primary.dark,
     fontWeight: 500,
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: 40,
-    }
+    width: 100,
   },
   marginDense: {
     paddingBottom: 8,
@@ -193,17 +201,17 @@ class Cart extends Component {
             <div className={classes.productList}>
               <div className={classes.productListHeader}>
                 <div className={classes.productTitle} />
-                <div className={classes.productListHeaderCell100}>
+                <div className={classes.productListCell100}>
                   <Typography variant="body1">
                     Precio
                   </Typography>
                 </div>
-                <div className={classes.productListHeaderCell120}>
+                <div className={classes.productListCell120}>
                   <Typography variant="body1">
                     Cant.
                   </Typography>
                 </div>
-                <div className={classes.productListHeaderCell100} />
+                <div className={classes.productListCell100} />
               </div>
               {productsIdArray && productsIdArray.map(id => {
                 const product = products[id];
@@ -217,7 +225,10 @@ class Cart extends Component {
                       <Typography variant="body1" className={classes.productTitle}>
                         {product.name}
                       </Typography>
-                      <Typography variant="body1">
+                      <Typography variant="body1" className={classes.productListCell70}>
+                        {product.volume * product.quantity} VP
+                      </Typography>
+                      <Typography variant="body1" className={classes.productListCell100}>
                         <CurrencyFormat 
                           value={product.price * product.quantity} 
                           displayType={'text'} 
