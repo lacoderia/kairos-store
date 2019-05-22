@@ -102,6 +102,7 @@ class ProductDialog extends Component {
       id: product.id,
       name: product.name,
       price: product.price,
+      volume: product.volume,
       picture: product.picture,
       quantity: 1,
       displayQuantity: 1,

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
+import { CONTACT_EMAIL } from '../../common/constants';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -69,9 +70,16 @@ const styles = theme => ({
     marginTop: 'auto',
   },
   footerItem: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
     paddingTop: 0,
-  }
+  },
+  link: {
+    color: theme.palette.custom.darkGrey,
+    textDecoration: 'none',
+    '&:hover': {
+      color: theme.palette.custom.darkBlue,
+    },
+  },
 });
 
 const menu = [
@@ -210,16 +218,22 @@ class Menu extends Component {
           </List>
         </div>
         <div className={classes.terms}>
-          <a href={getStoreAssetUrl('docs', 'terminos-y-condiciones.pdf')} target="_blank">
-            <Typography variant="body1" align="right" className={classes.footerItem}>
+          <Typography variant="body1" align="right" className={classes.footerItem}>
+            Teléfono: <a href={'tel:5556694370'} className={classes.link}>(55) 5669 4370</a>
+          </Typography>
+          <Typography variant="body1" align="right" className={classes.footerItem} gutterBottom>
+            <a href={'mailto:' + CONTACT_EMAIL} className={classes.link}>{CONTACT_EMAIL}</a>
+          </Typography>
+          <Typography variant="body1" align="right" className={classes.footerItem}>
+            <a href={getStoreAssetUrl('docs', 'terminos-y-condiciones.pdf')} target="_blank" className={classes.link}>
               Términos y condiciones
-            </Typography>
-          </a>
-          <a href={getStoreAssetUrl('docs', 'aviso-de-privacidad.pdf')} target="_blank">
-            <Typography variant="body1" align="right" className={classes.footerItem}>
+            </a>
+          </Typography>
+          <Typography variant="body1" align="right" className={classes.footerItem} gutterBottom>
+            <a href={getStoreAssetUrl('docs', 'aviso-de-privacidad.pdf')} target="_blank" className={classes.link}>
               Aviso de privacidad
-            </Typography>
-          </a>
+            </a>
+          </Typography>
         </div>
       </div>
     );
