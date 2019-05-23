@@ -18,7 +18,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const styles = theme => ({
   root: {
-    backgroundColor: theme.palette.custom.navigation,
+    backgroundColor: theme.palette.custom.navigation + ' !important',
     zIndex: theme.zIndex.drawer + 1,
   },
   main: {

@@ -254,7 +254,7 @@ export function addCard(values) {
         
       }), (e) => {
         dispatch({
-          type: ADD_CARD_ERROR,
+          type: ADD_CHECKOUT_CARD_ERROR,
           payload: "Por favor revisa que los datos de la tarjeta sean correctos."
         });
         reject(e);
