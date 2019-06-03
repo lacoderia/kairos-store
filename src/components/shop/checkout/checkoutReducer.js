@@ -42,6 +42,7 @@ const initialState = fromJS({
   addresses: null,
   selectedShippingAddress: undefined,
   shippingCost: undefined,
+  shippingMessage: undefined,
   getShippingCostError: '',
   cards: null,
   selectedCard: undefined,
@@ -59,6 +60,7 @@ function checkoutReducer(state = initialState, action) {
         addresses: initialState.get('addresses'),
         selectedShippingAddress: initialState.get('selectedShippingAddress'),
         shippingCost: initialState.get('shippingCost'),
+        shippingMessage: initialState.get('shippingMessage'),
       })
     case GET_CHECKOUT_ADDRESSES_SUCCESS:
       return state.merge({
@@ -95,11 +97,14 @@ function checkoutReducer(state = initialState, action) {
       return state.merge({
         loading: true,
         getShippingCostError: initialState.get('getShippingCostError'),
+        shippingCost: initialState.get('shippingCost'),
+        shippingMessage: initialState.get('shippingMessage'),
       })
     case GET_SHIPPING_COST_SUCCESS:
       return state.merge({
         loading: initialState.get('loading'),
-        shippingCost: action.payload,
+        shippingCost: action.payload.cost,
+        shippingMessage: action.payload.message,
       })
     case GET_SHIPPING_COST_ERROR:
       return state.merge({

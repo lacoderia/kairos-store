@@ -78,20 +78,32 @@ class CheckoutAddressList extends Component {
                         <Typography variant="body1" className={classes.addressTitle}>
                           {address.name}
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body2">
                           {address.address}
                         </Typography>
-                        <Typography variant="body1">
+                        {address.streets && (
+                          <Typography variant="body2">
+                            Entre: {address.streets}
+                          </Typography>
+                        )}
+                        <Typography variant="body2">
+                          {address.reference}
+                        </Typography>
+                        <Typography variant="body2">
                           {address.city}{address.state && (
                             <React.Fragment>, {address.state}</React.Fragment>
                           )}
                         </Typography>
-                        <Typography variant="body1">
-                          {address.zip}
+                        <Typography variant="body2">
+                          {address.zip}{address.country && (
+                            <React.Fragment>, {address.country}</React.Fragment>
+                          )}
                         </Typography>
-                        <Typography variant="body1">
-                          {address.country}
-                        </Typography>
+                        {address.phone && (
+                          <Typography variant="body2">
+                            Teléfono: {address.phone}
+                          </Typography>
+                        )}
                       </div>
                       <div className={classes.buttonContainer}>
                         <Button 

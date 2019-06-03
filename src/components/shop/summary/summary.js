@@ -14,6 +14,8 @@ import Divider from '@material-ui/core/Divider';
 
 const styles = theme => ({
   title: {
+    display: 'flex',
+    alignItems: 'baseline',
     fontWeight: 500,
     marginTop: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
@@ -43,6 +45,9 @@ const styles = theme => ({
   divider: {
     marginBottom: 6,
     marginTop: 6,
+  },
+  vpText: {
+    fontSize: '0.9rem',
   }
 });
 
@@ -52,13 +57,14 @@ class Summary extends Component {
     const { classes, isCartView } = this.props;
     const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
     const orderTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity') * item.get('price'), 0);
+    const orderVPTotal = this.props.products.reduce((sum, item) => sum + item.get('quantity') * item.get('volume'), 0);
     const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
     return (
       <React.Fragment>
         <div className={classes.title}>
-          <Typography variant="h5" style={{ display: 'inline-block' }}>
-            Resumen de compra
+          <Typography variant="h5" component="span">
+          Resumen de compra
           </Typography>
         </div>
         <Paper elevation={0} className={classes.paper}>
@@ -92,7 +98,7 @@ class Summary extends Component {
           )}
           <Divider className={classes.divider}/>
           <div className={classes.justifiedText}>
-            <Typography variant="h6" component="span">Total a pagar:</Typography>
+            <Typography variant="h6" component="span" gutterBottom>Total a pagar:</Typography>
             <Typography variant="h6" component="span">
               <CurrencyFormat 
                 value={orderTotal + shippingCost} 
@@ -104,21 +110,40 @@ class Summary extends Component {
               />
             </Typography>
           </div>
-          {isCartView && (
-            <div className={classes.buttonContainer}>
+          <div className={classes.justifiedText}>
+            <Typography variant="h6" component="span" className={classes.vpText}>VP total:</Typography>
+            <Typography variant="h6" component="span" className={classes.vpText}>
+              {orderVPTotal} VP
+            </Typography>
+          </div>
+          <div className={classes.buttonContainer}>
+            { isCartView && (
+              <div>
+                <Button 
+                  component={Link}
+                  to={generateStoreUrl('/checkout')}
+                  aria-label="Proceed to checkout"
+                  variant="contained" 
+                  color="primary" 
+                  disabled={productsCount == 0}
+                >
+                  Proceder al pago
+                </Button>
+              </div>
+            )}
+            <div>
               <Button 
                 component={Link}
-                to={generateStoreUrl('/checkout')}
-                aria-label="Proceed to checkout"
-                variant="contained" 
-                color="primary" 
-                size="large"
-                disabled={productsCount == 0}
+                to={generateStoreUrl('/shop')}
+                aria-label="Continue shopping"
+                color="primary"
+                className={classes.continueShoppingButton}
+                style={{marginTop: 16}}
               >
-                Proceder al pago
+                Continuar comprando
               </Button>
-            </div>            
-          )}
+            </div>
+          </div>
         </Paper>
       </React.Fragment>
     )

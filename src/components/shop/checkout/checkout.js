@@ -138,6 +138,9 @@ const styles = theme => ({
       marginLeft: 40,
     },
   },
+  note: {
+    marginTop: 24,
+  },
 });
 
 class Checkout extends Component {
@@ -200,7 +203,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const { classes, addressesLoading, addressesError, cardsLoading, cardsError, dialog, dialogLoading, open, products, loading, getShippingCostError, placeOrderError } = this.props;
+    const { classes, addressesLoading, addressesError, cardsLoading, cardsError, dialog, dialogLoading, open, products, loading, getShippingCostError, shippingMessage, placeOrderError } = this.props;
 
     const touchedSections = this.props.touchedSections ? this.props.touchedSections.toJS() : [];
 
@@ -269,20 +272,32 @@ class Checkout extends Component {
                             <Typography variant="body1" className={classes.bold}>
                               {shippingAddress.name}
                             </Typography>
-                            <Typography variant="body1">
+                            <Typography variant="body2">
                               {shippingAddress.address}
                             </Typography>
-                            <Typography variant="body1">
+                            {shippingAddress.streets && (
+                              <Typography variant="body2">
+                                Entre: {shippingAddress.streets}
+                              </Typography>
+                            )}
+                            <Typography variant="body2">
+                              {shippingAddress.reference}
+                            </Typography>
+                            <Typography variant="body2">
                               {shippingAddress.city}{shippingAddress.state && (
                                 <React.Fragment>, {shippingAddress.state}</React.Fragment>
                               )}
                             </Typography>
-                            <Typography variant="body1">
-                              {shippingAddress.zip}
+                            <Typography variant="body2">
+                              {shippingAddress.zip}{shippingAddress.country && (
+                                <React.Fragment>, {shippingAddress.country}</React.Fragment>
+                              )}
                             </Typography>
-                            <Typography variant="body1">
-                              {shippingAddress.country}
-                            </Typography>
+                            {shippingAddress.phone && (
+                              <Typography variant="body2">
+                                Teléfono: {shippingAddress.phone}
+                              </Typography>
+                            )}
                           </div>
                         )}
                         { addressesIdArray && addressesIdArray.length == 0 && (
@@ -325,25 +340,40 @@ class Checkout extends Component {
               ) : (
                 <div>
                   { shippingAddress && (
-                    <div>
-                      <Typography variant="body1" className={classes.bold}>
-                        {shippingAddress.name}
-                      </Typography>
-                      <Typography variant="body1">
-                        {shippingAddress.address}
-                      </Typography>
-                      <Typography variant="body1">
-                        {shippingAddress.city}{shippingAddress.state && (
-                          <React.Fragment>, {shippingAddress.state}</React.Fragment>
-                        )}
-                      </Typography>
-                      <Typography variant="body1">
-                        {shippingAddress.zip}
-                      </Typography>
-                      <Typography variant="body1">
-                        {shippingAddress.country}
-                      </Typography>
-                    </div>
+                    <React.Fragment>
+                      <div>
+                        <Typography variant="body1" className={classes.bold}>
+                          {shippingAddress.name}
+                        </Typography>
+                        <Typography variant="body2">
+                          {shippingAddress.address}
+                        </Typography>
+                        <Typography variant="body2">
+                          {shippingAddress.streets}
+                        </Typography>
+                        <Typography variant="body2">
+                          {shippingAddress.reference}
+                        </Typography>
+                        <Typography variant="body2">
+                          {shippingAddress.city}{shippingAddress.state && (
+                            <React.Fragment>, {shippingAddress.state}</React.Fragment>
+                          )}
+                        </Typography>
+                        <Typography variant="body2">
+                          {shippingAddress.zip}{shippingAddress.country && (
+                            <React.Fragment>, {shippingAddress.country}</React.Fragment>
+                          )}
+                        </Typography>
+                        <Typography variant="body2">
+                          Teléfono: {shippingAddress.phone}
+                        </Typography>
+                      </div>
+                      { shippingMessage && (
+                        <Typography variant="body2" className={classes.note}>
+                          * Nota: {shippingMessage}
+                        </Typography>
+                      )}
+                    </React.Fragment>
                   )}
                 </div>
               )}
@@ -512,6 +542,7 @@ const mapStateToProps = function mapStateToProps(state, props) {
     selectedCard: state.get('checkout').get('selectedCard'),
     loading: state.get('checkout').get('loading'),
     shippingCost: state.get('checkout').get('shippingCost'),
+    shippingMessage: state.get('checkout').get('shippingMessage'),
     getShippingCostError: state.get('checkout').get('getShippingCostError'),
     placeOrderError: state.get('checkout').get('placeOrderError'),
     products: state.get('cart').get('products'),
