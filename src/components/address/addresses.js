@@ -106,18 +106,28 @@ class Addresses extends Component {
                       <Typography variant="body1" className={classes.dataTitle}>
                         {item.name}
                       </Typography>
-                      <Typography variant="body1" className={classes.data}>
+                      <Typography variant="body2" className={classes.data}>
                         {item.address}
                       </Typography>
-                      <Typography variant="body1" className={classes.data}>
+                      {item.streets && (
+                        <Typography variant="body2" className={classes.data}>
+                          Entre: {item.streets}
+                        </Typography>
+                      )}
+                      <Typography variant="body2" className={classes.data}>
+                        {item.reference}
+                      </Typography>
+                      <Typography variant="body2" className={classes.data}>
                         {item.city}, {item.state}
                       </Typography>
-                      <Typography variant="body1" className={classes.data}>
-                        {item.zip}
+                      <Typography variant="body2" className={classes.data}>
+                        {item.zip}, {item.country}
                       </Typography>
-                      <Typography variant="body1" className={classes.data}>
-                        {item.country}
-                      </Typography>
+                      {item.phone && (
+                        <Typography variant="body2" className={classes.data}>
+                          Teléfono: {item.phone}
+                        </Typography>
+                      )}
                     </div>
                     <div>
                       <Button

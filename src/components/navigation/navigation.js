@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { toggleMenu } from './navigationActions';
 import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
+import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -56,6 +57,9 @@ const styles = theme => ({
     color: 'white',
     marginLeft: 8,
   },
+  cartButtonWithItems: {
+    backgroundColor: theme.palette.custom.cartButton,
+  }
 });
 
 class Navigation extends Component {
@@ -101,7 +105,10 @@ class Navigation extends Component {
                   component={Link} 
                   to={generateStoreUrl('/cart')}
                   aria-label="Cart"
-                  className={classes.cartButton}
+                  className={classNames(
+                    classes.cartButton,
+                    productsCount > 0 ? classes.cartButtonWithItems : undefined
+                  )}
                 >
                   <ShoppingCartIcon />
                   <Typography variant="h6" className={classes.cartText}>{productsCount}</Typography>

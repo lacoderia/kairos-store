@@ -29,6 +29,7 @@ export const theme = {
       lightBlue: '#F0F8FE',
       pink: '#D91D71',
       navigation: '#D91D71',
+      cartButton: '#E86BA4',
     },
     background: {
       default: '#f8f8f8'

@@ -37,10 +37,13 @@ function toAddressObject(address) {
     id: address.id,
     name: address.name,
     address: address.address,
+    streets: address.between_streets,
+    reference: address.reference,
     city: address.city,
     state: address.state,
     zip: address.zip,
     country: address.country,
+    phone: address.phone,
     primary: address.primary,
   }
 }
@@ -116,10 +119,13 @@ export function addAddress(values) {
         shipping_address: {
           name: values.get('name'),
           address: values.get('address'),
-          zip: values.get('zip'),
+          between_streets: values.get('streets'),
+          reference: values.get('reference'),
           city: values.get('city'),
           state: values.get('state'),
+          zip: values.get('zip'),
           country: values.get('country'),
+          phone: values.get('phone'),
           location: location
         } 
       })
@@ -176,7 +182,10 @@ export function getShippingCost(shippingAddressId, productsMap) {
     .then(response => {
       dispatch({ 
         type: GET_SHIPPING_COST_SUCCESS,
-        payload: response.data.shipping_price
+        payload: {
+          cost: response.data.shipping_price,
+          message: response.data.message,
+        }
       });
     })
     .catch(e => {

@@ -51,6 +51,9 @@ const validate = values => {
   if (!values.get('address')) {
     errors.address = 'Requerido';
   }
+  if (!values.get('streets')) {
+    errors.streets = 'Requerido';
+  }
   if (!values.get('city')) {
     errors.city = 'Requerido';
   }
@@ -64,6 +67,11 @@ const validate = values => {
   }
   if (!values.get('country')) {
     errors.country = 'Requerido';
+  }
+  if (!values.get('phone')) {
+    errors.phone = 'Requerido';
+  } else if (!/^[0-9 ]{7,20}$/i.test(values.get('phone'))) {
+    errors.phone = 'Introduce sólo números y espacios';
   }
   return errors;
 }
@@ -123,6 +131,24 @@ class EditAddress extends Component {
           </div>
           <div>
             <Field
+              name="streets"
+              component={TextField}
+              label="Entre calles *"
+              margin="dense"
+              helperText=" "
+            />
+          </div>
+          <div>
+            <Field
+              name="reference"
+              component={TextField}
+              label="Referencia"
+              margin="dense"
+              helperText=" "
+            />
+          </div>
+          <div>
+            <Field
               name="city"
               component={TextField}
               label="Ciudad *"
@@ -157,12 +183,26 @@ class EditAddress extends Component {
                 className: classes.selectfield
               }}
               margin="dense"
+              helperText=" "
               select
             >
               <MenuItem value="México">México</MenuItem>
-              <MenuItem value="Colombia">Colombia</MenuItem>
+              {/* <MenuItem value="Colombia">Colombia</MenuItem>
               <MenuItem value="España">España</MenuItem>
+              <MenuItem value="Otro">Otro</MenuItem> */}
             </Field>
+          </div>
+          <div>
+            <Field
+              name="phone"
+              component={TextField}
+              label="Teléfono *"
+              inputProps={{
+                maxLength: 15,
+              }}
+              margin="dense"
+              helperText="Sólo números y espacios"
+            />
           </div>
           <Typography variant="body1" className={classes.error}>
             {formError}

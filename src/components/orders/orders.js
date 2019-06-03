@@ -218,18 +218,31 @@ class Orders extends Component {
                           <Typography variant="body1" className={classes.dataTitle}>
                             Dirección de entrega
                           </Typography>
-                          <Typography variant="body1" color="inherit">
+                          <Typography variant="body2" color="inherit">
+                            {order.shippingAddress.name}
+                          </Typography>
+                          <Typography variant="body2" color="inherit">
                             {order.shippingAddress.address}
                           </Typography>
-                          <Typography variant="body1" color="inherit">
+                          {order.shippingAddress.streets && (
+                            <Typography variant="body2" color="inherit">
+                              Entre: {order.shippingAddress.streets}
+                            </Typography>
+                          )}
+                          <Typography variant="body2" color="inherit">
+                            {order.shippingAddress.reference}
+                          </Typography>
+                          <Typography variant="body2" color="inherit">
                             {order.shippingAddress.city}, {order.shippingAddress.state}
                           </Typography>
-                          <Typography variant="body1" color="inherit">
-                            {order.shippingAddress.zip}
+                          <Typography variant="body2" color="inherit">
+                            {order.shippingAddress.zip}, {order.shippingAddress.country}
                           </Typography>
-                          <Typography variant="body1" color="inherit">
-                            {order.shippingAddress.country}
-                          </Typography>
+                          {order.shippingAddress.phone && (
+                            <Typography variant="body2" color="inherit">
+                              Teléfono: {order.shippingAddress.phone}
+                            </Typography>
+                          )}
                         </div>
                       </div>
                     )}
@@ -257,7 +270,7 @@ class Orders extends Component {
                   <Button 
                     component={Link}
                     to={generateStoreUrl('/shop')}
-                    aria-label="Go shopping"
+                    aria-label="Continue shopping"
                     variant="contained"
                     color="primary"
                     className={classes.goShoppingButton}

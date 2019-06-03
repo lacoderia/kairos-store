@@ -23,10 +23,13 @@ function toJSObject(item) {
     id: item.shipping_address.id,
     name: item.shipping_address.name,
     address: item.shipping_address.address,
+    streets: item.shipping_address.streets,
+    reference: item.shipping_address.reference,
     city: item.shipping_address.city,
     state: item.shipping_address.state,
     zip: item.shipping_address.zip,
     country: item.shipping_address.country,
+    phone: item.shipping_address.phone,
   })
   
   item.items && item.items.map(product => {
