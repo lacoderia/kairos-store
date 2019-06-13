@@ -61,7 +61,7 @@ class CheckoutAddressList extends Component {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
-              Cambiar dirección de envío
+              Elegir dirección existente
             </Typography>
           </Toolbar>
         </AppBar>

@@ -312,14 +312,14 @@ class Checkout extends Component {
                             color="primary"
                             onClick={() => this.handleDialogOpen(dialogs.ADD_ADDRESS_DIALOG)}
                           >
-                            Agregar dirección
+                            Agregar nueva dirección
                           </Button>
                           { addressesIdArray && addressesIdArray.length != 0 && (
                             <Button
                               color="primary"
                               onClick={() => this.handleDialogOpen(dialogs.ADDRESS_PICKER_DIALOG)}
                             >
-                              Cambiar dirección
+                              Elegir dirección existente
                             </Button>
                           )}
                         </div>
