@@ -178,7 +178,7 @@ class Addresses extends Component {
             color="primary"
             onClick={() => this.handleDialogOpen(dialogs.ADD_ADDRESS_DIALOG)}
           >
-            Agregar dirección
+            Agregar nueva dirección
           </Button>
         </div>
       </Paper>

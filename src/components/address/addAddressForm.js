@@ -94,7 +94,7 @@ class AddAddressForm extends Component {
               <CloseIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
-              Agregar dirección
+              Agregar nueva dirección
             </Typography>
             <Button 
               type="submit"
