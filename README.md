@@ -12,7 +12,11 @@ This repository contains a react app.
 
 ### Installing
 
-Just clone this repository
+1. Clone this repository
+2. Install node dependencies as user
+```
+npm install
+```
 
 ## Running
 
