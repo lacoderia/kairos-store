@@ -1,4 +1,4 @@
-export const LOGIN_VIEW_CHANGE = 'LOGIN_VIEW_CHANGE';
+import { LOGIN_VIEW_CHANGE } from 'src/actions';
 
 export function changeView(view) {
 

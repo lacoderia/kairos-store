@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
-import { generateStoreUrl } from '../../services/store';
-import { confirmOrder } from '../../components/shop/checkout/checkoutActions';
-import { openSnackbar } from '../../components/snackbars/snackbarsActions';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core/styles';
-
-import DialogWrapper from '../../components/common/dialogWrapper';
-import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
+
+import DialogWrapper from 'library/components/DialogWrapper';
+import DialogContent from '@material-ui/core/DialogContent';
+import { confirmOrder } from 'components/shop/checkout/checkoutActions';
+import { openSnackbar } from 'components/snackbars/snackbarsActions';
 
 const styles = theme => ({
   dialogContent: {

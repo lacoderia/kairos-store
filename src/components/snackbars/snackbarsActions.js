@@ -1,6 +1,8 @@
-export const OPEN_SNACKBAR = 'OPEN_SNACKBAR';
-export const CLOSE_SNACKBAR = 'CLOSE_SNACKBAR';
-export const EXIT_SNACKBAR = 'EXIT_SNACKBAR';
+import {
+  OPEN_SNACKBAR,
+  CLOSE_SNACKBAR,
+  EXIT_SNACKBAR,
+} from 'src/actions';
 
 export function openSnackbar(snackbar) {
   return (dispatch) => {

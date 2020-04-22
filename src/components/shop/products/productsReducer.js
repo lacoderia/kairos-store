@@ -6,7 +6,7 @@ import {
   OPEN_PRODUCT_DIALOG,
   CLOSE_PRODUCT_DIALOG,
   EXIT_PRODUCT_DIALOG,
-} from './productsActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   loading: false,

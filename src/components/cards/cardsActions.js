@@ -1,23 +1,23 @@
 import axios from 'axios';
-import { arrayToHash } from '../../common/commonFunctions';
-import openpayService from '../../services/openpay';
-import storeService from '../../services/store';
+import { arrayToHash } from 'library/utils/functions';
+import openpayService from 'services/openpay';
+import storeService from 'services/store';
 
-export const GET_CARDS_FETCH = 'GET_CARDS_FETCH';
-export const GET_CARDS_SUCCESS = 'GET_CARDS_SUCCESS';
-export const GET_CARDS_ERROR = 'GET_CARDS_ERROR';
-export const ADD_CARD_FETCH = 'ADD_CARD_FETCH';
-export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
-export const ADD_CARD_ERROR = 'ADD_CARD_ERROR';
-export const DELETE_CARD_FETCH = 'DELETE_CARD_FETCH';
-export const DELETE_CARD_SUCCESS = 'DELETE_CARD_SUCCESS';
-export const DELETE_CARD_ERROR = 'DELETE_CARD_ERROR';
-export const SET_PRIMARY_CARD_FETCH = 'SET_PRIMARY_CARD_FETCH';
-export const SET_PRIMARY_CARD_SUCCESS = 'SET_PRIMARY_CARD_SUCCESS';
-export const SET_PRIMARY_CARD_ERROR = 'SET_PRIMARY_CARD_ERROR';
-export const OPEN_CARDS_DIALOG = 'OPEN_CARDS_DIALOG';
-export const CLOSE_CARDS_DIALOG = 'CLOSE_CARDS_DIALOG';
-export const EXIT_CARDS_DIALOG = 'EXIT_CARDS_DIALOG';
+import {
+  GET_CARDS_FETCH,
+  GET_CARDS_SUCCESS,
+  GET_CARDS_ERROR,
+  ADD_CARD_FETCH,
+  ADD_CARD_SUCCESS,
+  ADD_CARD_ERROR,
+  DELETE_CARD_FETCH,
+  DELETE_CARD_SUCCESS,
+  DELETE_CARD_ERROR,
+  SET_PRIMARY_CARD_SUCCESS,
+  OPEN_CARDS_DIALOG,
+  CLOSE_CARDS_DIALOG,
+  EXIT_CARDS_DIALOG,
+} from 'src/actions';
 
 function toJSObject(item) {
   return {
@@ -144,9 +144,6 @@ export function deleteCard(id) {
 
 export function setPrimaryCard(id) {
   return (dispatch) => {
-    dispatch({
-      type: SET_PRIMARY_CARD_FETCH,
-    })
     return axios.post('/cards/set_primary/', {
       id: id,
       company: storeService.getStore(),
@@ -158,10 +155,6 @@ export function setPrimaryCard(id) {
       });
     })
     .catch(e => {
-      dispatch({
-        type: SET_PRIMARY_CARD_ERROR,
-        payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al cambiar la tarjeta principal. Por favor intenta más tarde.",
-      });
       throw e;
     });
   }

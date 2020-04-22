@@ -8,10 +8,8 @@ import {
   RESEND_CONFIRMATION_EMAIL_FETCH,
   RESEND_CONFIRMATION_EMAIL_SUCCESS,
   RESEND_CONFIRMATION_EMAIL_ERROR,
-} from '../../http/sessionActions';
-import {
   LOGIN_VIEW_CHANGE,
-} from './loginActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   loading: false,

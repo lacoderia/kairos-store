@@ -9,13 +9,11 @@ import {
   DELETE_CARD_FETCH,
   DELETE_CARD_SUCCESS,
   DELETE_CARD_ERROR,
-  SET_PRIMARY_CARD_FETCH,
   SET_PRIMARY_CARD_SUCCESS,
-  SET_PRIMARY_CARD_ERROR,
   OPEN_CARDS_DIALOG,
   CLOSE_CARDS_DIALOG,
   EXIT_CARDS_DIALOG,
-} from './cardsActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   getCardsLoading: false,

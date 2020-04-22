@@ -6,11 +6,9 @@ import {
   REGISTER_ERROR,
   CONFIRM_REGISTRATION_FETCH,
   CONFIRM_REGISTRATION_SUCCESS,
-  CONFIRM_REGISTRATION_ERROR
-} from '../../http/sessionActions';
-import {
+  CONFIRM_REGISTRATION_ERROR,
   REGISTER_VIEW_CHANGE,
-} from './registerActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   loading: false,

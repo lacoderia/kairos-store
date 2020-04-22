@@ -1,4 +1,4 @@
-export const FORGOT_VIEW_CHANGE = 'FORGOT_VIEW_CHANGE';
+import { FORGOT_VIEW_CHANGE } from 'src/actions';
 
 export function changeView(view) {
 

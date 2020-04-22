@@ -5,8 +5,8 @@ export const arrayToHash = data => {
   }, {});
 }
 
-const commonFunctions = {
+const functions = {
   arrayToHash,
 };
 
-export default commonFunctions;
+export default functions;

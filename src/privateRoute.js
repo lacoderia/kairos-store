@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
-import { generateStoreUrl } from './services/store';
+import { generateStoreUrl } from 'services/store';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   return(

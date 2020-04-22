@@ -16,7 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import CloseIcon from '@material-ui/icons/Close';
 
 import { addCard } from './cardsActions';
-import { maxLength } from '../../common/normalize';
+import { maxLength } from 'library/utils/normalize';
 
 const styles = theme => ({
   flex: {

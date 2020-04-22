@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
-import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
-import { CONTACT_EMAIL } from '../../common/constants';
+import { generateStoreUrl, getStoreAssetUrl } from 'services/store';
+import { CONTACT_EMAIL } from 'res/constants';
 
 import { withStyles } from '@material-ui/core/styles';
 import Hidden from '@material-ui/core/Hidden';
@@ -20,9 +20,9 @@ import PaymentMethodsIcon from '@material-ui/icons/CreditCardOutlined';
 import OrdersIcon from '@material-ui/icons/AssignmentOutlined';
 import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
 
-import ThreeBounceLoader from '../common/loaders/threeBounceLoader';
-import { toggleMenu } from '../navigation/navigationActions';
-import { signout } from '../../http/sessionActions';
+import ThreeBounceLoader from 'library/components/Loader/ThreeBounceLoader';
+import { toggleMenu } from 'components/navigation/navigationActions';
+import { signout } from 'http/sessionActions';
 
 const styles = theme => ({
   root: {

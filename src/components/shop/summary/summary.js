@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
-import { generateStoreUrl } from '../../../services/store';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';

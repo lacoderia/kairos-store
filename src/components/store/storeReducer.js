@@ -1,7 +1,5 @@
 import { fromJS } from 'immutable';
-import {
-  SET_STORE_NAME,
-} from './storeActions';
+import { SET_STORE_NAME } from 'src/actions';
 
 const initialState = fromJS({
   store: '',

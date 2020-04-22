@@ -26,7 +26,7 @@ import {
   CONFIRM_ORDER_FETCH,
   CONFIRM_ORDER_SUCCESS,
   CONFIRM_ORDER_ERROR,
-} from './checkoutActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   getAddressesLoading: false,

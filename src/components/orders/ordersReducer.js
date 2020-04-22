@@ -3,7 +3,7 @@ import {
   GET_ORDERS_FETCH,
   GET_ORDERS_SUCCESS,
   GET_ORDERS_ERROR,
-} from './ordersActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   loading: false,

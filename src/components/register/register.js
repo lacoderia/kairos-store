@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { CONTACT_EMAIL } from '../../common/constants';
-import { generateStoreUrl } from '../../services/store';
+import { CONTACT_EMAIL } from 'res/constants';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,10 +12,10 @@ import Typography from '@material-ui/core/Typography';
 
 import RegisterAccountForm from './registerAccountForm';
 import RegisterMemberForm from './registerMemberForm';
-import LoaderOverlay from '../common/loaderOverlay';
+import LoaderOverlay from 'library/components/loaderOverlay';
 
-import { register, confirmRegistration } from '../../http/sessionActions';
-import { changeView } from '../../components/register/registerActions';
+import { register, confirmRegistration } from 'http/sessionActions';
+import { changeView } from './registerActions';
 
 import views from './registerConstants';
 

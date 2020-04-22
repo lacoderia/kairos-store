@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
-import ListWrapper from '../common/listWrapper';
-import DialogWrapper from '../common/dialogWrapper';
+import ListWrapper from 'library/components/listWrapper';
+import DialogWrapper from 'library/components/DialogWrapper';
 import EditAddressForm from './editAddressForm';
 import AddAddressForm from './addAddressForm';
 import DeleteAddress from './deleteAddress';

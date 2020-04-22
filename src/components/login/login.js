@@ -4,19 +4,19 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { reduxForm, formValueSelector, Field, Form } from 'redux-form/immutable';
 import { TextField } from 'redux-form-material-ui';
-import { CONTACT_EMAIL } from '../../common/constants';
-import { generateStoreUrl } from '../../services/store';
+import { CONTACT_EMAIL } from 'res/constants';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import LoaderOverlay from '../common/loaderOverlay';
-import PasswordField from '../common/passwordField';
+import LoaderOverlay from 'library/components/loaderOverlay';
+import PasswordField from 'library/components/PasswordField';
 
-import { login, resendConfirmationEmail } from '../../http/sessionActions';
-import { changeView } from '../../components/login/loginActions';
+import { login, resendConfirmationEmail } from 'http/sessionActions';
+import { changeView } from './loginActions';
 
 import views from './loginConstants';
 

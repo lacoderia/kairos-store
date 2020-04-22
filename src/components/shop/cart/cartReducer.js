@@ -5,8 +5,8 @@ import {
   UPDATE_PRODUCT_QUANTITY,
   UPDATE_PRODUCT_DISPLAY_QUANTITY,
   RESET_PRODUCT_QUANTITY,
-} from './cartActions';
-import { CONFIRM_ORDER_SUCCESS } from '../checkout/checkoutActions';
+  CONFIRM_ORDER_SUCCESS,
+} from 'src/actions';
 
 const initialState = fromJS({
   products: Map(),

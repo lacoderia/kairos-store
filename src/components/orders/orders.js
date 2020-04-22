@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import CurrencyFormat from 'react-currency-format';
 import classNames from 'classnames';
-import { generateStoreUrl } from '../../services/store';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';

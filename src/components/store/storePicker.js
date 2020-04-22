@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import storeService from '../../services/store';
+import storeService from 'services/store';
 import { setStore } from './storeActions';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import DialogWrapper from '../common/dialogWrapper';
+import DialogWrapper from 'library/components/DialogWrapper';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';

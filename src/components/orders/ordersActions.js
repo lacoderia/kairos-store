@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { IMAGE_URL_ROOT } from '../../common/constants';
+import { IMAGE_URL_ROOT } from 'res/constants';
 
-export const GET_ORDERS_FETCH = 'GET_ORDERS_FETCH';
-export const GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS';
-export const GET_ORDERS_ERROR = 'GET_ORDERS_ERROR';
+import {
+  GET_ORDERS_FETCH,
+  GET_ORDERS_SUCCESS,
+  GET_ORDERS_ERROR,
+} from 'src/actions';
 
 function toJSObject(item) {
 

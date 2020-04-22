@@ -1,4 +1,4 @@
-export const TOGGLE_MENU = 'TOGGLE_MENU';
+import { TOGGLE_MENU } from 'src/actions';
 
 export function toggleMenu() {
 

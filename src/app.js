@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-import StorePicker from './components/store/storePicker';
-import StoreView from './views/store/storeView';
+import StorePicker from 'components/store/storePicker';
+import StoreView from 'views/store/storeView';
 
-import defaultTheme from './styles/defaultTheme';
-import omeinTheme from './styles/omeinTheme';
-import pranaTheme from './styles/pranaTheme';
+import defaultTheme from 'styles/defaultTheme';
+import omeinTheme from 'styles/omeinTheme';
+import pranaTheme from 'styles/pranaTheme';
 
 class App extends Component {
 

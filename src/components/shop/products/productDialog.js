@@ -13,10 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Button from '@material-ui/core/Button';
 import Slide from '@material-ui/core/Slide';
+import { Typography } from '@material-ui/core';
 
 import { closeProductDialog } from './productsActions';
 import { addProductToCart } from '../cart/cartActions';
-import { Typography } from '@material-ui/core';
 
 const styles = theme => ({
   flex: {

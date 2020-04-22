@@ -1,24 +1,22 @@
-import './stylesInstaller';
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from 'src/store';
 import axios from 'axios';
-import { API_ROOT } from './common/constants';
+import { API_ROOT } from 'res/constants';
 import Moment from 'react-moment';
 
-import App from './app';
+import App from 'src/app';
 
 axios.defaults.baseURL = API_ROOT;
 
 Moment.globalLocale = 'es_MX';
 
-render(
+ReactDOM.render(
   <Provider store={store}>
     <Router basename="/">
       <App />
     </Router>
   </Provider>, 
-  document.getElementById('root'));
-
+  document.querySelector('#root'));

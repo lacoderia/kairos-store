@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
-import PrivateTemplate from '../../templates/privateTemplate';
-import Addresses from '../../components/address/addresses';
+import PrivateTemplate from 'templates/privateTemplate';
+import Addresses from 'components/address/addresses';
 
 const styles = theme => ({
   root: {

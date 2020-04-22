@@ -1,4 +1,4 @@
-export const REGISTER_VIEW_CHANGE = 'REGISTER_VIEW_CHANGE';
+import { REGISTER_VIEW_CHANGE } from 'src/actions';
 
 export function changeView(view) {
 

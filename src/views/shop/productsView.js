@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 import { withStyles } from '@material-ui/core';
 
-import PrivateTemplate from '../../templates/privateTemplate';
-import Products from '../../components/shop/products/products';
+import PrivateTemplate from 'templates/privateTemplate';
+import Products from 'components/shop/products/products';
 
 const styles = theme => ({
 

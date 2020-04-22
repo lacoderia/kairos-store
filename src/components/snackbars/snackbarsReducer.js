@@ -3,7 +3,7 @@ import {
   OPEN_SNACKBAR,
   CLOSE_SNACKBAR,
   EXIT_SNACKBAR,
-} from './snackbarsActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   snackbars: List(),

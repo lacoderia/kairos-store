@@ -4,9 +4,9 @@ import { withStyles, withWidth } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 
-import Navigation from '../../components/navigation/navigation';
-import Cart from '../../components/shop/cart/cart';
-import Summary from '../../components/shop/summary/summary';
+import Navigation from 'components/navigation/navigation';
+import Cart from 'components/shop/cart/cart';
+import Summary from 'components/shop/summary/summary';
 
 const styles = theme => ({
   root: {

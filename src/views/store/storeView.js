@@ -2,26 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import PrivateRoute from '../../privateRoute';
+import PrivateRoute from 'src/privateRoute';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { withStyles } from '@material-ui/core/styles';
-import storeService from '../../services/store';
-import openpayService from '../../services/openpay';
+import storeService from 'services/store';
+import openpayService from 'services/openpay';
 
-import LoginView from '../login/loginView';
-import ForgotView from '../forgot/forgotView';
-import ConfirmOrderView from '../shop/confirmOrderView';
-import ProductsView from '../shop/productsView';
-import CartView from '../shop/cartView';
-import CheckoutView from '../shop/checkoutView';
-import OrdersView from '../shop/ordersView';
-import PaymentMethods from '../shop/paymentMethodsView';
-import Addresses from '../shop/addressesView';
-import Snackbars from '../../components/snackbars/snackbars';
+import LoginView from 'views/login/loginView';
+import ForgotView from 'views/forgot/forgotView';
+import ConfirmOrderView from 'views/shop/confirmOrderView';
+import ProductsView from 'views/shop/productsView';
+import CartView from 'views/shop/cartView';
+import CheckoutView from 'views/shop/checkoutView';
+import OrdersView from 'views/shop/ordersView';
+import PaymentMethods from 'views/shop/paymentMethodsView';
+import Addresses from 'views/shop/addressesView';
+import Snackbars from 'components/snackbars/snackbars';
 
-import session from '../../http/session';
-import { getCurrentSession } from '../../http/sessionActions';
-import { setStore } from '../../components/store/storeActions';
+import session from 'http/session';
+import { getCurrentSession } from 'http/sessionActions';
+import { setStore } from 'components/store/storeActions';
 
 const styles = {
   root: {

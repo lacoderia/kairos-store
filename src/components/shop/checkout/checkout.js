@@ -3,7 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
-import { generateStoreUrl } from '../../../services/store';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -12,13 +12,13 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import DialogWrapper from '../../common/dialogWrapper';
 import CheckoutAddressesList from './checkoutAddressList';
 import AddCheckoutAddressForm from './addCheckoutAddressForm';
 import CheckoutCardsList from './checkoutCardsList';
 import AddCheckoutCardForm from './addCheckoutCardForm';
 import PlaceOrderConfirmation from './placeOrderConfirmation';
-import LoaderOverlay from '../../common/loaderOverlay';
+import DialogWrapper from 'library/components/DialogWrapper';
+import LoaderOverlay from 'library/components/loaderOverlay';
 
 import {  getAddresses, 
           getCards,

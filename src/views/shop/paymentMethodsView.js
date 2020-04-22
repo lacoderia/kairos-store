@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
-import PrivateTemplate from '../../templates/privateTemplate';
-import Cards from '../../components/cards/cards';
+import PrivateTemplate from 'templates/privateTemplate';
+import Cards from 'components/cards/cards';
 
 const styles = theme => ({
   root: {

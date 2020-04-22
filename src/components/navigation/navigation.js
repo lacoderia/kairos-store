@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import { toggleMenu } from './navigationActions';
-import { generateStoreUrl, getStoreAssetUrl } from '../../services/store';
+import { generateStoreUrl, getStoreAssetUrl } from 'services/store';
 import classNames from 'classnames';
 
 import { withStyles } from '@material-ui/core/styles';

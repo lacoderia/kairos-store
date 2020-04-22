@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
-import { generateStoreUrl } from '../../../services/store';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -17,7 +17,7 @@ import {
   updateProductQuantity, 
   updateProductDisplayQuantity,
   resetProductQuantity,
-} from '../cart/cartActions';
+} from './cartActions';
 
 const styles = theme => ({
   title: {

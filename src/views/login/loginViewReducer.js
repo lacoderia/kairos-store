@@ -2,7 +2,7 @@ import { fromJS } from 'immutable';
 import {
   LOGIN_SUCCESS,
   SIGNOUT_SUCCESS
-} from '../../http/sessionActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   redirectToReferrer: false

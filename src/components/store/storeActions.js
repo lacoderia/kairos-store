@@ -1,4 +1,4 @@
-export const SET_STORE_NAME = 'SET_STORE_NAME';
+import { SET_STORE_NAME } from 'src/actions';
 
 export function setStore(store) {
   return (dispatch) => {

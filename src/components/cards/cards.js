@@ -10,8 +10,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 
-import ListWrapper from '../common/listWrapper';
-import DialogWrapper from '../common/dialogWrapper';
+import ListWrapper from 'library/components/listWrapper';
+import DialogWrapper from 'library/components/DialogWrapper';
 import AddCardForm from './addCardForm';
 import DeleteCard from './deleteCard';
 import { getCards, setPrimaryCard, openDialog, closeDialog, exitDialog } from './cardsActions';

@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
-import { generateStoreUrl } from '../../services/store';
+import { generateStoreUrl } from 'services/store';
 
-import PublicTemplate from '../../templates/publicTemplate';
-import Forgot from '../../components/forgot/forgot';
+import PublicTemplate from 'templates/publicTemplate';
+import Forgot from 'components/forgot/forgot';
 
 class ForgotView extends Component {
   

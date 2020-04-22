@@ -2,8 +2,8 @@ import React from 'react';
 
 import { withStyles } from '@material-ui/core';
 
-import Navigation from '../components/navigation/navigation';
-import Menu from '../components/menu/menu';
+import Navigation from 'components/navigation/navigation';
+import Menu from 'components/menu/menu';
 
 const styles = theme => ({
   root: {

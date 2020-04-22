@@ -1,10 +1,8 @@
 import { fromJS } from 'immutable';
 import {
   LOGIN_SUCCESS,
-  SIGNOUT_FETCH,
   SIGNOUT_SUCCESS,
-  SIGNOUT_ERROR,
-} from './sessionActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   isAuthenticated: false,
@@ -28,16 +26,8 @@ function sessionReducer(state = initialState, action) {
         phone: action.payload.user.phone,
         externalId: action.payload.user.external_id,
       });
-    case SIGNOUT_FETCH: 
-      return state.merge({
-        loading: true,
-      });
     case SIGNOUT_SUCCESS:
       return initialState;
-    case SIGNOUT_ERROR:
-      return state.merge({
-        loading: initialState.get('loading'),
-      });
     default:
       return state;
   }

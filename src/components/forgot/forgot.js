@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { CONTACT_EMAIL } from '../../common/constants';
-import { generateStoreUrl } from '../../services/store';
+import { CONTACT_EMAIL } from 'res/constants';
+import { generateStoreUrl } from 'services/store';
 
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -12,10 +12,10 @@ import Typography from '@material-ui/core/Typography';
 
 import RecoverPasswordForm from './recoverPasswordForm';
 import ResetPasswordForm from './resetPasswordForm';
-import LoaderOverlay from '../common/loaderOverlay';
+import LoaderOverlay from 'library/components/loaderOverlay';
 
-import { recoverPassword, resetPassword } from '../../http/sessionActions';
-import { changeView } from '../../components/forgot/forgotActions';
+import { recoverPassword, resetPassword } from 'http/sessionActions';
+import { changeView } from './forgotActions';
 
 import views from './forgotConstants';
 

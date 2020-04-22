@@ -1,13 +1,15 @@
 import axios from 'axios';
-import { arrayToHash } from '../../../common/commonFunctions';
-import { IMAGE_URL_ROOT } from '../../../common/constants';
+import { arrayToHash } from 'library/utils/functions';
+import { IMAGE_URL_ROOT } from 'res/constants';
 
-export const GET_PRODUCTS_FETCH = 'GET_PRODUCTS_FETCH';
-export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
-export const GET_PRODUCTS_ERROR = 'GET_PRODUCTS_ERROR';
-export const OPEN_PRODUCT_DIALOG = 'OPEN_PRODUCT_DIALOG';
-export const CLOSE_PRODUCT_DIALOG = 'CLOSE_PRODUCT_DIALOG';
-export const EXIT_PRODUCT_DIALOG = 'EXIT_PRODUCT_DIALOG';
+import {
+  GET_PRODUCTS_FETCH,
+  GET_PRODUCTS_SUCCESS,
+  GET_PRODUCTS_ERROR,
+  OPEN_PRODUCT_DIALOG,
+  CLOSE_PRODUCT_DIALOG,
+  EXIT_PRODUCT_DIALOG,
+} from 'src/actions';
 
 function toJSObject(item) {
 

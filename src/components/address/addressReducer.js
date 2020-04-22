@@ -15,7 +15,7 @@ import {
   OPEN_ADDRESS_DIALOG,
   CLOSE_ADDRESS_DIALOG,
   EXIT_ADDRESS_DIALOG,
-} from './addressActions';
+} from 'src/actions';
 
 const initialState = fromJS({
   getAddressesLoading: false,
