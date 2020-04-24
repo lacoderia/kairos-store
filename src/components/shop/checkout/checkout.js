@@ -2,52 +2,55 @@ import React, { Component } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {
+  Paper,
+  Typography,
+  Button,
+  Divider,
+  CircularProgress,
+  withStyles
+} from '@material-ui/core';
 
+import DialogWrapper from 'library/components/DialogWrapper';
+import LoaderOverlay from 'library/components/loaderOverlay';
 import CheckoutAddressesList from './checkoutAddressList';
 import AddCheckoutAddressForm from './addCheckoutAddressForm';
 import CheckoutCardsList from './checkoutCardsList';
 import AddCheckoutCardForm from './addCheckoutCardForm';
 import PlaceOrderConfirmation from './placeOrderConfirmation';
-import DialogWrapper from 'library/components/DialogWrapper';
-import LoaderOverlay from 'library/components/loaderOverlay';
-
-import {  getAddresses, 
-          getCards,
-          changeActiveSection,
-          getShippingCost,
-          placeOrder,
-          openDialog, 
-          closeDialog,
-          exitDialog } from './checkoutActions';
+import { 
+  getAddresses,
+  getCards,
+  changeActiveSection,
+  getShippingCost,
+  placeOrder,
+  openDialog,
+  closeDialog,
+  exitDialog
+} from './checkoutActions';
 import { dialogs, sections } from './checkoutConstants';
 
 const styles = theme => ({
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
+      paddingLeft: 0,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3),
     },
   },
   paper: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+      padding: theme.spacing(5, 6),
     },
     position: 'relative',
   },
@@ -84,19 +87,19 @@ const styles = theme => ({
     },
   },
   loaderContainer: {
-    padding: `${theme.spacing.unit * 5}px !important`,
+    padding: theme.spacing(5),
     textAlign: 'center',
     width: '100%',
   },
   sectionErrorContainer: {
     color: theme.palette.error.main,
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 4}px !important`,
+    padding: theme.spacing(2, 4),
     textAlign: 'right',
     width: '100%',
   },
   errorContainer: {
     color: theme.palette.error.main,
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px !important`,
+    padding: theme.spacing(5, 4),
     textAlign: 'center',
     width: '100%',
   },
@@ -233,7 +236,7 @@ class Checkout extends Component {
             <div className={classes.sectionTitleContainer}>
               <Typography 
                 variant="h6" 
-                className={classNames(
+                className={clsx(
                   classes.sectionTitle,
                   this.isActiveSection(sections.SHIPPING_ADDRESS_SECTION) ? classes.activeSectionTitle : undefined
                 )}
@@ -387,7 +390,7 @@ class Checkout extends Component {
             <div className={classes.sectionTitleContainer}>
               <Typography 
                 variant="h6" 
-                className={classNames(
+                className={clsx(
                   classes.sectionTitle,
                   this.isActiveSection(sections.PAYMENT_METHOD_SECTION) ? classes.activeSectionTitle : undefined
                 )}

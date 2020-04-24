@@ -5,46 +5,46 @@ import { Link } from 'react-router-dom';
 import { CONTACT_EMAIL } from 'res/constants';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Grid,
+  Button,
+  Typography,
+  withStyles
+} from '@material-ui/core';
 
+import LoaderOverlay from 'library/components/loaderOverlay';
 import RegisterAccountForm from './registerAccountForm';
 import RegisterMemberForm from './registerMemberForm';
-import LoaderOverlay from 'library/components/loaderOverlay';
-
 import { register, confirmRegistration } from 'http/sessionActions';
 import { changeView } from './registerActions';
-
 import views from './registerConstants';
 
 const styles = theme => ({
   mainContainer: {
-    margin: theme.spacing.unit * 4 + 'px 0',
+    margin: theme.spacing(4, 0),
     zIndex: 1,
   },
   title: {
     color: theme.palette.custom.lightGrey,
-    marginBottom: theme.spacing.unit * 4,
+    marginBottom: theme.spacing(4),
     fontWeight: 500,
   },
   formContainer: {
     backgroundColor: theme.palette.custom.white,
     borderRadius: 4,
     color: theme.palette.text.secondary,
-    padding: theme.spacing.unit * 6 + 'px 15%',
+    padding: theme.spacing(6) + 'px 15%',
     position: 'relative',
     textAlign: 'center',
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * -2,
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(-2),
     textAlign: 'right',
   },
   footerContainer: {
-    padding: theme.spacing.unit * 1.5,
-    height: theme.spacing.unit * 9,
+    padding: theme.spacing(1.5),
+    height: theme.spacing(9),
   },
   footerLink: {
     color: theme.palette.custom.darkGrey,

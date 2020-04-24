@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core/styles';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import Dialog from '@material-ui/core/Dialog';
-import Slide from '@material-ui/core/Slide';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { 
+  Dialog,
+  Slide,
+  LinearProgress,
+  withMobileDialog, 
+  withStyles 
+} from '@material-ui/core';
 
 const styles = theme => ({
   overlay: {
@@ -21,9 +23,9 @@ const styles = theme => ({
   },
 });
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 class DialogWrapper extends Component {
 

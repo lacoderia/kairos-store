@@ -5,20 +5,24 @@ import { withRouter } from 'react-router-dom';
 import { generateStoreUrl, getStoreAssetUrl } from 'services/store';
 import { CONTACT_EMAIL } from 'res/constants';
 
-import { withStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
-import Drawer from '@material-ui/core/Drawer';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ProductsIcon from '@material-ui/icons/LocalMallOutlined';
-import AddressIcon from '@material-ui/icons/HomeOutlined';
-import PaymentMethodsIcon from '@material-ui/icons/CreditCardOutlined';
-import OrdersIcon from '@material-ui/icons/AssignmentOutlined';
-import ExitToAppIcon from '@material-ui/icons/ExitToAppOutlined';
+import { 
+  Hidden,
+  Drawer,
+  Typography,
+  Divider,
+  List,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  withStyles
+} from '@material-ui/core';
+import {
+  LocalMallOutlined as ProductsIcon,
+  HomeOutlined as AddressIcon,
+  CreditCardOutlined as PaymentMethodsIcon,
+  AssignmentOutlined as OrdersIcon,
+  ExitToAppOutlined as ExitToAppIcon
+} from '@material-ui/icons';
 
 import ThreeBounceLoader from 'library/components/Loader/ThreeBounceLoader';
 import { toggleMenu } from 'components/navigation/navigationActions';
@@ -40,9 +44,9 @@ const styles = theme => ({
   profile: {
     display: 'flex',
     flexDirection: 'column',
-    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit * 3}px`,
-    paddingRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing(4, 3),
+    paddingRight: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   profileText: {
     color: 'black',
@@ -70,7 +74,7 @@ const styles = theme => ({
     marginTop: 'auto',
   },
   footerItem: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 3}px`,
+    padding: theme.spacing(1, 3),
     paddingTop: 0,
   },
   link: {

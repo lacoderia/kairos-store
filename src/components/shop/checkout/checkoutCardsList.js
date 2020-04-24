@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { withStyles } from '@material-ui/core/styles';
-import DialogContent from '@material-ui/core/DialogContent';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import { Button } from '@material-ui/core';
+import { 
+  DialogContent,
+  AppBar,
+  Toolbar,
+  Button,
+  IconButton,
+  Typography,
+  Grid,
+  Divider,
+  withStyles
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 import { changeSelectedCard } from './checkoutActions';
 
@@ -20,8 +22,8 @@ const styles = theme => ({
     flex: 1,
   },
   dialogContent: {
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 7,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(7),
     maxWidth: '100%',
     width: 500,
   },
@@ -58,7 +60,7 @@ class CheckoutCardsList extends Component {
         <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
-              <CloseIcon />
+              <Close />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
               Cambiar método de pago
@@ -66,7 +68,7 @@ class CheckoutCardsList extends Component {
           </Toolbar>
         </AppBar>
         <DialogContent className={classes.dialogContent}>
-          <Grid container direction="column" spacing={32}>
+          <Grid container direction="column" spacing={4}>
             { cards && (
               cardsIdArray.map((id, index) => {
                 const card = cards[id];

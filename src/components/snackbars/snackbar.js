@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { withStyles } from '@material-ui/core/styles';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import WarningIcon from '@material-ui/icons/Warning';
-import ErrorIcon from '@material-ui/icons/Error';
-import InfoIcon from '@material-ui/icons/Info';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
+import { 
+  Snackbar,
+  SnackbarContent,
+  IconButton,
+  Slide,
+  withStyles } from '@material-ui/core';
+import {
+  CheckCircle as CheckCircleIcon,
+  Warning as WarningIcon,
+  Error as ErrorIcon,
+  Info as InfoIcon,
+  Close
+} from '@material-ui/icons';
 import amber from '@material-ui/core/colors/amber';
 
 const styles = theme => ({
@@ -20,7 +23,7 @@ const styles = theme => ({
   icon: {
     fontSize: 20,
     opacity: 0.9,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   title: {
     fontWeight: 500,
@@ -49,9 +52,9 @@ const variantIcon = {
   info: InfoIcon,
 };
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 class SnackbarNotification extends Component {
 
@@ -96,7 +99,7 @@ class SnackbarNotification extends Component {
               className={classes.close}
               onClick={this.handleClose}
             >
-              <CloseIcon />
+              <Close />
             </IconButton>,
           ]}
           className={classes[variant]}

@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CurrencyFormat from 'react-currency-format';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import { withStyles } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Grid,
+  Typography,
+  withStyles } from '@material-ui/core';
 
-import { getProducts, openProductDialog } from './productsActions';
 import ProductDialog from './productDialog';
+import { getProducts, openProductDialog } from './productsActions';
 
 const styles = theme => ({
   flex: {
@@ -19,19 +20,19 @@ const styles = theme => ({
     height: 'auto',
   },
   container: {
-    padding: `${theme.spacing.unit * 4}px 0`,
+    padding: theme.spacing(4, 0),
     [theme.breakpoints.up('sm')]: {
-      padding: theme.spacing.unit * 6,
+      padding: theme.spacing(6),
     },
   },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3),
     },
   },
   priceContainer: {
@@ -83,7 +84,7 @@ class Products extends Component {
     return (
       <Grid container 
         justify="center"
-        className={classNames(classes.root, classes.container)}
+        className={clsx(classes.root, classes.container)}
       >
         <Grid item xs={12} xl={9}>
           <Typography variant="h5" className={classes.title}>
@@ -91,7 +92,7 @@ class Products extends Component {
           </Typography>
           <Grid container 
             justify="flex-start"
-            spacing={16}
+            spacing={2}
           >
             { productsIdArray && productsIdArray.map(id => {
               const product = products[id];

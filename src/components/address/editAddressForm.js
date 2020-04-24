@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import MenuItem from '@material-ui/core/MenuItem';
+import { 
+  Button,
+  DialogContent,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  MenuItem,
+  withStyles
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
+import { renderTextField } from 'library/utils/inputs';
 import { updateAddress } from './addressActions';
 
 const styles = theme => ({
@@ -21,8 +23,8 @@ const styles = theme => ({
     flex: 1,
   },
   dialogContent: {
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 7,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(7),
     maxWidth: '100%',
     width: 500,
   },
@@ -38,7 +40,7 @@ const styles = theme => ({
   },
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     textAlign: 'left'
   },
 });
@@ -96,7 +98,7 @@ class EditAddress extends Component {
         <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
-              <CloseIcon />
+              <Close />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
               Editar dirección
@@ -113,7 +115,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="name"
-              component={TextField}
+              component={renderTextField}
               label="Nombre de quien recibe *"
               margin="dense"
               autoFocus={true}
@@ -123,7 +125,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="address"
-              component={TextField}
+              component={renderTextField}
               label="Calle, número y colonia *"
               margin="dense"
               helperText=" "
@@ -132,7 +134,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="streets"
-              component={TextField}
+              component={renderTextField}
               label="Entre calles *"
               margin="dense"
               helperText=" "
@@ -141,7 +143,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="reference"
-              component={TextField}
+              component={renderTextField}
               label="Referencia"
               margin="dense"
               helperText=" "
@@ -150,7 +152,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="city"
-              component={TextField}
+              component={renderTextField}
               label="Ciudad *"
               margin="dense"
               helperText=" "
@@ -159,7 +161,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="state"
-              component={TextField}
+              component={renderTextField}
               label="Estado *"
               margin="dense"
               helperText=" "
@@ -168,7 +170,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="zip"
-              component={TextField}
+              component={renderTextField}
               label="Código postal *"
               margin="dense"
               helperText=" "
@@ -177,7 +179,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="country"
-              component={TextField}
+              component={renderTextField}
               label="País *"
               inputProps={{
                 className: classes.selectfield
@@ -195,7 +197,7 @@ class EditAddress extends Component {
           <div>
             <Field
               name="phone"
-              component={TextField}
+              component={renderTextField}
               label="Teléfono *"
               inputProps={{
                 maxLength: 15,

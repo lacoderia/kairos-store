@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import PrivateRoute from 'src/privateRoute';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { withStyles } from '@material-ui/core/styles';
+import { CssBaseline, withStyles } from '@material-ui/core';
 import storeService from 'services/store';
 import openpayService from 'services/openpay';
 

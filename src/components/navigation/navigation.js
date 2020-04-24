@@ -2,20 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
-import { toggleMenu } from './navigationActions';
 import { generateStoreUrl, getStoreAssetUrl } from 'services/store';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import { withStyles } from '@material-ui/core/styles';
-import Hidden from '@material-ui/core/Hidden';
-import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
-import Toolbar from '@material-ui/core/Toolbar';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { 
+  Hidden,
+  AppBar,
+  Grid,
+  Toolbar,
+  Button,
+  Typography,
+  IconButton,
+  withStyles
+} from '@material-ui/core';
+import { 
+  Menu as MenuIcon,
+  ShoppingCart as ShoppingCartIcon
+} from '@material-ui/icons';
+
+import { toggleMenu } from './navigationActions';
 
 const styles = theme => ({
   root: {
@@ -105,7 +110,7 @@ class Navigation extends Component {
                   component={Link} 
                   to={generateStoreUrl('/cart')}
                   aria-label="Cart"
-                  className={classNames(
+                  className={clsx(
                     classes.cartButton,
                     productsCount > 0 ? classes.cartButtonWithItems : undefined
                   )}

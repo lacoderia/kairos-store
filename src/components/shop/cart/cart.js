@@ -5,12 +5,14 @@ import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import { 
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  MenuItem,
+  withStyles
+} from '@material-ui/core';
 
 import {
   removeProduct, 
@@ -24,21 +26,21 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'baseline',
     fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
+      paddingLeft: 0,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3),
     },
   },
   paper: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px`,
+      padding: theme.spacing(5, 4),
     },
   },
   noResultsText: {

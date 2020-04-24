@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 
-import { withStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { InputAdornment, IconButton, withStyles } from '@material-ui/core';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
+
+import { renderTextField } from 'library/utils/inputs';
 
 const styles = theme => ({
   input: {
@@ -33,7 +31,7 @@ class PasswordField extends Component {
     return(
       <Field
         name={name}
-        component={TextField}
+        component={renderTextField}
         type={this.state.showPassword ? 'text' : 'password'}
         label={label}
         margin={margin}

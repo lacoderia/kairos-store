@@ -3,8 +3,14 @@ import axios from 'axios';
 let store = '';
 
 export const setStore = name => {
-  axios.defaults.params = {};
-  axios.defaults.params['company'] = name;
+  axios.interceptors.request.use(config => {
+    config.params = {
+      company: name,
+      ...config.params,        
+    }
+      return config;
+  });
+
   store = name;
 }
 

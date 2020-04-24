@@ -2,40 +2,42 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 import { createTextMask } from 'redux-form-input-masks';
 
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import CloseIcon from '@material-ui/icons/Close';
+import { 
+  Button,
+  DialogContent,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  InputAdornment,
+  withStyles
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
-import { addCard } from './checkoutActions';
+import { renderTextField } from 'library/utils/inputs';
 import { maxLength } from 'library/utils/normalize';
+import { addCard } from './checkoutActions';
 
 const styles = theme => ({
   flex: {
     flex: 1,
   },
   dialogContent: {
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 7,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(7),
     maxWidth: '100%',
     width: 500,
   },
   twoColumns: {
     display: 'flex',
-    marginLeft: `-${theme.spacing.unit * 2}px`,
-    marginRight: `-${theme.spacing.unit * 2}px`,
+    marginLeft: theme.spacing(-2),
+    marginRight: theme.spacing(-2),
   },
   twoColumnsItem: {
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   cvvHelper: {
     height: 30,
@@ -50,7 +52,7 @@ const styles = theme => ({
   },
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     textAlign: 'left'
   },
 });
@@ -101,7 +103,7 @@ class AddCheckoutCardForm extends Component {
         <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
-              <CloseIcon />
+              <Close />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.flex}>
               Agregar método de pago
@@ -118,7 +120,7 @@ class AddCheckoutCardForm extends Component {
           <div>
             <Field
               name="name"
-              component={TextField}
+              component={renderTextField}
               label="Nombre en la tarjeta"
               margin="normal"
               autoFocus={true}
@@ -128,7 +130,7 @@ class AddCheckoutCardForm extends Component {
           <div>
             <Field
               name="cardNumber"
-              component={TextField}
+              component={renderTextField}
               label="Número de tarjeta"
               margin="normal"
               {...cardNumberMask}
@@ -144,7 +146,7 @@ class AddCheckoutCardForm extends Component {
           <div className={classes.twoColumns}>
             <Field
               name="validThrough"
-              component={TextField}
+              component={renderTextField}
               label="Fecha de vencimiento"
               margin="normal"
               {...validThroughMask}
@@ -157,7 +159,7 @@ class AddCheckoutCardForm extends Component {
             />
             <Field
               name="cvv"
-              component={TextField}
+              component={renderTextField}
               type="password"
               label="CVV"
               margin="normal"

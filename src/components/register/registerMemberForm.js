@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Button,
+  Typography,
+  withStyles
+} from '@material-ui/core';
+
+import { renderTextField } from 'library/utils/inputs';
 
 const validate = values => {
   const errors = {}
@@ -42,12 +45,12 @@ const form = {
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     textAlign: 'left'
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * -2,
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(-2),
     textAlign: 'right',
   },
 });
@@ -62,7 +65,7 @@ class RegisterMemberForm extends Component {
         <div>
           <Field
             name="externalId"
-            component={TextField}
+            component={renderTextField}
             label="ID Omein *"
             margin="dense"
             autoFocus={true}
@@ -72,7 +75,7 @@ class RegisterMemberForm extends Component {
         <div>
           <Field
             name="sponsorExternalId"
-            component={TextField}
+            component={renderTextField}
             label="ID Omein de patrocinio *"
             margin="dense"
             helperText=" "
@@ -81,7 +84,7 @@ class RegisterMemberForm extends Component {
         <div>
           <Field
             name="placementExternalId"
-            component={TextField}
+            component={renderTextField}
             label="ID Omein de colocación *"
             margin="dense"
             helperText=" "
@@ -90,7 +93,7 @@ class RegisterMemberForm extends Component {
         <div>
           <Field
             name="iuvareId"
-            component={TextField}
+            component={renderTextField}
             label="ID Iuvare *"
             margin="dense"
             helperText=" "
@@ -99,7 +102,7 @@ class RegisterMemberForm extends Component {
         <div>
           <Field
             name="transactionNumber"
-            component={TextField}
+            component={renderTextField}
             label="Número de registro *"
             margin="dense"
             helperText=" "

@@ -2,23 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Button,
+  DialogContent,
+  DialogActions,
+  Typography,
+  withStyles 
+} from '@material-ui/core';
 
 import { deleteAddress } from './addressActions';
 
 const styles = theme => ({
   dialogContent: {
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 4,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(4),
     maxWidth: '100%',
     width: 500,
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
   }
 });
 

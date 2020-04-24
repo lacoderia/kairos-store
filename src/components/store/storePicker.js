@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import storeService from 'services/store';
-import { setStore } from './storeActions';
 
-import { withStyles } from '@material-ui/core/styles';
+import { 
+  DialogContent,
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
+  withStyles
+} from '@material-ui/core';
 
 import DialogWrapper from 'library/components/DialogWrapper';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   dialogContent: {
     boxSizing: 'border-box',
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 7,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(7),
     maxWidth: '100%',
     width: 500,
   },
@@ -33,9 +31,7 @@ const styles = theme => ({
 class StorePicker extends Component {
 
   selectStore = store => {
-    this.props.setStore(store);
-    storeService.setStore(store);
-    this.props.history.push(storeService.generateStoreUrl('/'));
+    this.props.history.push(`/${store}/`);
   }
 
   render() {
@@ -82,18 +78,4 @@ class StorePicker extends Component {
   }
 }
 
-const mapStateToProps = function mapStateToProps(state, props) {
-  return {
-  };
-};
-
-function mapDispatchToProps(dispatch) {
-  return Object.assign({},
-    bindActionCreators({ setStore }, dispatch),
-  );
-}
-
-export default withStyles(styles)(withRouter(connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(StorePicker)));
+export default withStyles(styles)(withRouter(StorePicker));

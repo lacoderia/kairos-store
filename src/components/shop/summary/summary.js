@@ -2,36 +2,36 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CurrencyFormat from 'react-currency-format';
-import classNames from 'classnames';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import { 
+  Paper,
+  Typography,
+  Button,
+  Divider,
+  withStyles
+} from '@material-ui/core';
 
 const styles = theme => ({
   title: {
     display: 'flex',
     alignItems: 'baseline',
     fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
+      paddingLeft: 0,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3),
     },
   },
   paper: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 3}px`,
+      padding: theme.spacing(5, 3),
     },
   },
   buttonContainer: {

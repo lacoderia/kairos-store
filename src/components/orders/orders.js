@@ -4,14 +4,16 @@ import { bindActionCreators } from 'redux';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import CurrencyFormat from 'react-currency-format';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {
+  Paper,
+  Typography,
+  Button,
+  CircularProgress,
+  withStyles
+} from '@material-ui/core';
 
 import { getOrders } from './ordersActions';
 
@@ -21,14 +23,14 @@ const styles = theme => ({
   },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    paddingLeft: theme.spacing.unit * 4,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(4),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      paddingLeft: theme.spacing.unit * 0,
-      marginTop: theme.spacing.unit,
-      marginBottom: theme.spacing.unit * 3,
+      paddingLeft: 0,
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(3),
     },
   },
   goShoppingButton: {
@@ -42,9 +44,9 @@ const styles = theme => ({
     overflow: 'hidden',
   },
   orderHeader: {
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
+    padding: theme.spacing(2, 2),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+      padding: theme.spacing(2, 3),
     }
   },
   orderSubheader: {
@@ -55,10 +57,10 @@ const styles = theme => ({
     borderTop: '1px solid rgba(0, 0, 0, 0.08)',
     display: 'flex',
     flexDirection: 'column',
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2}px`,
+    padding: theme.spacing(2, 2),
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px`,
+      padding: theme.spacing(2, 3),
     },
   },
   productList: {
@@ -99,13 +101,13 @@ const styles = theme => ({
     color: 'rgba(0, 0, 0, 0.87)',
   },
   loaderContainer: {
-    padding: `${theme.spacing.unit * 5}px !important`,
+    padding: theme.spacing(5),
     textAlign: 'center',
     width: '100%',
   },
   errorContainer: {
     color: theme.palette.error.main,
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px !important`,
+    padding: theme.spacing(5, 4),
     textAlign: 'center',
     width: '100%',
   },
@@ -114,9 +116,9 @@ const styles = theme => ({
   },
   noResultsContainer: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+      padding: theme.spacing(5, 6),
     },
   },
   noResultsText: {
@@ -190,7 +192,7 @@ class Orders extends Component {
                   <div className={classes.orderBody}>
                     <div className={classes.productList}>
                       {order.status && (
-                        <Typography variant="h6" className={classNames(classes.status, classes.dataTitle)}>
+                        <Typography variant="h6" className={clsx(classes.status, classes.dataTitle)}>
                           {order.status}
                         </Typography>
                       )}
@@ -214,7 +216,7 @@ class Orders extends Component {
                     </div>
                     {order.shippingAddress && (
                       <div className={classes.orderSidebar}>
-                        <div className={classNames(classes.flex, classes.lightGreyText)}>
+                        <div className={clsx(classes.flex, classes.lightGreyText)}>
                           <Typography variant="body1" className={classes.dataTitle}>
                             Dirección de entrega
                           </Typography>

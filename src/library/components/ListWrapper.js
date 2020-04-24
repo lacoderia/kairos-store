@@ -1,20 +1,22 @@
 import React, { Component } from 'react';
+import clsx from 'clsx';
 
-import { withStyles } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import classNames from 'classnames';
+import { 
+  Grid,
+  Typography,
+  CircularProgress,
+  withStyles
+} from '@material-ui/core';
 
 const styles = theme => ({
   loaderContainer: {
-    padding: `${theme.spacing.unit * 5}px !important`,
+    padding: theme.spacing(5),
     textAlign: 'center',
     width: '100%',
   },
   errorContainer: {
     color: theme.palette.error.main,
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px !important`,
+    padding: theme.spacing(5, 4),
     textAlign: 'center',
     width: '100%',
   },
@@ -22,7 +24,7 @@ const styles = theme => ({
     color: theme.palette.error.main,
   },
   noResultsContainer: {
-    padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(5, 4),
     textAlign: 'center',
   },
   noResultsText: {
@@ -51,7 +53,7 @@ class ListWrapper extends Component {
               this.props.children
             ) : (
               <Grid item>
-                <div className={classNames(classes.noResultsContainer, customStyles)} >
+                <div className={clsx(classes.noResultsContainer, customStyles)} >
                   <Typography variant="body2" className={classes.noResultsText}>{noResultsText}</Typography>
                 </div>  
               </Grid>

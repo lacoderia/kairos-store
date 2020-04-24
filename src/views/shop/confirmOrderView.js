@@ -4,11 +4,9 @@ import { bindActionCreators } from 'redux';
 import queryString from 'query-string';
 import { generateStoreUrl } from 'services/store';
 
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { Typography, DialogContent, withStyles } from '@material-ui/core';
 
 import DialogWrapper from 'library/components/DialogWrapper';
-import DialogContent from '@material-ui/core/DialogContent';
 import { confirmOrder } from 'components/shop/checkout/checkoutActions';
 import { openSnackbar } from 'components/snackbars/snackbarsActions';
 

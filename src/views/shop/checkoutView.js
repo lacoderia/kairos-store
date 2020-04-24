@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
-import { withStyles, withWidth } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
+import { Grid, Hidden, withStyles, withWidth } from '@material-ui/core';
 
 import Navigation from 'components/navigation/navigation';
 import Checkout from 'components/shop/checkout/checkout';
@@ -58,7 +56,7 @@ class CheckoutView extends Component {
             <Grid item xs={12} xl={10} className={classes.gridContainer}>
               <Grid container 
                 justify="center"
-                spacing={width == 'xs' ? 16 : 40}
+                spacing={width == 'xs' ? 2 : 5}
               >
                 <Hidden mdUp>
                   <Grid item xs={12} md={4} lg={3}>

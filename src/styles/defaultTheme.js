@@ -36,7 +36,6 @@ export const theme = {
     }
   },
   typography: {
-    useNextVariants: true,
     fontSize: 12,
   },
   overrides: {
@@ -91,10 +90,10 @@ export const theme = {
     MuiFormHelperText: {
       root: {
         marginTop: 4,
+        '&$error': {
+          marginTop: 4
+        }
       },
-      error: {
-        marginTop: 4,
-      }
     }
   },
 };

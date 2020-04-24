@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import { withStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Chip from '@material-ui/core/Chip';
+import { 
+  Paper,
+  Typography,
+  Button,
+  Divider,
+  Chip,
+  withStyles
+} from '@material-ui/core';
 
 import ListWrapper from 'library/components/listWrapper';
 import DialogWrapper from 'library/components/DialogWrapper';
 import AddCardForm from './addCardForm';
 import DeleteCard from './deleteCard';
-import { getCards, setPrimaryCard, openDialog, closeDialog, exitDialog } from './cardsActions';
+import { 
+  getCards, 
+  setPrimaryCard, 
+  openDialog, 
+  closeDialog, 
+  exitDialog 
+} from './cardsActions';
 import { dialogs } from './cardsConstants';
 
 const styles = theme => ({
   paper: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+      padding: theme.spacing(5, 6),
     },
   },
   paperTitleContainer: {
@@ -31,7 +39,7 @@ const styles = theme => ({
     alignItems: 'center'
   },
   paperTitle: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
   loaderContainer: {
     textAlign: 'center',
@@ -40,7 +48,7 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'start',
-    margin: `${theme.spacing.unit * 2}px 0`,
+    margin: theme.spacing(2, 0),
     '&:first-child': {
       marginTop: 0,
     },
@@ -90,7 +98,7 @@ const styles = theme => ({
     },
   },
   addCardContainer: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     textAlign: 'right',
   },
 });
@@ -169,7 +177,7 @@ class Cards extends Component {
                         <Button
                           color="primary"
                           onClick={() => this.handleDialogOpen(dialogs.DELETE_CARD_DIALOG, id)}
-                          className={classNames(classes.button, classes.delete)}
+                          className={clsx(classes.button, classes.delete)}
                         >
                           Eliminar
                         </Button>

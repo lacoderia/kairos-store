@@ -4,16 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Markup } from 'interweave';
 import CurrencyFormat from 'react-currency-format';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
-import { withStyles } from '@material-ui/core/styles';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import Dialog from '@material-ui/core/Dialog';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import Button from '@material-ui/core/Button';
-import Slide from '@material-ui/core/Slide';
-import { Typography } from '@material-ui/core';
+import { 
+  Dialog,
+  IconButton,
+  Button,
+  Slide,
+  Typography,
+  withMobileDialog,
+  withStyles
+} from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 import { closeProductDialog } from './productsActions';
 import { addProductToCart } from '../cart/cartActions';
@@ -24,8 +26,8 @@ const styles = theme => ({
   },
   closeButton: {
     position: 'absolute',
-    right: theme.spacing.unit,
-    top: theme.spacing.unit,
+    right: theme.spacing(1),
+    top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
   columnContainer: {
@@ -85,9 +87,9 @@ const styles = theme => ({
   }
 });
 
-function Transition(props) {
-  return <Slide direction="up" {...props} />;
-}
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 class ProductDialog extends Component {
 
@@ -131,7 +133,7 @@ class ProductDialog extends Component {
           >
             <div className={classes.columnContainer}>
               <IconButton aria-label="Close" className={classes.closeButton} onClick={this.handleClose}>
-                <CloseIcon />
+                <Close />
               </IconButton>
               <div className={classes.column}>
                 <div className={classes.leftColumnContent}>
@@ -155,7 +157,7 @@ class ProductDialog extends Component {
                           fixedDecimalScale={true}
                         />
                       </Typography>
-                      <Typography variant="h5" component="span" className={classNames(classes.flex, classes.volume)}>
+                      <Typography variant="h5" component="span" className={clsx(classes.flex, classes.volume)}>
                         {product.volume} VP
                       </Typography>
                     </div>

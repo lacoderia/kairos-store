@@ -91,10 +91,10 @@ export const theme = {
     MuiFormHelperText: {
       root: {
         marginTop: 4,
+        '&$error': {
+          marginTop: 4
+        }
       },
-      error: {
-        marginTop: 4,
-      }
     }
   },
 };

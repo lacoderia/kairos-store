@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CurrencyFormat from 'react-currency-format';
 
-import { withStyles } from '@material-ui/core/styles';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import Button from '@material-ui/core/Button';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Button,
+  withMobileDialog,
+  DialogContent,
+  DialogActions,
+  Typography,
+  withStyles
+} from '@material-ui/core';
 
 const styles = theme => ({
   dialogContent: {
-    padding: theme.spacing.unit * 6,
-    paddingBottom: theme.spacing.unit * 4,
+    padding: theme.spacing(6),
+    paddingBottom: theme.spacing(4),
     maxWidth: '100%',
     width: 500,
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     flexDirection: 'column',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',

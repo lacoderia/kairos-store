@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
-import { TextField } from 'redux-form-material-ui';
 
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import { 
+  Button,
+  Typography,
+  withStyles
+} from '@material-ui/core';
 
 import PasswordField from 'library/components/PasswordField';
+import { renderTextField } from 'library/utils/inputs';
 
 const validate = values => {
   const errors = {}
@@ -44,12 +46,12 @@ const form = {
 const styles = theme => ({
   error: {
     color: theme.palette.error.main,
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
     textAlign: 'left'
   },
   buttonContainer: {
-    marginTop: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * -2,
+    marginTop: theme.spacing(4),
+    marginLeft: theme.spacing(-2),
     textAlign: 'right',
   },
 });
@@ -64,7 +66,7 @@ class RegisterUserForm extends Component {
         <div>
           <Field
             name="name"
-            component={TextField}
+            component={renderTextField}
             label="Nombre *"
             margin="dense"
             helperText=" "
@@ -74,7 +76,7 @@ class RegisterUserForm extends Component {
         <div>
           <Field
             name="lastname"
-            component={TextField}
+            component={renderTextField}
             label="Apellido(s) *"
             margin="dense"
             helperText=" "
@@ -84,7 +86,7 @@ class RegisterUserForm extends Component {
           <Field
             name="email"
             type="email"
-            component={TextField}
+            component={renderTextField}
             label="Correo electrónico *"
             margin="dense"
             helperText=" "
@@ -93,7 +95,7 @@ class RegisterUserForm extends Component {
         <div>
           <Field
             name="phone"
-            component={TextField}
+            component={renderTextField}
             label="Teléfono *"
             inputProps={{
               maxLength: 15,

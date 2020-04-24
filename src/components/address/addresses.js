@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { withStyles } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import { 
+  Paper,
+  Typography,
+  Button,
+  Divider,
+  withStyles 
+} from '@material-ui/core';
 
 import ListWrapper from 'library/components/listWrapper';
 import DialogWrapper from 'library/components/DialogWrapper';
@@ -19,9 +21,9 @@ import { dialogs } from './addressConstants';
 const styles = theme => ({
   paper: {
     border: `1px solid ${theme.palette.custom.lightGrey}`,
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    padding: theme.spacing(3, 4),
     [theme.breakpoints.up('sm')]: {
-      padding: `${theme.spacing.unit * 5}px ${theme.spacing.unit * 6}px`,
+      padding: theme.spacing(5, 6),
     },
   },
   titleContainer: {
@@ -30,13 +32,13 @@ const styles = theme => ({
     alignItems: 'center'
   },
   title: {
-    marginBottom: theme.spacing.unit * 3,
+    marginBottom: theme.spacing(3),
   },
   dataContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    margin: `${theme.spacing.unit * 2}px 0`,
+    margin: theme.spacing(2, 0),
     '&:first-child': {
       marginTop: 0,
     }
@@ -54,7 +56,7 @@ const styles = theme => ({
     },
   },
   addAddressContainer: {
-    marginTop: theme.spacing.unit * 4,
+    marginTop: theme.spacing(4),
     textAlign: 'right',
   },
 });
