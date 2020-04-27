@@ -1,10 +1,12 @@
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
   const plugins = [
-    new ExtractTextPlugin("css/[name].[hash].css")
+    new ExtractTextPlugin("css/[name].[hash].css"),
+    new Dotenv()
   ]
 
   if (env.NODE_ENV === 'production') {
@@ -25,7 +27,10 @@ module.exports = (env) => {
       chunkFilename: 'js/[id].[chunkhash].js',
     },
     devServer: {
-      port: 9000,
+      port: 9001,
+    },
+    node: {
+      fs: "empty",
     },
     module: {
       rules: [

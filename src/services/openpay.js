@@ -10,22 +10,12 @@ openpayService.setStore = (store) => {
 
       switch(store){
         case 'omein':
-          // Production
-          // openpayService.OpenPay.setId('mvzhv9zfjlnbecprgrxv');
-          // openpayService.OpenPay.setApiKey('pk_cf3b9927d7bb4075ba9d9e6687f8181f');
-
-          // Sandbox
-          openpayService.OpenPay.setId('mtsnsojytnuaknrm0xef');
-          openpayService.OpenPay.setApiKey('pk_caf6ac462c124dabbca57ad513ba7e3c');
+          openpayService.OpenPay.setId(process.env.OMEIN_OPENPAY_MERCHANT_ID);
+          openpayService.OpenPay.setApiKey(process.env.OMEIN_OPENPAY_PUBLIC_API_KEY);
           break;
         case 'prana':
-          // Production
-          // openpayService.OpenPay.setId('mri5keffrffrqj9ciyko');
-          // openpayService.OpenPay.setApiKey('pk_dd11aa2d70814efca6a1124aff70a9fe');
-          
-          // Sandbox
-          openpayService.OpenPay.setId('myk45yivhnolufzfskjz');
-          openpayService.OpenPay.setApiKey('pk_f1a3792bc94744bea9d04df669e7e8cc');
+          openpayService.OpenPay.setId(process.env.PRANA_OPENPAY_MERCHANT_ID);
+          openpayService.OpenPay.setApiKey(process.env.PRANA_OPENPAY_PUBLIC_API_KEY);
           break;
         default:
           break;

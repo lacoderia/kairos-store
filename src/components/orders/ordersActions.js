@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { IMAGE_URL_ROOT } from 'res/constants';
 
 import {
   GET_ORDERS_FETCH,
@@ -37,7 +36,7 @@ function toJSObject(item) {
   item.items && item.items.map(product => {
     result.products.push({
       id: product.id,
-      picture: IMAGE_URL_ROOT + product.image,
+      picture: process.env.IMAGE_URL_ROOT + product.image,
       name: product.name,
       quantity: product.amount,
       price: product.price,

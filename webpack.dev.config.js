@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   mode: 'development',
@@ -11,10 +12,13 @@ module.exports = {
     publicPath: '/'
   },
   devServer: {
-    port: 9000,
+    port: 9001,
     historyApiFallback: true,
   },
   devtool: 'eval-source-map',
+  node: {
+    fs: "empty",
+  },
   module: {
     rules: [
       {
@@ -59,4 +63,7 @@ module.exports = {
     },
     extensions: ['.ts', '.js', '.jsx']
   },
+  plugins: [
+    new Dotenv()
+  ]
 }

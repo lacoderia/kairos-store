@@ -4,13 +4,11 @@ import { BrowserRouter as Router} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from 'src/store';
 import axios from 'axios';
-import { API_ROOT } from 'res/constants';
 import Moment from 'react-moment';
 
 import App from 'src/app';
 
-axios.defaults.baseURL = API_ROOT;
-
+axios.defaults.baseURL = process.env.API_ROOT;
 Moment.globalLocale = 'es_MX';
 
 ReactDOM.render(

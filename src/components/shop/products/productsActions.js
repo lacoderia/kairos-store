@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { arrayToHash } from 'library/utils/functions';
-import { IMAGE_URL_ROOT } from 'res/constants';
 
 import {
   GET_PRODUCTS_FETCH,
@@ -18,7 +17,7 @@ function toJSObject(item) {
     name: item.name,
     description: item.description,
     price: item.price,
-    picture: IMAGE_URL_ROOT + item.image.url,
+    picture: process.env.IMAGE_URL_ROOT + item.image.url,
     volume: item.volume,
   }
 

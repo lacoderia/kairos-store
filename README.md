@@ -20,7 +20,17 @@ npm install
 
 ## Running
 
-1. Run the development build script on cli
+1. Configure environment file
+
+.env
+```
+API_ROOT=
+IMAGE_URL_ROOT=
+OPENPAY_MERCHANT_ID=
+OPENPAY_PUBLIC_API_KEY=
+```
+
+2. Run the development build script on cli
 ```
 npm run build:dev
 ```
@@ -30,23 +40,21 @@ npm run build:dev
 
 Steps to follow to deploy this on a live system:
 
-1. Uncomment the production environment url in `constants.js` file
+1. Configure environment file
 
-constants.js
+.env
 ```
-// export const API_ROOT
-// export const CONTACT_EMAIL
-// export const OMEIN_STORE_URL
-// export const PRANA_STORE_URL
+API_ROOT=
+IMAGE_URL_ROOT=
+OPENPAY_MERCHANT_ID=
+OPENPAY_PUBLIC_API_KEY=
 ```
 
-2. Comment out openpay sandbox
-
-3. Run the production build script on cli
+2. Run the production build script on cli
 ```
 npm run build:prod
 ```
-4. Update the `index.html` file
+3. Update the `index.html` file
 Uncomment the link tag and update the file hash (~index.0346ad90b16157642a3a.css~)
 ```
 <link rel="stylesheet" href="/dist/css/index.<new-hash>.css">
@@ -59,7 +67,7 @@ Comment the unused script tag
 ```
 <!-- <script src="/js/index.js"></script> -->
 ```
-5. Create a bundle with with the following structure and upload it to the deployment server
+4. Create a bundle with with the following structure and upload it to the deployment server
 
 ```
 |-- kairos-react
