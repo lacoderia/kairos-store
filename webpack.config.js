@@ -11,7 +11,7 @@ module.exports = (env) => {
     new HtmlWebpackPlugin({
       title: 'Tienda',
       template: './templates/index.html',
-      filename: './index.html',
+      filename: './store.html',
     }),
     new CopyWebpackPlugin([
       { from: 'docs', to: 'docs' },

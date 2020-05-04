@@ -69,8 +69,8 @@ class CheckoutAddressList extends Component {
         </AppBar>
         <DialogContent className={classes.dialogContent}>
           <Grid container direction="column" spacing={4}>
-            { addresses && (
-              addressesIdArray.map((id, index) => {
+            {
+              addressesIdArray?.map((id, index) => {
                 const address = addresses[id];
 
                 return(
@@ -123,7 +123,7 @@ class CheckoutAddressList extends Component {
                   </React.Fragment>
                 )
               })
-            )}
+            }
           </Grid>
         </DialogContent>
       </React.Fragment>

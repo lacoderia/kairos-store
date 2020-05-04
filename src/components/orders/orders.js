@@ -144,7 +144,7 @@ class Orders extends Component {
         </Typography>
         { ordersIdArray.length > 0 ? (
           <React.Fragment>
-            {ordersIdArray && ordersIdArray.map(id => {
+            { ordersIdArray?.map(id => {
               const order = orders[id];
 
               return(

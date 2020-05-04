@@ -145,7 +145,7 @@ class Cards extends Component {
           noResultsText="Aun no tienes métodos de pago registrados"
         >
           {
-            cardsIdArray && cardsIdArray.map((id, index) => {
+            cardsIdArray?.map((id, index) => {
               const item = cards[id];
               return(
                 <React.Fragment key={item.id}>

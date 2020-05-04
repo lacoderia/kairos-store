@@ -193,7 +193,7 @@ export function getShippingCost(shippingAddressId, productsMap) {
     .catch(e => {
       dispatch({ 
         type: GET_SHIPPING_COST_ERROR,
-        payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al obtener el costo del envío. Por favor intenta más tarde.",
+        payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al obtener el costo del envío. Por favor intenta más tarde.",
       });
       throw e;
     })
@@ -215,7 +215,7 @@ export function getCards() {
     .catch(e => {
       dispatch({ 
         type: GET_CHECKOUT_CARDS_ERROR,
-        payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
+        payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
       });
       throw e;
     })
@@ -258,7 +258,7 @@ export function addCard(values) {
           .catch(e => {
             dispatch({ 
               type: ADD_CHECKOUT_CARD_ERROR,
-              payload: (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
+              payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
             });
             reject(e);
           });
@@ -314,7 +314,7 @@ export function placeOrder(shippingAddressId, cardId, productsMap, shippingCost)
       return response;
     })
     .catch(e => {
-      const error = (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0] : undefined;
+      const error = e.response?.data?.errors?.[0] ? e.response.data.errors[0] : undefined;
       const errorText = error ? error.title : 'Ocurrió un error al procesar el pago. Por favor intenta nuevamente.';
 
       dispatch({
@@ -342,7 +342,7 @@ export function confirmOrder(token) {
       return response;
     })
     .catch(e => {
-      const error = (e.response && e.response.data && e.response.data.errors) ? e.response.data.errors[0] : undefined;
+      const error = e.response?.data?.errors?.[0] ? e.response.data.errors[0] : undefined;
       const errorText = error ? error.title : 'Ocurrió un error al confirmar la orden. Por favor intenta nuevamente.';
 
       dispatch({

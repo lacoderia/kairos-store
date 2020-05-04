@@ -94,7 +94,7 @@ class Products extends Component {
             justify="flex-start"
             spacing={2}
           >
-            { productsIdArray && productsIdArray.map(id => {
+            { productsIdArray?.map(id => {
               const product = products[id];
 
               return(

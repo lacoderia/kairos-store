@@ -69,8 +69,8 @@ class CheckoutCardsList extends Component {
         </AppBar>
         <DialogContent className={classes.dialogContent}>
           <Grid container direction="column" spacing={4}>
-            { cards && (
-              cardsIdArray.map((id, index) => {
+            {
+              cardsIdArray?.map((id, index) => {
                 const card = cards[id];
                 return(
                   <React.Fragment key={card.id}>
@@ -102,7 +102,7 @@ class CheckoutCardsList extends Component {
                   </React.Fragment>
                 )
               })
-            )}
+            }
           </Grid>
         </DialogContent>
       </React.Fragment>

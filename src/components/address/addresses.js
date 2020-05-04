@@ -99,7 +99,7 @@ class Addresses extends Component {
           noResultsText="Aun no tienes direcciones registradas"
         >
           { 
-            addressesIdArray && addressesIdArray.map((id, index) => {
+            addressesIdArray?.map((id, index) => {
               const item = addresses[id];
               return(
                 <React.Fragment key={item.id}>

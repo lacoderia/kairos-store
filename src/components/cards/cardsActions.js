@@ -53,7 +53,7 @@ export function getCards() {
     .catch(e => {
       dispatch({ 
         type: GET_CARDS_ERROR,
-        payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
+        payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al obtener las tarjetas. Por favor intenta más tarde.",
       });
       throw e;
     })
@@ -96,7 +96,7 @@ export function addCard(values) {
           .catch(e => {
             dispatch({ 
               type: ADD_CARD_ERROR,
-              payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
+              payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al guardar la tarjeta. Por favor intenta más tarde.",
             });
             reject(e);
           });
@@ -135,7 +135,7 @@ export function deleteCard(id) {
     .catch(e => {
       dispatch({
         type: DELETE_CARD_ERROR,
-        payload: e.response ? e.response.data.errors[0].title : "Ocurrió un error al eliminar la tarjeta. Por favor intenta más tarde.",
+        payload: e.response?.data?.errors?.[0] ? e.response.data.errors[0].title : "Ocurrió un error al eliminar la tarjeta. Por favor intenta más tarde.",
       });
       throw e;
     });

@@ -215,7 +215,7 @@ class Cart extends Component {
                 </div>
                 <div className={classes.productListCell100} />
               </div>
-              {productsIdArray && productsIdArray.map(id => {
+              { productsIdArray?.map(id => {
                 const product = products[id];
 
                 return(
