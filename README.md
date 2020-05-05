@@ -21,7 +21,6 @@ npm install
 ## Running
 
 1. Configure environment file
-
 .env
 ```
 API_ROOT=
@@ -29,19 +28,17 @@ IMAGE_URL_ROOT=
 OPENPAY_MERCHANT_ID=
 OPENPAY_PUBLIC_API_KEY=
 ```
-
 2. Run the development build script on cli
 ```
 npm run build:dev
 ```
-2. Open `http://localhost:9001/` on a browser
+3. Open `http://localhost:9001/` on a browser
 
-## Deployment as single app
+## Build for testing
 
-Steps to follow to deploy this on a live system:
+Steps to create a build for deploying the app on a testing environment:
 
 1. Configure environment file
-
 .env
 ```
 API_ROOT=
@@ -49,35 +46,48 @@ IMAGE_URL_ROOT=
 OPENPAY_MERCHANT_ID=
 OPENPAY_PUBLIC_API_KEY=
 ```
+2. Run the testing build script on cli
+```
+npm run build:test
+```
+3. Create a bundle with the following structure and upload it to the deployment server
+```
+|-- kairos-store
+    |-- css
+        |-- index.css
+        |-- index.<hash>.css 
+    |-- images
+    |-- index.html
+    |-- js
+        |-- index.<hash>.js
+```
 
+## Deployment as single app
+
+Steps to create a build for deploying the app on a production environment:
+
+1. Configure environment file
+.env
+```
+API_ROOT=
+IMAGE_URL_ROOT=
+OPENPAY_MERCHANT_ID=
+OPENPAY_PUBLIC_API_KEY=
+```
 2. Run the production build script on cli
 ```
 npm run build:prod
 ```
-3. Update the `index.html` file
-Uncomment the link tag and update the file hash (~index.0346ad90b16157642a3a.css~)
+3. Create a bundle with the following structure and upload it to the deployment server
 ```
-<link rel="stylesheet" href="/dist/css/index.<new-hash>.css">
-```
-Uncomment the script tag and update the file hash (~index.0346ad90b16157642a3a.js~)
-```
-<script src="/dist/js/index.<new-hash>.js"></script>
-```
-Comment the unused script tag
-```
-<!-- <script src="/js/index.js"></script> -->
-```
-4. Create a bundle with with the following structure and upload it to the deployment server
-
-```
-|-- kairos-react
+|-- kairos-store
     |-- css
         |-- index.css
-    |-- dist 
-        |-- css
-        |-- js
+        |-- index.<hash>.css 
     |-- images
     |-- index.html
+    |-- js
+        |-- index.<hash>.js
 ```
 
 ## Deployment as composite app
@@ -87,20 +97,17 @@ Comment the unused script tag
 npm run build:prod
 ```
 2. Create a bundle with with the following structure and upload it to the deployment server
-
 ```
 |-- kairos
     |-- css
         |-- index.css
-    |-- dist 
-        |-- css
-            |-- index.<hash>.css 
-            |-- store.<hash>.css
-        |-- js
-            |-- index.<hash>.js 
-            |-- store.<hash>.js
+        |-- index.<hash>.css 
+        |-- store.<hash>.css
     |-- docs
     |-- images
     |-- index.html
+    |-- js
+        |-- index.<hash>.js 
+        |-- store.<hash>.js
     |-- store.html
 ```
