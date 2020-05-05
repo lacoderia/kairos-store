@@ -7,6 +7,7 @@ openpayService.setStore = (store) => {
       // Activate Sandbox for testing
       if (process.env.OPENPAY_SANDBOX_MODE == 1) {
         window.OpenPay.setSandboxMode(true);
+        console.log('Sandbox mode on');
       }
 
       openpayService.OpenPay = window.OpenPay;
