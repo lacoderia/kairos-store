@@ -111,3 +111,8 @@ npm run build:prod
         |-- store.<hash>.js
     |-- store.html
 ```
+
+## Use magic to test or deploy the app
+
+1. Run `buildkairos test`or `buildkairos prod`
+2. Upload generated folder to test/deployment server
