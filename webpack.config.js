@@ -7,27 +7,22 @@ const Dotenv = require('dotenv-webpack');
 
 module.exports = (env) => {
   const plugins = [
+    new CleanWebpackPlugin(['dist'], {root: __dirname}),
+    new CopyWebpackPlugin([
+      { from: 'docs', to: 'docs' },
+      { from: 'images', to: 'images' },
+      { from: 'css/*.css', to: 'css', flatten: true }
+    ]),
     new ExtractTextPlugin("css/[name].[hash].css"),
     new HtmlWebpackPlugin({
       title: 'Tienda',
       template: './templates/index.html',
       filename: './store.html',
     }),
-    new CopyWebpackPlugin([
-      { from: 'docs', to: 'docs' },
-      { from: 'images', to: 'images' },
-      { from: 'css/*.css', to: 'css', flatten: true }
-    ]),
     new Dotenv({
-      path: './.env.prod'
+      path: `./.env.${env.NODE_ENV}`
     })
   ]
-
-  if (env.NODE_ENV === 'production') {
-    plugins.push(
-      new CleanWebpackPlugin(['dist'], {root: __dirname})
-    )
-  }
 
   return {
     mode: 'production',
