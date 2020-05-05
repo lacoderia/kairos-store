@@ -167,6 +167,9 @@ class AddAddressForm extends Component {
               name="zip"
               component={renderTextField}
               label="Código postal *"
+              inputProps={{
+                maxLength: 8,
+              }}
               margin="dense"
               helperText=" "
             />
