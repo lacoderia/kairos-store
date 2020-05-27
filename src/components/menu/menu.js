@@ -64,7 +64,6 @@ const styles = theme => ({
     '& svg': {
       color: theme.palette.custom.white
     }
-    
   },
   editIcon: {
     color: 'black',

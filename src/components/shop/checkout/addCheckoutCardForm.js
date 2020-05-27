@@ -32,12 +32,10 @@ const styles = theme => ({
   },
   twoColumns: {
     display: 'flex',
-    marginLeft: theme.spacing(-2),
-    marginRight: theme.spacing(-2),
+    margin: theme.spacing(0, -2),
   },
   twoColumnsItem: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    margin: theme.spacing(0, 2),
   },
   cvvHelper: {
     height: 30,

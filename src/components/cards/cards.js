@@ -12,7 +12,7 @@ import {
   withStyles
 } from '@material-ui/core';
 
-import ListWrapper from 'library/components/listWrapper';
+import ListWrapper from 'library/components/ListWrapper';
 import DialogWrapper from 'library/components/DialogWrapper';
 import AddCardForm from './addCardForm';
 import DeleteCard from './deleteCard';

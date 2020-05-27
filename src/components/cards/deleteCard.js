@@ -25,7 +25,7 @@ const styles = theme => ({
     textAlign: 'left'
   },
   buttonContainer: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
   }
 });
 

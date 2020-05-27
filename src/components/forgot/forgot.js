@@ -12,7 +12,7 @@ import {
   withStyles
 } from '@material-ui/core';
 
-import LoaderOverlay from 'library/components/loaderOverlay';
+import LoaderOverlay from 'library/components/LoaderOverlay';
 import RecoverPasswordForm from './recoverPasswordForm';
 import ResetPasswordForm from './resetPasswordForm';
 import { recoverPassword, resetPassword } from 'http/sessionActions';

@@ -13,7 +13,7 @@ import {
   withStyles
 } from '@material-ui/core';
 
-import LoaderOverlay from 'library/components/loaderOverlay';
+import LoaderOverlay from 'library/components/LoaderOverlay';
 import PasswordField from 'library/components/PasswordField';
 import { renderTextField } from 'library/utils/inputs';
 import { login, resendConfirmationEmail } from 'http/sessionActions';

@@ -44,7 +44,7 @@ const styles = theme => ({
     overflow: 'hidden',
   },
   orderHeader: {
-    padding: theme.spacing(2, 2),
+    padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       padding: theme.spacing(2, 3),
     }
@@ -57,7 +57,7 @@ const styles = theme => ({
     borderTop: '1px solid rgba(0, 0, 0, 0.08)',
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2, 2),
+    padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
       padding: theme.spacing(2, 3),

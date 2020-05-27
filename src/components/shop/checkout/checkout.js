@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 
 import DialogWrapper from 'library/components/DialogWrapper';
-import LoaderOverlay from 'library/components/loaderOverlay';
+import LoaderOverlay from 'library/components/LoaderOverlay';
 import CheckoutAddressesList from './checkoutAddressList';
 import AddCheckoutAddressForm from './addCheckoutAddressForm';
 import CheckoutCardsList from './checkoutCardsList';

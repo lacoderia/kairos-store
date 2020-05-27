@@ -20,7 +20,7 @@ const styles = theme => ({
     width: 500,
   },
   buttonContainer: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(3),
   }
 });
 
