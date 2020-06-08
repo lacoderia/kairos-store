@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
 
-import { 
+import {
+  Grid,
   Button,
   Typography,
   withStyles
@@ -58,7 +59,7 @@ const styles = theme => ({
 class RegisterMemberForm extends Component {
 
   render() {
-    const { classes, handleSubmit, formError } = this.props;
+    const { classes, handleSubmit, handleBack, formError } = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -69,7 +70,6 @@ class RegisterMemberForm extends Component {
             label="ID Omein *"
             margin="dense"
             autoFocus={true}
-            helperText=" "
           />
         </div>
         <div>
@@ -78,7 +78,6 @@ class RegisterMemberForm extends Component {
             component={renderTextField}
             label="ID Omein de patrocinio *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <div>
@@ -87,7 +86,6 @@ class RegisterMemberForm extends Component {
             component={renderTextField}
             label="ID Omein de colocación *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <div>
@@ -96,7 +94,6 @@ class RegisterMemberForm extends Component {
             component={renderTextField}
             label="ID Iuvare *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <div>
@@ -105,20 +102,35 @@ class RegisterMemberForm extends Component {
             component={renderTextField}
             label="Número de registro *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <Typography variant="body2" className={classes.error}>
           {formError}
         </Typography>
         <div className={classes.buttonContainer}>
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary"
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
           >
-            Crear cuenta
-          </Button>
+            <Grid item>
+              <Button
+                color="primary"
+                onClick={() => handleBack()}
+              >
+                Atrás
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button 
+                type="submit" 
+                variant="contained" 
+                color="primary"
+              >
+                Crear cuenta
+              </Button>
+            </Grid>
+          </Grid>
         </div>
       </Form>
     )

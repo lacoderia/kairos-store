@@ -132,7 +132,6 @@ class LoginContainer extends Component {
                       component={renderTextField}
                       label="Correo electrónico"
                       margin="dense"
-                      helperText=" "
                     />
                   </div>
                   <div>
@@ -140,7 +139,6 @@ class LoginContainer extends Component {
                       name="password"
                       label="Contraseña"
                       margin="dense"
-                      helperText=" "
                     />
                   </div>
                   <div className={classes.linkContainer}>

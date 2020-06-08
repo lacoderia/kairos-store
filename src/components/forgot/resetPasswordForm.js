@@ -55,7 +55,6 @@ class ResetPasswordForm extends Component {
             name="password"
             label="Contraseña"
             margin="normal"
-            helperText=" "
             autoFocus={true}
           />
         </div>

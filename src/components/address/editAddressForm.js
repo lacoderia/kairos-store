@@ -119,7 +119,6 @@ class EditAddress extends Component {
               label="Nombre de quien recibe *"
               margin="dense"
               autoFocus={true}
-              helperText=" "
             />
           </div>
           <div>
@@ -128,7 +127,6 @@ class EditAddress extends Component {
               component={renderTextField}
               label="Calle, número y colonia *"
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -137,7 +135,6 @@ class EditAddress extends Component {
               component={renderTextField}
               label="Entre calles *"
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -146,7 +143,6 @@ class EditAddress extends Component {
               component={renderTextField}
               label="Referencia"
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -155,7 +151,6 @@ class EditAddress extends Component {
               component={renderTextField}
               label="Ciudad *"
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -164,7 +159,6 @@ class EditAddress extends Component {
               component={renderTextField}
               label="Estado *"
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -176,7 +170,6 @@ class EditAddress extends Component {
                 maxLength: 8,
               }}
               margin="dense"
-              helperText=" "
             />
           </div>
           <div>
@@ -188,7 +181,6 @@ class EditAddress extends Component {
                 className: classes.selectfield
               }}
               margin="dense"
-              helperText=" "
               select
             >
               <MenuItem value="México">México</MenuItem>

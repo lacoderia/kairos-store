@@ -122,7 +122,6 @@ class AddCheckoutCardForm extends Component {
               label="Nombre en la tarjeta"
               margin="normal"
               autoFocus={true}
-              helperText=" "
             />
           </div>
           <div>
@@ -138,7 +137,6 @@ class AddCheckoutCardForm extends Component {
               InputProps={{
                 startAdornment: <InputAdornment><img src="/images/card.png" className={classes.cvvHelper} alt="Card helper"/>&nbsp;</InputAdornment>,
               }}
-              helperText=" "
             />
           </div>
           <div className={classes.twoColumns}>
@@ -153,7 +151,6 @@ class AddCheckoutCardForm extends Component {
               }}
               placeholder="MM/AA"
               className={classes.twoColumnsItem}
-              helperText=" "
             />
             <Field
               name="cvv"
@@ -167,7 +164,6 @@ class AddCheckoutCardForm extends Component {
                 shrink: true,
               }}
               className={classes.twoColumnsItem}
-              helperText=" "
               InputProps={{
                 endAdornment: <InputAdornment position="end">
                                 <img src="/images/cvv.png" className={classes.cvvHelper} alt="CVV helper"/>

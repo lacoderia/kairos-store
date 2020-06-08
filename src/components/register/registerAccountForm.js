@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { reduxForm, Field, Form } from 'redux-form/immutable';
 
-import { 
+import {
+  Grid,
   Button,
   Typography,
   withStyles
@@ -9,6 +11,7 @@ import {
 
 import PasswordField from 'library/components/PasswordField';
 import { renderTextField } from 'library/utils/inputs';
+import { generateStoreUrl } from 'services/store';
 
 const validate = values => {
   const errors = {}
@@ -69,7 +72,6 @@ class RegisterUserForm extends Component {
             component={renderTextField}
             label="Nombre *"
             margin="dense"
-            helperText=" "
             autoFocus={true}
           />
         </div>
@@ -79,7 +81,6 @@ class RegisterUserForm extends Component {
             component={renderTextField}
             label="Apellido(s) *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <div>
@@ -89,7 +90,6 @@ class RegisterUserForm extends Component {
             component={renderTextField}
             label="Correo electrónico *"
             margin="dense"
-            helperText=" "
           />
         </div>
         <div>
@@ -109,20 +109,36 @@ class RegisterUserForm extends Component {
             name="password"
             label="Contraseña"
             margin="dense"
-            helperText=" "
           />
         </div>
         <Typography variant="body2" className={classes.error}>
           {formError}
         </Typography>
         <div className={classes.buttonContainer}>
-          <Button 
-            type="submit"
-            variant="contained" 
-            color="primary"
+          <Grid
+            container
+            direction="row"
+            justify="space-between"
           >
-            Siguiente
-          </Button>
+            <Grid item>
+              <Button 
+                component={Link}
+                to={generateStoreUrl('/login')}
+                color="primary"
+              >
+                Atrás
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button 
+                type="submit" 
+                variant="contained" 
+                color="primary"
+              >
+                Siguiente
+              </Button>
+            </Grid>
+          </Grid>
         </div>
       </Form>
     )

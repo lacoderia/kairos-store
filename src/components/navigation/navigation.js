@@ -105,7 +105,7 @@ class Navigation extends Component {
                   </div>
                 )}
               </Hidden>
-              { isAuthenticated ? (
+              { isAuthenticated && (
                 <Button 
                   component={Link} 
                   to={generateStoreUrl('/cart')}
@@ -117,16 +117,6 @@ class Navigation extends Component {
                 >
                   <ShoppingCartIcon />
                   <Typography variant="h6" className={classes.cartText}>{productsCount}</Typography>
-                </Button>
-              ) : (
-                <Button 
-                  component={Link}
-                  to={generateStoreUrl('/login')}
-                  variant="contained" 
-                  color="primary"
-                  className={classes.actionButton}
-                >
-                  Iniciar sesión
                 </Button>
               )}
             </Toolbar>

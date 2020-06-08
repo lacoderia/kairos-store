@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-class RegisterView extends Component {
+class ConfirmOrderView extends Component {
   
   componentDidMount() {
     const params = queryString.parse(this.props.location.search);
@@ -84,4 +84,4 @@ function mapDispatchToProps(dispatch) {
 export default withStyles(styles)(connect(
   mapStateToProps,
   mapDispatchToProps
-)(RegisterView));
+)(ConfirmOrderView));
