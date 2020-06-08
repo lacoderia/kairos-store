@@ -189,7 +189,7 @@ class Cart extends Component {
     const productsCount = this.props.products.reduce((sum, item) => sum + item.get('quantity'), 0);
 
     return (
-      <React.Fragment>
+      <>
         <div className={classes.title}>
           <Typography variant="h5" component="span">
             Carrito
@@ -318,7 +318,7 @@ class Cart extends Component {
           )}
           
         </Paper>
-      </React.Fragment>
+      </>
     )
   }
   

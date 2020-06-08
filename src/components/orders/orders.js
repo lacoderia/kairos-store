@@ -138,12 +138,12 @@ class Orders extends Component {
     const ordersIdArray = this.props.orders ? Object.keys(orders) : [];
 
     return (
-      <React.Fragment>
+      <>
         <Typography variant="h5" className={classes.title}>
           Pedidos
         </Typography>
         { ordersIdArray.length > 0 ? (
-          <React.Fragment>
+          <>
             { ordersIdArray?.map(id => {
               const order = orders[id];
 
@@ -252,7 +252,7 @@ class Orders extends Component {
                 </div>
               )
             })}
-          </React.Fragment>
+          </>
         ) : (
           <Paper elevation={0} className={classes.noResultsContainer}>
             {loading ? (
@@ -284,7 +284,7 @@ class Orders extends Component {
             )}
           </Paper>
         )}
-      </React.Fragment>
+      </>
     )
   }
   

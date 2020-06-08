@@ -61,7 +61,7 @@ class Summary extends Component {
     const shippingCost = this.props.shippingCost ? this.props.shippingCost : 0;
 
     return (
-      <React.Fragment>
+      <>
         <div className={classes.title}>
           <Typography variant="h5" component="span">
           Resumen de compra
@@ -145,7 +145,7 @@ class Summary extends Component {
             </div>
           </div>
         </Paper>
-      </React.Fragment>
+        </>
     )
   }
 }

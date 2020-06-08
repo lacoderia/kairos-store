@@ -120,7 +120,7 @@ class ProductDialog extends Component {
     const product = this.props.product ? this.props.product.toJS() : undefined;
 
     return (
-      <React.Fragment>
+      <>
         { product && (
           <Dialog
             fullScreen={fullScreen}
@@ -185,7 +185,7 @@ class ProductDialog extends Component {
             </div>
           </Dialog>
         )}
-      </React.Fragment>
+      </>
       
     );
   }

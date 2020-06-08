@@ -223,7 +223,7 @@ class Checkout extends Component {
     }
 
     return (
-      <React.Fragment>
+      <>
         <div className={classes.title}>
           <Typography variant="h5" style={{ display: 'inline-block' }}>
             Completar compra
@@ -258,7 +258,7 @@ class Checkout extends Component {
             </div>
             <div className={classes.sectionContent}>
               { this.isActiveSection(sections.SHIPPING_ADDRESS_SECTION) ? (
-                <React.Fragment>
+                <>
                   { addressesLoading ? (
                     <div className={classes.loaderContainer}>
                       <CircularProgress size={40} />
@@ -269,7 +269,7 @@ class Checkout extends Component {
                         <Typography variant="body2" color="inherit">{addressesError}</Typography>
                       </div>
                     ) : (
-                      <React.Fragment>
+                      <>
                         { shippingAddress && (
                           <div>
                             <Typography variant="body1" className={classes.bold}>
@@ -288,12 +288,12 @@ class Checkout extends Component {
                             </Typography>
                             <Typography variant="body2">
                               {shippingAddress.city}{shippingAddress.state && (
-                                <React.Fragment>, {shippingAddress.state}</React.Fragment>
+                                <>, {shippingAddress.state}</>
                               )}
                             </Typography>
                             <Typography variant="body2">
                               {shippingAddress.zip}{shippingAddress.country && (
-                                <React.Fragment>, {shippingAddress.country}</React.Fragment>
+                                <>, {shippingAddress.country}</>
                               )}
                             </Typography>
                             {shippingAddress.phone && (
@@ -336,14 +336,14 @@ class Checkout extends Component {
                             CONTINUAR
                           </Button>
                         </div>
-                      </React.Fragment>
+                        </>
                     )
                   )}
-                </React.Fragment>
+                </>
               ) : (
                 <div>
                   { shippingAddress && (
-                    <React.Fragment>
+                    <>
                       <div>
                         <Typography variant="body1" className={classes.bold}>
                           {shippingAddress.name}
@@ -359,12 +359,12 @@ class Checkout extends Component {
                         </Typography>
                         <Typography variant="body2">
                           {shippingAddress.city}{shippingAddress.state && (
-                            <React.Fragment>, {shippingAddress.state}</React.Fragment>
+                            <>, {shippingAddress.state}</>
                           )}
                         </Typography>
                         <Typography variant="body2">
                           {shippingAddress.zip}{shippingAddress.country && (
-                            <React.Fragment>, {shippingAddress.country}</React.Fragment>
+                            <>, {shippingAddress.country}</>
                           )}
                         </Typography>
                         <Typography variant="body2">
@@ -376,7 +376,7 @@ class Checkout extends Component {
                           * Nota: {shippingMessage}
                         </Typography>
                       )}
-                    </React.Fragment>
+                    </>
                   )}
                 </div>
               )}
@@ -400,7 +400,7 @@ class Checkout extends Component {
             </div>
             <div className={classes.sectionContent}>
               { this.isActiveSection(sections.PAYMENT_METHOD_SECTION) ? (
-                <React.Fragment>
+                <>
                   { cardsLoading ? (
                     <div className={classes.loaderContainer}>
                       <CircularProgress size={40} />
@@ -411,7 +411,7 @@ class Checkout extends Component {
                         <Typography variant="body2" color="inherit">{cardsError}</Typography>
                       </div>
                     ) : (
-                      <React.Fragment>
+                      <>
                         { selectedCard && (
                           <div className={classes.paymentContainer}>
                             <div>
@@ -463,10 +463,10 @@ class Checkout extends Component {
                             FINALIZAR PEDIDO
                           </Button>
                         </div>
-                      </React.Fragment>
+                        </>
                     )
                   )}
-                </React.Fragment>
+                </>
               ) : (
                 <div>
                   { selectedCard && touchedSections.includes(sections.PAYMENT_METHOD_SECTION) && (
@@ -522,7 +522,7 @@ class Checkout extends Component {
             ),
           }[dialog]}
         </DialogWrapper>
-      </React.Fragment>
+        </>
     )
   }
   

@@ -30,14 +30,14 @@ class LoaderOverlay extends Component {
     const { classes, loading } = this.props;
 
     return(
-      <React.Fragment>
+      <>
         { loading && (
-          <React.Fragment>
+          <>
             <LinearProgress className={classes.progress}/>
             <div className={classes.overlay}></div>
-          </React.Fragment>
+          </>
         )}
-      </React.Fragment>
+      </>
     )
   }
 }

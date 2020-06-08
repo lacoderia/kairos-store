@@ -56,7 +56,7 @@ class CheckoutAddressList extends Component {
     const addressesIdArray = this.props.addresses ? Object.keys(addresses) : null;
 
     return (
-      <React.Fragment>
+      <>
         <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
@@ -93,12 +93,12 @@ class CheckoutAddressList extends Component {
                         </Typography>
                         <Typography variant="body2">
                           {address.city}{address.state && (
-                            <React.Fragment>, {address.state}</React.Fragment>
+                            <>, {address.state}</>
                           )}
                         </Typography>
                         <Typography variant="body2">
                           {address.zip}{address.country && (
-                            <React.Fragment>, {address.country}</React.Fragment>
+                            <>, {address.country}</>
                           )}
                         </Typography>
                         {address.phone && (
@@ -126,7 +126,7 @@ class CheckoutAddressList extends Component {
             }
           </Grid>
         </DialogContent>
-      </React.Fragment>
+        </>
     );
   }
 }

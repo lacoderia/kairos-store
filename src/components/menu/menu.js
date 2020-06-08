@@ -242,7 +242,7 @@ class Menu extends Component {
     );
 
     return (
-      <React.Fragment>
+      <>
         <Hidden mdUp>
           <Drawer
             variant="temporary"
@@ -271,7 +271,7 @@ class Menu extends Component {
             {drawer}
           </Drawer>
         </Hidden>
-      </React.Fragment>
+      </>
     )
   }
 }

@@ -31,7 +31,7 @@ class Snackbars extends Component {
     const snackbar = this.props.snackbars ? this.props.snackbars.toJS()[0] : null;
 
     return (
-      <React.Fragment>
+      <>
         { snackbar && (
           <Snackbar 
             title={snackbar.title}
@@ -43,7 +43,7 @@ class Snackbars extends Component {
             handleClick={() => this.onClick(snackbar)}
           />
         )}
-      </React.Fragment>
+      </>
     );
   }
 }

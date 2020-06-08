@@ -171,7 +171,7 @@ class LoginContainer extends Component {
                 </Form>
               ),
               [views.CONFIRM_EMAIL_ERROR_VIEW]: (
-                <React.Fragment>
+                <>
                   <Typography variant="body2" align="left" gutterBottom>
                     Anteriormente enviamos un correo a <span className={classes.bold}>{email}</span> con las instrucciones para activar tu cuenta.
                   </Typography>
@@ -192,10 +192,10 @@ class LoginContainer extends Component {
                       Reenviar correo
                     </Button>
                   </div>
-                </React.Fragment>
+                </>
               ),
               [views.CONFIRM_EMAIL_INTRUCTIONS_VIEW]: (
-                <React.Fragment>
+                <>
                   <Typography variant="body2" align="left">
                     En breve recibirás un correo electrónico en <span className={classes.bold}>{email}</span> con las instrucciones para activar tu cuenta.
                   </Typography>
@@ -209,7 +209,7 @@ class LoginContainer extends Component {
                       Continuar
                     </Button>
                   </div>
-                </React.Fragment>
+                </>
               ),
             }[view]}
           </div>

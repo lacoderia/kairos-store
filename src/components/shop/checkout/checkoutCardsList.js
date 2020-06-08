@@ -56,7 +56,7 @@ class CheckoutCardsList extends Component {
     const cardsIdArray = this.props.cards ? Object.keys(cards) : null;
 
     return (
-      <React.Fragment>
+      <>
         <AppBar position="relative">
           <Toolbar>
             <IconButton color="inherit" onClick={handleClose} aria-label="Close">
@@ -105,7 +105,7 @@ class CheckoutCardsList extends Component {
             }
           </Grid>
         </DialogContent>
-      </React.Fragment>
+        </>
     );
   }
 }

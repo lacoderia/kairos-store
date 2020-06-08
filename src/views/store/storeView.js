@@ -62,7 +62,7 @@ class StoreView extends Component {
     return(
       <div className={classes.root}>
         {this.state.validatedSession && 
-          <React.Fragment>
+          <>
             <CssBaseline />
             <Switch>
               <Route path={`${match.url}/login`} component={LoginView} />
@@ -77,7 +77,7 @@ class StoreView extends Component {
               <Redirect to={`${match.url}/login`} />
             </Switch>
             <Snackbars />
-          </React.Fragment>
+          </>
         }
       </div>
     )

@@ -96,7 +96,7 @@ class ForgotContainer extends Component {
                 <RecoverPasswordForm onSubmit={this.handleRecoverPassword} />
               ),
               [views.RECOVER_PASSWORD_INSTRUCTIONS_VIEW]: (
-                <React.Fragment>
+                <>
                   <Typography variant="body2" align="left">
                     Hemos enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para poder actualizar tu contraseña.
                   </Typography>
@@ -110,13 +110,13 @@ class ForgotContainer extends Component {
                       Continuar
                     </Button>
                   </div>
-                </React.Fragment>
+                </>
               ),
               [views.RESET_PASSWORD_VIEW]: (
                 <ResetPasswordForm onSubmit={this.handleResetPassword} />
               ),
               [views.RESET_PASSWORD_INSTRUCTIONS_VIEW]: (
-                <React.Fragment>
+                <>
                   <Typography variant="body2" align="left">
                     ¡Tu contraseña ha sido actualizada! Ya puedes iniciar sesión con tu nueva contraseña.
                   </Typography>
@@ -130,7 +130,7 @@ class ForgotContainer extends Component {
                       Continuar
                     </Button>
                   </div>
-                </React.Fragment>
+                </>
               ),
             }[view]}
           </div>

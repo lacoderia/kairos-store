@@ -121,7 +121,7 @@ class RegisterContainer extends Component {
                     <RegisterMemberForm onSubmit={this.handleSubmit} handleBack={this.handleBack} loading={loading} formError={formError} />
                   ),
                   [views.REGISTER_INSTRUCTIONS_VIEW]: (
-                    <React.Fragment>
+                    <>
                       <Typography variant="body2" align="left">
                         Hemos enviado un correo a la dirección que proporcionaste. Sigue las instrucciones para confirmar tu correo electrónico y activar tu cuenta.
                       </Typography>
@@ -135,10 +135,10 @@ class RegisterContainer extends Component {
                           Continuar
                         </Button>
                       </div>
-                    </React.Fragment>
+                    </>
                   ),
                   [views.REGISTER_CONFIRMATION_VIEW]: (
-                    <React.Fragment>
+                    <>
                       <Typography variant="body2" align="left">
                         ¡Gracias por confirmar tu dirección de correo! Ya puedes iniciar sesión.
                       </Typography>
@@ -152,7 +152,7 @@ class RegisterContainer extends Component {
                           Continuar
                         </Button>
                       </div>
-                    </React.Fragment>
+                    </>
                   ),
                   [views.REGISTER_CONFIRMATION_ERROR_VIEW]: (
                     <Typography variant="body2" align="left">
